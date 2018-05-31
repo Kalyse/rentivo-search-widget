@@ -1,0 +1,316 @@
+@import "~core/utils/vars";
+@import "~core/utils/fonts";
+
+%text-defaults {
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.Searchbar {
+    max-width: 930px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 35px;
+
+    background-color: #F6F6F7;
+
+    box-shadow: 0 2px 7px rgba(0,0,0,0.15);
+
+    * {
+        &, &:before, &:after {
+            outline: none;
+            box-sizing: border-box;
+        }
+    }
+
+    input {
+        @extend %text-defaults;
+
+        width: 100%;
+    }
+
+    &__selectpicker,
+    &__guests,
+    &__search,
+    .DateRangePickerInput,
+    .select2-selection {
+        border: 1px solid #aaa;
+        border-radius: 5px;
+
+        transition: border-color $speed;
+        &:focus, &:focus-within {
+            border-color: black;
+        }
+    }
+
+    &__search {
+        @extend %text-defaults;
+
+        display: block;
+        position: relative;
+        width: 100%;
+
+        background: #405681;
+
+        color: #ffffff;
+
+        cursor: pointer;
+        transition: background-color $speed;
+
+        &:hover {
+            background: #31456d;
+        }
+
+        &:before {
+            content: '\e801';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+
+            color: #ffffff;
+            font-size: 20px;
+            font-family: 'fontello';
+            line-height: 1;
+
+            opacity: 0.6;
+            transform: translateY(-50%);
+        }
+    }
+
+    .form-item {
+        height: 50px;
+        padding: 5px 8px;
+    }
+
+    .select2 {
+        display: block;
+        width: 100%;
+        padding: 0;
+
+        &-selection {
+            min-height: 50px;
+
+            &--single {
+                display: flex;
+                align-items: center;
+
+                [class*=__arrow] {
+                    top: 50%;
+
+                    transform: translateY(-50%);
+                }
+            }
+            &--multiple {
+                padding-bottom: 5px;
+            }
+
+            &__rendered {
+                @extend %text-defaults;
+
+                vertical-align: middle;
+
+                .select2-search {
+                    position: absolute;
+                    left: 8px;
+                    top: 50%;
+
+                    transform: translateY(-50%);
+
+                    &__field {
+                        margin: 0;
+                    }
+                }
+
+                .select2-selection__choice {
+                    @extend %text-defaults;
+
+                    & + .select2-search {
+                        position: static;
+
+                        transform: none;
+
+                        .select2-search__field {
+                            margin-top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @at-root .select2-container {
+        @extend %text-defaults;
+    }
+
+    .DateRangePicker {
+        @extend %text-defaults;
+        @extend .form-item;
+
+        display: block;
+        width: 100%;
+        padding: 0;
+
+        &Input {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > div {
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                & > input {
+                    height: 100%;
+                }
+
+                & > svg {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    max-width: 100%;
+                    height: 100%;
+
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            &_arrow {
+                display: none;
+            }
+
+            .DateInput {
+                @extend .form-item;
+
+                position: relative;
+                width: 50%;
+                height: 48px;
+
+                background-color: transparent;
+
+                &:before {
+                    content: '\e800';
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+
+                    font-size: 15px;
+                    font-family: 'fontello';
+                    line-height: 1;
+
+                    opacity: 0.3;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .DateInput_input {
+                padding: 0;
+
+                border: none;
+            }
+
+            @media (min-width: $tn-max) {
+
+                .DateInput {
+                    flex-basis: 45.77%;
+                    max-width: 45.77%;
+
+                    &:before {
+                        font-size: 20px;
+                    }
+                }
+
+                &_arrow {
+                    display: block;
+                }
+
+            }
+        }
+    }
+}
+
+// layout
+.l-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+}
+
+.l-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: -2.5px;
+    margin-right: -2.5px;
+    padding: 0;
+
+    & > * {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding-left: 2.5px;
+        padding-right: 2.5px;
+    }
+}
+
+[class*=l-col] {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+
+@media (min-width: $tn-max) {
+    .l-col {
+        &--selectpicker {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--datepicker {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--guests {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--search {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+@media (min-width: $xs-max) {
+    .l-col {
+        &--selectpicker {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--datepicker {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+@media (min-width: $sm-max) {
+    .l-col {
+        &--selectpicker {
+            flex-basis: 32.38%;
+            max-width: 32.38%;
+        }
+        &--datepicker {
+            flex-basis: 35.24%;
+            max-width: 35.24%;
+        }
+        &--guests {
+            flex-basis: 15.71%;
+            max-width: 15.71%;
+        }
+        &--search {
+            flex-basis: 16.67%;
+            max-width: 16.67%;
+        }
+    }
+}
