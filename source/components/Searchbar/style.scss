@@ -11,7 +11,6 @@
     margin-left: auto;
     margin-right: auto;
     padding: 35px;
-
     background-color: #F6F6F7;
 
     box-shadow: 0 2px 7px rgba(0,0,0,0.15);
@@ -123,6 +122,13 @@
 
                 .select2-selection__choice {
                     @extend %text-defaults;
+
+                    background-color: rgb(86, 117, 167);
+                    border: 1px solid rgb(255, 255, 255);
+                    color: white;
+                    text-shadow: 0px -1px 5px rgba(55, 64, 80, 0.5);
+                    padding: 5px;
+
 
                     & + .select2-search {
                         position: static;
