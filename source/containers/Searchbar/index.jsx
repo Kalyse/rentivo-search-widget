@@ -23,10 +23,6 @@ export default class Searchbar extends React.PureComponent {
         const datesFieldsUrlPart = this.DatesFieldsRef.current.urlPart;
         const guestsFieldUrlPart = this.GuestsFieldRef.current.urlPart;
 
-        console.log( 'searchFieldUrlPart', searchFieldUrlPart );
-        console.log( 'datesFieldsUrlPart', datesFieldsUrlPart );
-        console.log( 'guestsFieldUrlPart', guestsFieldUrlPart );
-
         let urlChunks = [datesFieldsUrlPart, guestsFieldUrlPart];
 
         if (this.props.searchField.mode === 'GooglePlaces') {
@@ -39,8 +35,7 @@ export default class Searchbar extends React.PureComponent {
 
         const completedUrl = this.props.baseUrl + urlChunks.join('/') + this.props.appendString;
 
-        console.log( completedUrl );
-        // return window.location.href = completedUrl;
+        return window.location.href = completedUrl;
     };
 
     render() {
@@ -98,7 +93,8 @@ Searchbar.propTypes = {
         PropTypes.shape( {
             API_KEY: PropTypes.string,
             placeholder:  PropTypes.string,
-            mode: PropTypes.string
+            mode: PropTypes.string,
+            componentRestrictions: PropTypes.object
         } )
     ] ),
     datesFields: PropTypes.shape( {

@@ -23,7 +23,8 @@ if (module.hot) {
             initialValue: [],
         },
         GooglePlaces: {
-            placeholder: 'Search Places ...'
+            placeholder: 'Search Places ...',
+            componentRestrictions: {}
         },
     };
 
@@ -82,7 +83,10 @@ if (process.env.NODE_ENV === 'development') {
 
     const searchField__googlePlaces = {
         mode: 'GooglePlaces',
-        API_KEY: 'AIzaSyAzoHVEPS9zt7mK97TL9TTZJjYi-RCPPgE'
+        API_KEY: 'AIzaSyAzoHVEPS9zt7mK97TL9TTZJjYi-RCPPgE',
+        componentRestrictions: {
+            country: 'uk'
+        }
     };
 
 
@@ -90,7 +94,7 @@ if (process.env.NODE_ENV === 'development') {
         $('#root').rentivoSearchbar({
             baseUrl: 'http://localhost:3000/',
             appendString: "?aff=123",
-            searchField: searchField__multiSelectBox,
+            searchField: searchField__googlePlaces,
             guestsField: {
                 guestsSchema,
                 initialValue: guestsSchema.categoryValue[0].itemValue
