@@ -127,7 +127,10 @@ $(function () {
         searchField: {
             mode: 'GooglePlaces', // required; default: 'SingleSelectBox'
             API_KEY: 'YOUR_OWN_GOOGLE_API_KEY', // required; default: N/A; needs to work with google places API
-            placeholder: 'Search Places ...'
+            placeholder: 'Search Places ...',
+            componentRestrictions: {
+                country: 'uk' // results will be only for certain country
+            }
         }
     });
 });

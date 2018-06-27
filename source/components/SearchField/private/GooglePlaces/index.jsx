@@ -52,6 +52,7 @@ export default class GooglePlaces extends React.PureComponent {
                     onChange={ this.handleChange }
                     onSelect={ this.handleSelect }
                     googleCallbackName="GooglePlacesCallback"
+                    searchOptions={ { componentRestrictions: { ...this.props.componentRestrictions } } }
                 >
                     {({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div>
@@ -87,5 +88,6 @@ export default class GooglePlaces extends React.PureComponent {
 GooglePlaces.propTypes = {
     API_KEY: PropTypes.string,
     placeholder:  PropTypes.string,
-    mode: PropTypes.string
+    mode: PropTypes.string,
+    componentRestrictions: PropTypes.object
 };

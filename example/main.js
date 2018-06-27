@@ -1,69 +1,42 @@
 $(function () {
     $('#root').rentivoSearchbar({
-        baseUrl: 'http://localhost:3000/',
-        searchSchema: [
-            {
-                "categoryTitle": "destinations",
-                "categoryKey": "location",
+        baseUrl: 'https://www.italianbreaks.com/',
+        guestsField: {
+            guestsSchema: {
+                "categoryTitle": "Accommodates",
+                "categoryKey": "sleeps",
                 "categoryValue": [
                     {
-                        "itemTitle": "Italy",
-                        "itemValue": "ITA"
-                    },
-                    {
-                        "itemTitle": "Ukraine",
-                        "itemValue": "UKR"
-                    },
-                    {
-                        "itemTitle": "Great Britain",
-                        "itemValue": "GBR"
-                    }
-                ]
-            },
-            {
-                "categoryTitle": "bedrooms",
-                "categoryKey": "bedrooms",
-                "categoryValue": [
-                    {
-                        "itemTitle": "1 Room/Studio",
+                        "itemTitle": "1 Guest",
                         "itemValue": "1"
                     },
                     {
-                        "itemTitle": "2+ Rooms",
-                        "itemValue": "2*"
+                        "itemTitle": "2 Guests",
+                        "itemValue": "2"
                     },
-                    {
-                        "itemTitle": "3+ Rooms",
-                        "itemValue": "3*"
-                    },
-                    {
-                        "itemTitle": "4+ Rooms",
-                        "itemValue": "4*"
-                    }
                 ]
             },
-            {
-                "categoryTitle": "amenities",
-                "categoryKey": "amenities",
+            initialValue: '1'
+        },
+        searchField: {
+            mode: 'SingleSelectBox',
+            placeholder: 'Where do you want to go?',
+            searchSchema: {
+                "categoryTitle": "Destinations",
+                "categoryKey": "location",
                 "categoryValue": [
                     {
-                        "itemTitle": "Pool",
-                        "itemValue": "pool"
+                        "itemTitle": "Tuscany",
+                        "itemValue": "TU",
+                        "WOEID": "7153345"
                     },
                     {
-                        "itemTitle": "Air Con",
-                        "itemValue": "conditioning"
+                        "itemTitle": "Sorrento and Amalfi",
+                        "itemValue": "NR",
+                        "WOEID": "724362"
                     },
-                    {
-                        "itemTitle": "Close to Sea",
-                        "itemValue": "coastal"
-                    },
-                    {
-                        "itemTitle": "Internet",
-                        "itemValue": "internet"
-                    }
                 ]
             }
-        ],
+        }
     });
 });
