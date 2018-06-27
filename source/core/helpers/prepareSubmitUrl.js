@@ -66,7 +66,7 @@ export const generateDatesFieldsPart = ({ startDate, endDate }, { startDateId, e
 
 export const generateGooglePlacesPart = (data) => {
     if (data) {
-        return b64EncodeUnicode(JSON.stringify(data));
+        return 'geo:' + b64EncodeUnicode(JSON.stringify(data));
     }
 
     return null;
