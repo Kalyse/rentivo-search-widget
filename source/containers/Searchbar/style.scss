@@ -1,0 +1,157 @@
+@import "~core/style-utils/vars";
+@import "~core/style-utils/fonts";
+
+.Searchbar {
+    max-width: 930px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 35px;
+    background-color: #F6F6F7;
+
+    box-shadow: 0 2px 7px rgba(0,0,0,0.15);
+
+    * {
+        &, &:before, &:after {
+            outline: none;
+            box-sizing: border-box;
+        }
+    }
+
+    input {
+        @extend %text-defaults;
+
+        width: 100%;
+    }
+
+    &__search {
+        @extend %text-defaults;
+
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 50px;
+        padding: 5px 8px;
+
+        border-radius: 5px;
+        border: 1px solid #405681;
+
+        background: #405681;
+
+        color: #ffffff;
+
+        cursor: pointer;
+        transition: background-color $speed, border-color $speed;
+
+        &:hover {
+            background: #31456d;
+        }
+
+        &:before {
+            content: '\e801';
+            position: absolute;
+            left: 10px;
+            top: 50%;
+
+            color: #ffffff;
+            font-size: 20px;
+            font-family: $icon-font-family;
+            line-height: 1;
+
+            opacity: 0.6;
+            transform: translateY(-50%);
+        }
+    }
+
+    @at-root .select2-container {
+        @extend %text-defaults;
+    }
+
+}
+
+// layout
+.l-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+}
+
+.l-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: -2.5px;
+    margin-right: -2.5px;
+    padding: 0;
+
+    & > * {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding-left: 2.5px;
+        padding-right: 2.5px;
+    }
+}
+
+[class*=l-col] {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+
+@media (min-width: $tn-max) {
+    .l-col {
+        &--searchField {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--datesFields {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--guestsField {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--submitBtn {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+@media (min-width: $xs-max) {
+    .l-col {
+        &--searchField {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--datesFields {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+@media (min-width: $sm-max) {
+    .l-col {
+        &--searchField {
+            flex-basis: 32.38%;
+            max-width: 32.38%;
+        }
+        &--datesFields {
+            flex-basis: 35.24%;
+            max-width: 35.24%;
+        }
+        &--guestsField {
+            flex-basis: 15.71%;
+            max-width: 15.71%;
+        }
+        &--submitBtn {
+            flex-basis: 16.67%;
+            max-width: 16.67%;
+        }
+    }
+}

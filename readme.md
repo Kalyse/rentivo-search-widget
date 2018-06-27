@@ -20,16 +20,22 @@ Then, before your closing ```<body>``` tag add:
 ```html
 <script type="text/javascript" src="jquery.rentivo-searchbar.js"></script>
 ```
-Remember, that rentivo-search-widget is jquery dependent, so you have to connect jquery library before connecting `jquery.rentivo-searchbar.js`
+
+### Dependencies
+
+jQuery is required to use the search bar component. You must connect jquery library before connecting `jquery.rentivo-searchbar.js`
+
 #### Widget modes
-There are 3 modes in which widget works: `SingleSelectBox`, `MultiSelectBox` and `GooglePlaces`.
+There are 3 modes in which this widget can be configured: `SingleSelectBox`, `MultiSelectBox` and `GooglePlaces`.
 
 In `SingleSelectBox` mode widget's search field works like first example on [Select2 documentation page](https://select2.org/getting-started/basic-usage#single-select-boxes)
 
 In `MultiSelectBox` mode widget's search field works like [pillbox](https://select2.org/getting-started/basic-usage#multi-select-boxes-pillbox) example.
 
 In `GooglePlaces` mode you have a simple input, and when you start to print a destination address, appears a dropdown list with appropriate locations. You have to click on the one of location and it will fill the search field
+
 ### Default settings and description for widget except searchField settings:
+
 ```js
 const defaultSettings = {
     baseUrl: 'http://localhost:3000/', // required; default: your current domain
@@ -127,5 +133,5 @@ $(function () {
 });
 ```
 
-In this mode data gotten from google places API converting to string, encoding in base64 format and appending to the url
+In this mode data received from google places API converting to string, encoding in base64 format and appending to the submitted URL.
 
