@@ -1,27 +1,13 @@
-const prepareUrl = (state, props) => {
+import { b64EncodeUnicode } from './base64';
+
+export const generateMultiSelectBoxPart = (chosenItems, searchSchema) => {
     const urlChunks = [];
-    const searchFieldPart = _prepareSearchFieldPart(state.searchField.value, props.searchField.searchSchema);
-    const datesFieldsPart = _prepareDatesPart(state.datesFields, props.datesFields);
-    const guestsFieldPart = _prepareGuestsPart(state.guestsField.value, props.guestsField.guestsSchema);
-
-    if (searchFieldPart) {
-        urlChunks.push(searchFieldPart);
-    }
-
-    if (datesFieldsPart) {
-        urlChunks.push(datesFieldsPart);
-    }
-
-    if (guestsFieldPart) {
-        urlChunks.push(guestsFieldPart);
-    }
-
-    return urlChunks.join('/');
-};
-
-const _prepareSearchFieldPart = (chosenItems, searchSchema) => {
-    const urlChunks = [];
+    const WOEID = _getWoeidFromChosenItemsMSB(chosenItems, searchSchema);
     const searchFieldPart = {};
+
+    if (WOEID) {
+        urlChunks.push(WOEID);
+    }
 
     chosenItems.forEach((item) => {
         const [ categoryIdx, itemIdx ] = item.split('/');
@@ -47,7 +33,20 @@ const _prepareSearchFieldPart = (chosenItems, searchSchema) => {
     return null;
 };
 
-const _prepareDatesPart = ({ startDate, endDate }, { startDateId, endDateId }) => {
+export const generateSingleSelectBoxPart = (chosenItemValue, searchSchema) => {
+    const urlChunks = [];
+    const WOEID = _getWoeidFromChosenItemsSSB(chosenItemValue, searchSchema);
+
+    if (WOEID) {
+        urlChunks.push(WOEID);
+    }
+
+    urlChunks.push(`${ searchSchema.categoryKey }:${ chosenItemValue }`);
+
+    return urlChunks.join('/');
+};
+
+export const generateDatesFieldsPart = ({ startDate, endDate }, { startDateId, endDateId }) => {
     const urlChunks = [];
 
     if ( startDate ) {
@@ -65,6 +64,51 @@ const _prepareDatesPart = ({ startDate, endDate }, { startDateId, endDateId }) =
     return null;
 };
 
-const _prepareGuestsPart = (chosenItem, guestsSchema) => `${ guestsSchema.categoryKey }:${ chosenItem }`;
+export const generateGooglePlacesPart = (data) => {
+    if (data) {
+        return b64EncodeUnicode(JSON.stringify(data));
+    }
 
-export default prepareUrl;
+    return null;
+};
+
+
+/**
+ * gets WOEID for MultiSelectBoxMode
+ *
+ * @param chosenItems
+ * @param searchSchema
+ * @returns {*}
+ * @private
+ */
+
+function _getWoeidFromChosenItemsMSB(chosenItems, searchSchema) {
+    let woeid = null;
+
+    chosenItems.forEach((item) => {
+        const [ categoryIdx, itemIdx ] = item.split('/');
+        const { singleResult } = searchSchema[ categoryIdx ];
+
+        if(!singleResult) {
+            return;
+        }
+
+        woeid = searchSchema[ categoryIdx ].categoryValue[ itemIdx ].WOEID;
+    });
+
+    return woeid;
+}
+
+
+/**
+ * gets WOEID for SingleSelectBoxMode
+ *
+ * @param chosenItemValue
+ * @param searchSchema
+ * @returns {*}
+ * @private
+ */
+
+function _getWoeidFromChosenItemsSSB(chosenItemValue, searchSchema) {
+    return searchSchema.categoryValue.find(item => item.itemValue === chosenItemValue).WOEID;
+}

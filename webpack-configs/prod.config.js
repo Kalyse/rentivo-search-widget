@@ -28,6 +28,7 @@ module.exports = function () {
                 modules: [PATHS.modules, PATHS.source],
                 alias: {
                     '~core': path.join(PATHS.source, 'core'),
+                    '~components': path.join(PATHS.source, 'components'),
                 }
             },
         },

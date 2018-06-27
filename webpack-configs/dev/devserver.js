@@ -1,13 +1,21 @@
+const webpack = require('webpack');
+
 module.exports = function () {
     return {
         devServer: {
+            hot:     true,
+            inline:  true,
             port:    3000,
             open:    true, // to open the local server in browser
             overlay: {
                 warnings: true,
                 errors:   true
-            },
+            }
         },
-        devtool:   'inline-source-map',
+        devtool:   'eval-source-map',
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NamedModulesPlugin(),
+        ]
     }
 };

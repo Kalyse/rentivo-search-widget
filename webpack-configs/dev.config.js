@@ -19,7 +19,6 @@ module.exports = function () {
         {
             entry: [
                 `${ PATHS.source }/index.jsx`,
-                `${ PATHS.source }/main.js`,
             ],
             output: {
                 path:     PATHS.build,
@@ -30,6 +29,7 @@ module.exports = function () {
                 modules: [PATHS.modules, PATHS.source],
                 alias: {
                     '~core': path.join(PATHS.source, 'core'),
+                    '~components': path.join(PATHS.source, 'components'),
                 }
             },
         },

@@ -4,8 +4,8 @@
   "description": "Searchbar widget for Rentivo project",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --config ./webpack-configs/dev.config.js",
-    "ie10": "webpack-dev-server --hot --config ./webpack-configs/dev.config.js --inline=false",
+    "start": "webpack-dev-server --config ./webpack-configs/dev.config.js",
+    "ie10": "webpack-dev-server --config ./webpack-configs/dev.config.js --inline=false",
     "build-watch": "webpack --watch --config ./webpack-configs/prod.config.js",
     "build": "webpack --config ./webpack-configs/prod.config.js",
     "serv": "static build"
@@ -18,14 +18,14 @@
   ],
   "private": true,
   "dependencies": {
-    "classnames": "^2.2.5",
-    "lodash": "^4.17.10",
+    "load-google-maps-api-2": "^1.0.2",
+    "lodash.merge": "^4.6.1",
     "moment": "^2.22.1",
     "react": "^16.3.2",
     "react-dates": "^16.7.0",
     "react-dom": "^16.3.2",
-    "react-select2-wrapper": "^1.0.4-beta6",
-    "select2": "^4.0.6-rc.1"
+    "react-places-autocomplete": "^7.1.2",
+    "react-select2-wrapper": "^1.0.4-beta6"
   },
   "devDependencies": {
     "autoprefixer": "^8.5.0",
