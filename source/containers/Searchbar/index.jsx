@@ -39,8 +39,8 @@ export default class Searchbar extends React.PureComponent {
 
         const completedUrl = this.props.baseUrl + urlChunks.join('/') + this.props.appendString;
 
-        console.log( completedUrl );
-        // return window.location.href = completedUrl;
+        // console.log( completedUrl );
+        return window.location.href = completedUrl;
     };
 
     render() {
