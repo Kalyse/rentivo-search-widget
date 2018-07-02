@@ -9,6 +9,8 @@ import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl'
 import './style.scss';
 
 export default class GuestsField extends React.PureComponent {
+
+
     convertedGuestsSchema = convertSchemaToSingleSelectBoxData( this.props.guestsSchema );
 
     state = {
