@@ -41,7 +41,7 @@ export const generateSingleSelectBoxPart = (chosenItemValue, searchSchema) => {
         urlChunks.push(WOEID);
     }
 
-    urlChunks.push(`${ searchSchema.categoryKey }:${ chosenItemValue }`);
+    urlChunks.push(`${ searchSchema.categoryKey }[]:${ chosenItemValue }`);
 
     return urlChunks.join('/');
 };
