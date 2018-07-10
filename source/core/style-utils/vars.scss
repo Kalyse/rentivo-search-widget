@@ -1,9 +1,10 @@
-$tn-min: 320px !default; // tn - tiny
-$xs-min: 480px !default;
-$sm-min: 768px !default;
-$md-min: 992px !default;
-$lg-min: 1200px !default;
-$xg-min: 1440px !default; // xg - extra large
+$tn-min:    320px !default; // tn - tiny
+$xs-min:    480px !default;
+$dates-min: 640px !default; // Airbnb dates min
+$sm-min:    768px !default;
+$md-min:    992px !default;
+$lg-min:    1200px !default;
+$xg-min:    1440px !default; // xg - extra large
 
 $tn-max: ($xs-min - 1) !default;
 $xs-max: ($sm-min - 1) !default;
