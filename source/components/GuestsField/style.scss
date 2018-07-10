@@ -1,6 +1,11 @@
 @import "~core/style-utils/vars";
 
 .GuestsField {
+    .select2-container--open {
+        .select2-dropdown--below {
+            z-index: 999;
+        }
+    }
     .select2 {
         display: block;
         width: 100%;
