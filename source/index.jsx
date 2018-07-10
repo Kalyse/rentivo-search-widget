@@ -39,7 +39,8 @@ if (module.hot) {
             endDateId:        'checkOut',
             initialStartDate: null,
             initialEndDate:   null,
-            dateFormat:       'DD/MM/YYYY'
+            dateFormat:       'DD/MM/YYYY',
+            appendToBody:     true
         },
         guestsField: {
             guestsSchema: require('~core/jsonDataExamples/guestsSchema.json'),

@@ -10,9 +10,11 @@ import './style.scss';
 
 export default class DatesFields extends React.PureComponent {
     state = {
-        focusedInput: null,
-        startDate:    this.props.initialStartDate,
-        endDate:      this.props.initialEndDate,
+        focusedInput:   null,
+        startDate:      this.props.initialStartDate,
+        endDate:        this.props.initialEndDate,
+        numberOfMonths: 2,
+        appendToBody:   true
     };
 
     get urlPart() {
@@ -22,6 +24,18 @@ export default class DatesFields extends React.PureComponent {
     onDatesChange = ({ startDate, endDate }) => this.setState({ startDate, endDate });
 
     onFocusChange = focusedInput => this.setState({ focusedInput });
+
+    componentDidMount() {
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+    }
+
+    resize() {
+        if (window.innerWidth < 640) {
+            this.state.numberOfMonths = 1;
+            this.render();
+        }
+    }
 
     render() {
         return (
@@ -35,6 +49,8 @@ export default class DatesFields extends React.PureComponent {
                     onDatesChange={ this.onDatesChange }
                     onFocusChange={ this.onFocusChange }
                     displayFormat={ this.props.dateFormat }
+                    numberOfMonths={ this.state.numberOfMonths }
+                    appendToBody={ this.props.appendToBody }
                 />
             </div>
         );
@@ -46,5 +62,6 @@ DatesFields.propTypes = {
     endDateId:        PropTypes.string,
     initialStartDate: PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
     initialEndDate:   PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
-    dateFormat:       PropTypes.string
+    dateFormat:       PropTypes.string,
+    appendToBody:     PropTypes.bool
 };

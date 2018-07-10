@@ -8,7 +8,8 @@ $(function () {
                 endDateId: 'checkOut', // default: 'checkOut'; id for check-in field
                 initialStartDate: null, // default: null; if you want to set initial start date - set momentjs object with your date
                 initialEndDate: null, // the same as for initialStartDate
-                dateFormat: 'DD/MM/YYYY' // if you want to change this format - use formats for momentjs
+                dateFormat: 'DD/MM/YYYY', // if you want to change this format - use formats for momentjs
+                appendToBody: false // If the wrapping element has overflow hidden, set to true
             },
             guestsField: { // settings for guests field
                 guestsSchema: {

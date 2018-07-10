@@ -61,6 +61,20 @@
         @extend %text-defaults;
     }
 
+    .DateInput_fang {
+        top:79px!important;
+    }
+
+    .DateInput {
+        &:last-child {
+            .DateInput_fang {
+                @media (max-width: $dates-min) {
+                    left:-20%!important;
+                }
+            }
+        }
+    }
+
 }
 
 // layout

@@ -102,7 +102,8 @@ Searchbar.propTypes = {
         endDateId:        PropTypes.string,
         initialStartDate: PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
         initialEndDate:   PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
-        dateFormat:       PropTypes.string
+        dateFormat:       PropTypes.string,
+        appendToBody:     PropTypes.bool
     } ),
     guestsField: PropTypes.shape( {
         initialValue: PropTypes.string,

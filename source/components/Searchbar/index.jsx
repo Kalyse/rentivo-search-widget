@@ -28,7 +28,8 @@ export default class Searchbar extends React.Component {
             endDateId: 'checkOut',
             initialStartDate: null,
             initialEndDate: null,
-            dateFormat: 'DD/MM/YYYY'
+            dateFormat: 'DD/MM/YYYY',
+            appendToBody: true
         },
         guestsField: {
             initialValue: '1',
@@ -48,6 +49,7 @@ export default class Searchbar extends React.Component {
             focusedInput: null,
             startDate: this.props.datesFields.initialStartDate,
             endDate: this.props.datesFields.initialEndDate,
+            appendToBody: this.props.datesFields.appendToBody,
         },
         guestsField: {
             value: this.props.guestsField.initialValue
@@ -118,6 +120,7 @@ export default class Searchbar extends React.Component {
                                 onDatesChange={ this.onDatesChange }
                                 onFocusChange={ this.onFocusChange }
                                 displayFormat={ this.props.datesFields.dateFormat }
+                                appendToBody={ this.state.datesFields.appendToBody }
                             />
                         </div>
                         <div className="l-col--guests">
@@ -157,7 +160,8 @@ Searchbar.propTypes = {
         endDateId: PropTypes.string,
         initialStartDate: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
         initialEndDate: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-        dateFormat: PropTypes.string
+        dateFormat: PropTypes.string,
+        appendToBody: PropTypes.bool
     }),
     guestsField: PropTypes.shape({
         initialValue: PropTypes.string,
