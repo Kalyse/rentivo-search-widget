@@ -6,7 +6,7 @@ import 'react-dates/lib/css/_datepicker.css';
 
 import { generateDatesFieldsPart } from '~core/helpers/prepareSubmitUrl'
 
-import './style.scss';
+import './DatesFields.scss';
 
 export default class DatesFields extends React.PureComponent {
     state = {

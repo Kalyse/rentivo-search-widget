@@ -7,7 +7,7 @@ import 'react-select2-wrapper/css/select2.css';
 import { convertSchemaToSingleSelectBoxData } from '~core/helpers/convertSchema';
 import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
-import './style.scss';
+import './SingleSelectBox';
 
 export default class SingleSelectBox extends React.PureComponent {
     convertedSearchSchema = convertSchemaToSingleSelectBoxData( this.props.searchSchema );

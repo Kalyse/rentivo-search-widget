@@ -5,7 +5,7 @@ import loadGoogleMapsAPI from 'load-google-maps-api-2';
 
 import { generateGooglePlacesPart } from '~core/helpers/prepareSubmitUrl';
 
-import './style.scss';
+import './GooglePlaces.scss';
 
 export default class GooglePlaces extends React.PureComponent {
     searchField = React.createRef();

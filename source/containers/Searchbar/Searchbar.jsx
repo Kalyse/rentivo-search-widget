@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SearchField from '~components/SearchField';
-import DatesFields from '~components/DatesFields';
-import GuestsField from '~components/GuestsField';
+import SearchField from '~components/SearchField/SearchField';
+import DatesFields from '~components/DatesFields/DatesFields';
+import GuestsField from '~components/GuestsField/GuestsField';
 
-import './style.scss';
+import './Searchbar.scss';
 
 export default class Searchbar extends React.PureComponent {
     SearchFieldRef = React.createRef();

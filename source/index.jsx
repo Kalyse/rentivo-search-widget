@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import merge from 'lodash.merge';
 
-import Searchbar from './containers/Searchbar';
+import Searchbar from './containers/Searchbar/Searchbar';
 
 // Webpack hot reload
 if (module.hot) {

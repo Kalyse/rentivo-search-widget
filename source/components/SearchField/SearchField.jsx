@@ -1,9 +1,8 @@
 import React from 'react';
 
-import MultiSelectBox from './private/MultiSelectBox';
-import SingleSelectBox from './private/SingleSelectBox';
-import GooglePlaces from './private/GooglePlaces';
-import Searchbar from "../../containers/Searchbar";
+import MultiSelectBox from './MultiSelectBox/MultiSelectBox';
+import SingleSelectBox from './SingleSelectBox/SingleSelectBox';
+import GooglePlaces from './GooglePlaces/GooglePlaces';
 import PropTypes from "prop-types";
 
 export default class SearchField extends React.PureComponent {

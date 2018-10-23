@@ -7,7 +7,7 @@ import 'react-select2-wrapper/css/select2.css';
 import { convertSchemaToMultiSelectBoxData } from '~core/helpers/convertSchema';
 import { generateMultiSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
-import './style.scss';
+import './MultiSelectBox.scss';
 
 export default class MultiSelectBox extends React.PureComponent {
     convertedSearchSchema = convertSchemaToMultiSelectBoxData( this.props.searchSchema );
