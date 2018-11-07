@@ -17,7 +17,7 @@ module.exports = function () {
                         'resolve-url-loader',
                         'sass-loader?sourceMap'
                     ]
-                },
+                }
             ]
         }
     };

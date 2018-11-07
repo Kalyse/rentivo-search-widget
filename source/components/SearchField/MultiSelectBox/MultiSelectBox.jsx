@@ -10,25 +10,25 @@ import { generateMultiSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 import './MultiSelectBox.scss';
 
 export default class MultiSelectBox extends React.PureComponent {
-    convertedSearchSchema = convertSchemaToMultiSelectBoxData( this.props.searchSchema );
-    searchField = React.createRef();
+    convertedData = convertSchemaToMultiSelectBoxData(this.props.results);
+    searchField   = React.createRef();
 
     state = {
         value: this.props.initialValue
     };
 
-    generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.searchSchema);
+    generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.results);
 
-    searchFieldSelect = ( e ) => {
+    searchFieldSelect = (e) => {
         const $searchField    = this.searchField.current.el;
         let searchFieldValues = $searchField.val();
-        const $option         = $( e.params.data.element );
+        const $option         = $(e.params.data.element);
         const $optGroup       = $option.parent();
 
-        if ( $optGroup.data( 'singleResult' ) ) {
-            const optGroupValues = $optGroup.children().map( ( idx, element ) => $( element ).val() ).get();
-            searchFieldValues    = searchFieldValues.filter( val => !optGroupValues.some( optGroupVal => val === optGroupVal ) );
-            searchFieldValues.push( $option.val() );
+        if ($optGroup.data('singleResult')) {
+            const optGroupValues = $optGroup.children().map((idx, element) => $(element).val()).get();
+            searchFieldValues    = searchFieldValues.filter(val => !optGroupValues.some(optGroupVal => val === optGroupVal));
+            searchFieldValues.push($option.val());
         }
 
         this.setState({ value: searchFieldValues });
@@ -40,7 +40,7 @@ export default class MultiSelectBox extends React.PureComponent {
                 <Select2
                     multiple
                     value={ this.state.value }
-                    data={ this.convertedSearchSchema }
+                    data={ this.convertedData }
                     options={ {
                         placeholder: this.props.placeholder,
                         width:       '100%',
@@ -57,6 +57,6 @@ export default class MultiSelectBox extends React.PureComponent {
 MultiSelectBox.propTypes = {
     initialValue: PropTypes.array,
     placeholder:  PropTypes.string,
-    searchSchema: PropTypes.array,
-    mode: PropTypes.string
+    results:      PropTypes.array,
+    mode:         PropTypes.string
 };

@@ -1,0 +1,21 @@
+{
+    "mode": "single_select_box",
+    "results": {
+        "categoryTitle": "Sleeps",
+        "categoryKey": "sleeps",
+        "categoryValue": [
+            {
+                "itemTitle": "1 Guest",
+                "itemValue": "1"
+            },
+            {
+                "itemTitle": "2 Guests",
+                "itemValue": "2"
+            },
+            {
+                "itemTitle": "3 Guests",
+                "itemValue": "3"
+            }
+        ]
+    }
+}

@@ -11,14 +11,14 @@ import './SingleSelectBox.scss';
 
 export default class SingleSelectBox extends React.PureComponent {
     convertedData = convertSchemaToSingleSelectBoxData(this.props.results);
-    searchField   = React.createRef();
+    guestsField   = React.createRef();
     state         = {
         value: this.props.initialValue
     };
 
     generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.results);
 
-    searchFieldSelect = () => this.setState({ value: this.searchField.current.el.val() });
+    guestsFieldSelect = () => this.setState({ value: this.guestsField.current.el.val() });
 
     render() {
         return (
@@ -27,21 +27,13 @@ export default class SingleSelectBox extends React.PureComponent {
                     value={ this.state.value }
                     data={ this.convertedData }
                     options={ {
-                        placeholder: this.props.placeholder,
-                        width:       '100%',
+                        width:                   '100%',
+                        minimumResultsForSearch: 'Infinity'
                     } }
-                    onSelect={ this.searchFieldSelect }
-                    ref={ this.searchField }
+                    onSelect={ this.guestsFieldSelect }
+                    ref={ this.guestsField }
                 />
             </div>
-
         );
     }
 }
-
-SingleSelectBox.propTypes = {
-    initialValue: PropTypes.string,
-    placeholder:  PropTypes.string,
-    results:      PropTypes.object,
-    mode:         PropTypes.string
-};

@@ -1,7 +1,8 @@
-[
-    {
-        "categoryTitle": "Popular in Italy",
-        "singleResult": true,
+{
+    "mode": "single_select_box",
+    "placeholder": "Where do you want to go?",
+    "results": {
+        "categoryTitle": "Destinations",
         "categoryKey": "location",
         "categoryValue": [
             {
@@ -11,21 +12,12 @@
             },
             {
                 "itemTitle": "Sorrento and Amalfi",
-                "itemValue": "NR",
-                "WOEID": "710100"
+                "itemValue": "NR"
             },
             {
                 "itemTitle": "Sicily",
-                "itemValue": "SI",
-                "WOEID": "7153344"
-            }
-        ]
-    },
-    {
-        "categoryTitle": "All of our Italian Rentals",
-        "singleResult": true,
-        "categoryKey": "location",
-        "categoryValue": [
+                "itemValue": "SI"
+            },
             {
                 "itemTitle": "Umbria",
                 "itemValue": "UM"
@@ -95,28 +87,5 @@
                 "itemValue": "VE"
             }
         ]
-    },
-    {
-        "categoryTitle": "Villas Perfect For",
-        "singleResult": false,
-        "categoryKey": "amenities",
-        "categoryValue": [
-            {
-                "itemTitle": "Luxury",
-                "itemValue": "luxury"
-            },
-            {
-                "itemTitle": "Art City",
-                "itemValue": "historic"
-            },
-            {
-                "itemTitle": "SPA",
-                "itemValue": "sauna"
-            },
-            {
-                "itemTitle": "Weddings",
-                "itemValue": "weddings"
-            }
-        ]
     }
-]
+}

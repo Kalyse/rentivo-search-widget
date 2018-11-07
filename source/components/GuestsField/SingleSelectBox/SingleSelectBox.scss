@@ -1,6 +1,8 @@
 @import "~core/style-utils/vars";
 
-.GuestsField {
+.SingleSelectBox {
+    position: relative;
+
     .select2-container--open {
         .select2-dropdown--below {
             z-index: 999;
@@ -32,7 +34,6 @@
                     transform: translateY(-50%);
                 }
             }
-
 
             &__rendered {
                 @extend %text-defaults;

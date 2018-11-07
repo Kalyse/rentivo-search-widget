@@ -1,34 +1,34 @@
-const path      = require( 'path' );
+const path      = require('path');
 const webpack   = require('webpack');
-const merge     = require( 'webpack-merge' );
-const common    = require( './common.config' );
-const devserver = require( './dev/devserver' );
-const globVars  = require( './dev/globVars' );
-const html      = require( './dev/html' );
-const styles    = require( './dev/styles' );
-const fonts     = require( './dev/fonts' );
+const merge     = require('webpack-merge');
+const devserver = require('./dev/devserver');
+const globVars  = require('./dev/globVars');
+const html      = require('./dev/html');
+const styles    = require('./dev/styles');
+const fonts     = require('./dev/fonts');
+const jScript   = require('./dev/jScript');
 
 const PATHS = {
-    source: path.join( __dirname, '../source' ),
-    build:  path.join( __dirname, '../build' ),
+    source:  path.join(__dirname, '../source'),
+    build:   path.join(__dirname, '../build'),
     modules: path.join(__dirname, '../node_modules'),
 };
 
 module.exports = function () {
-    return merge( [
+    return merge([
         {
-            entry: [
+            entry:   [
                 `${ PATHS.source }/index.jsx`,
             ],
-            output: {
+            output:  {
                 path:     PATHS.build,
                 filename: 'jquery.rentivo-searchbar.js',
             },
             resolve: {
-                extensions: [ '.js', '.jsx' ],
-                modules: [PATHS.modules, PATHS.source],
-                alias: {
-                    '~core': path.join(PATHS.source, 'core'),
+                extensions: ['.js', '.jsx', '.json'],
+                modules:    [PATHS.modules, PATHS.source],
+                alias:      {
+                    '~core':       path.join(PATHS.source, 'core'),
                     '~components': path.join(PATHS.source, 'components'),
                 }
             },
@@ -42,11 +42,11 @@ module.exports = function () {
                 }),
             ]
         },
-        common(),
+        jScript(),
         devserver(),
         globVars(),
-        html( PATHS.source ),
+        html(PATHS.source),
         styles(),
         fonts(),
-    ] )
+    ])
 };

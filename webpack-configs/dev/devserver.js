@@ -5,7 +5,7 @@ module.exports = function () {
         devServer: {
             hot:     true,
             inline:  true,
-            port:    3000,
+            port:    3001,
             open:    true, // to open the local server in browser
             overlay: {
                 warnings: true,

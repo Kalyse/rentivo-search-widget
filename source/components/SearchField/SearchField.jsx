@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from "prop-types";
+
+import { SEARCH_FIELD_MODES } from '~core/constants';
 
 import MultiSelectBox from './MultiSelectBox/MultiSelectBox';
 import SingleSelectBox from './SingleSelectBox/SingleSelectBox';
 import GooglePlaces from './GooglePlaces/GooglePlaces';
-import PropTypes from "prop-types";
 
 export default class SearchField extends React.PureComponent {
     SuitableComponentRef = React.createRef();
@@ -13,12 +15,12 @@ export default class SearchField extends React.PureComponent {
     };
 
     _getSuitableComponent = () => {
-        switch ( this.props.searchFieldData.mode ) {
-            case 'GooglePlaces':
+        switch (this.props.searchFieldConfig.mode) {
+            case SEARCH_FIELD_MODES.GOOGLE_PLACES:
                 return GooglePlaces;
-            case 'SingleSelectBox':
+            case SEARCH_FIELD_MODES.SINGLE_SELECT_BOX:
                 return SingleSelectBox;
-            case 'MultiSelectBox':
+            case SEARCH_FIELD_MODES.MULTI_SELECT_BOX:
             default:
                 return MultiSelectBox;
         }
@@ -30,7 +32,7 @@ export default class SearchField extends React.PureComponent {
         return (
             <div className="SearchField">
                 <SuitableComponent
-                    { ...this.props.searchFieldData }
+                    { ...this.props.searchFieldConfig }
                     ref={ this.SuitableComponentRef }
                 />
             </div>
@@ -39,23 +41,23 @@ export default class SearchField extends React.PureComponent {
 }
 
 SearchField.propTypes = {
-    searchFieldData: PropTypes.oneOfType( [
-        PropTypes.shape( {
+    searchFieldConfig: PropTypes.oneOfType([
+        PropTypes.shape({
             initialValue: PropTypes.array,
             placeholder:  PropTypes.string,
             searchSchema: PropTypes.array,
-            mode: PropTypes.string
-        } ),
-        PropTypes.shape( {
+            mode:         PropTypes.string
+        }),
+        PropTypes.shape({
             initialValue: PropTypes.string,
             placeholder:  PropTypes.string,
             guestsSchema: PropTypes.object,
-            mode: PropTypes.string
-        } ),
-        PropTypes.shape( {
+            mode:         PropTypes.string
+        }),
+        PropTypes.shape({
             API_KEY:     PropTypes.string,
             placeholder: PropTypes.string,
-            mode: PropTypes.string
-        } )
-    ] )
+            mode:        PropTypes.string
+        })
+    ])
 };

@@ -1,0 +1,8 @@
+{
+    "mode": "google_places",
+    "placeholder": "Search Places ...",
+    "API_KEY": "AIzaSyAzoHVEPS9zt7mK97TL9TTZJjYi-RCPPgE",
+    "componentRestrictions": {
+        "country": "uk"
+    }
+}

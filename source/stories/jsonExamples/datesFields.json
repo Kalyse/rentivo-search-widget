@@ -1,0 +1,8 @@
+{
+    "startDateId":      "checkIn",
+    "endDateId":        "checkOut",
+    "initialStartDate": null,
+    "initialEndDate":   null,
+    "dateFormat":       "DD/MM/YYYY",
+    "appendToBody":     true
+}

@@ -26,16 +26,20 @@ export default class DatesFields extends React.PureComponent {
     onFocusChange = focusedInput => this.setState({ focusedInput });
 
     componentDidMount() {
-        window.addEventListener("resize", this.resize.bind(this));
+        window.addEventListener("resize", this.resize);
         this.resize();
     }
 
-    resize() {
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resize);
+    }
+
+    resize = () => {
         if (window.innerWidth < 640) {
             this.state.numberOfMonths = 1;
             this.render();
         }
-    }
+    };
 
     render() {
         return (
@@ -60,8 +64,8 @@ export default class DatesFields extends React.PureComponent {
 DatesFields.propTypes = {
     startDateId:      PropTypes.string,
     endDateId:        PropTypes.string,
-    initialStartDate: PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
-    initialEndDate:   PropTypes.oneOfType( [PropTypes.object, PropTypes.number] ),
+    initialStartDate: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    initialEndDate:   PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     dateFormat:       PropTypes.string,
     appendToBody:     PropTypes.bool
 };

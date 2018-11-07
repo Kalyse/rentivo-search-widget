@@ -1,44 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select2 from 'react-select2-wrapper';
 
-import { convertSchemaToSingleSelectBoxData }  from '~core/helpers/convertSchema';
+import { GUESTS_FIELD_MODES } from '~core/constants';
 
-import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl'
-
-import './GuestsField.scss';
+import PlusMinus from './PlusMinus/PlusMinus'
+import SingleSelectBox from './SingleSelectBox/SingleSelectBox'
 
 export default class GuestsField extends React.PureComponent {
-
-
-    convertedGuestsSchema = convertSchemaToSingleSelectBoxData( this.props.guestsSchema );
-
-    state = {
-        value: this.props.initialValue
-    };
-
-    guestsField = React.createRef();
+    SuitableComponentRef = React.createRef();
 
     get urlPart() {
-        return generateSingleSelectBoxPart(this.state.value, this.props.guestsSchema)
+        return this.SuitableComponentRef.current.generateUrlPart()
     };
 
-    guestsFieldChange = () => this.setState( {
-        value: this.guestsField.current.el.val()
-    } );
+    _getSuitableComponent = () => {
+        switch (this.props.guestsFieldConfig.mode) {
+            case GUESTS_FIELD_MODES.PLUS_MINUS:
+                return PlusMinus;
+            case GUESTS_FIELD_MODES.SINGLE_SELECT_BOX:
+            default:
+                return SingleSelectBox;
+        }
+    };
 
     render() {
+        const SuitableComponent = this._getSuitableComponent();
+
         return (
             <div className="GuestsField">
-                <Select2
-                    value={ this.state.value }
-                    data={ this.convertedGuestsSchema }
-                    options={ {
-                        width:                   '100%',
-                        minimumResultsForSearch: 'Infinity'
-                    } }
-                    onChange={ this.guestsFieldChange }
-                    ref={ this.guestsField }
+                <SuitableComponent
+                    { ...this.props.guestsFieldConfig }
+                    ref={ this.SuitableComponentRef }
                 />
             </div>
         );
@@ -46,6 +38,28 @@ export default class GuestsField extends React.PureComponent {
 }
 
 GuestsField.propTypes = {
-    initialValue: PropTypes.string,
-    guestsSchema: PropTypes.object
+    guestsFieldConfig: PropTypes.oneOfType([
+        PropTypes.shape({
+            mode: PropTypes.string
+        }),
+        PropTypes.shape({
+            mode:        PropTypes.string,
+            placeholder: PropTypes.string,
+            results:     PropTypes.arrayOf(
+                PropTypes.shape({
+                    categoryTitle:    PropTypes.string.isRequired,
+                    categoryKey:      PropTypes.string.isRequired,
+                    placeholderOrder: PropTypes.number,
+                    categoryValue:    PropTypes.arrayOf(
+                        PropTypes.shape({
+                            itemTitle: PropTypes.string.isRequired,
+                            itemValue: PropTypes.string.isRequired,
+                            minNumber: PropTypes.number.isRequired,
+                            maxNumber: PropTypes.number.isRequired,
+                        })
+                    ).isRequired,
+                }).isRequired
+            ).isRequired
+        })
+    ])
 };
