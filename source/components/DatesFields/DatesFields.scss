@@ -16,12 +16,6 @@
             border: 1px solid #aaa;
             border-radius: 5px;
 
-            transition: border-color $speed;
-
-            &:focus, &:focus-within {
-                border-color: black;
-            }
-
             & > div {
                 flex-grow: 1;
                 flex-shrink: 1;
@@ -92,6 +86,12 @@
                 }
 
             }
+        }
+    }
+
+    &--open {
+        .DateRangePickerInput {
+            border-color: black;
         }
     }
 }

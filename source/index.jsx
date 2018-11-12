@@ -24,8 +24,8 @@ if (module.hot) {
 // for testing during the developing with working hot module replacement. Not passing to the build
 if (process.env.NODE_ENV === 'development') {
     const searchFieldConfig__singleSelectBox = require('./stories/jsonExamples/searchField--singleSelectBox');
-    const searchFieldConfig__multiSelectBox = require('./stories/jsonExamples/searchField--multiSelectBox');
-    const searchFieldConfig__googlePlaces = require('./stories/jsonExamples/searchField--googlePlaces');
+    const searchFieldConfig__multiSelectBox  = require('./stories/jsonExamples/searchField--multiSelectBox');
+    const searchFieldConfig__googlePlaces    = require('./stories/jsonExamples/searchField--googlePlaces');
 
     const datesFieldsConfig = require('./stories/jsonExamples/datesFields');
 
@@ -34,12 +34,15 @@ if (process.env.NODE_ENV === 'development') {
 
     $(function () {
         $('#root').rentivoSearchbar({
-            baseUrl: 'http://localhost:3000/',
+            baseUrl:      'http://localhost:3000/',
             appendString: "?aff=123",
-            searchField: { ...searchFieldConfig__singleSelectBox },
-            datesFields: { ...datesFieldsConfig },
-            guestsField: { ...guestsFieldConfig__singleSelectBox }
+            searchField:  { ...searchFieldConfig__singleSelectBox },
+            datesFields:  { ...datesFieldsConfig },
+            guestsField:  { ...guestsFieldConfig__singleSelectBox }
         });
     });
 
 }
+
+// todo: check PropTypes of deepest components
+// todo: remove PropTypes from routing components

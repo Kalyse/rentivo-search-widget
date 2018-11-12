@@ -12,9 +12,6 @@
         border-radius: 5px;
 
         color: #444;
-
-        transition: border-color $speed;
-
         &:focus, &:focus-within {
             border-color: black;
         }

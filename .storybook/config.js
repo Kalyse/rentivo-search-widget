@@ -7,6 +7,7 @@ setOptions({
     name:                   'Rentivo Search Widget Storybook',
     url:                    'https://github.com/aptenex/rentivo-search-widget',
     addonPanelInRight:      true,
+    showAddonPanel:         false,
     hierarchySeparator:     /\//,
     hierarchyRootSeparator: /\|/
 });

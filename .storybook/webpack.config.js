@@ -20,20 +20,20 @@ module.exports = (storybookBaseConfig, configType) => {
                 modules:    [PATHS.modules, PATHS.source],
                 alias:      {
                     '~core':       path.join(PATHS.source, 'core'),
-                    '~components': path.join(PATHS.source, 'components'),
+                    '~components': path.join(PATHS.source, 'components')
                 }
             }
         },
         {
-            test:    /\.css$/,
-            use:     [
+            test: /\.css$/,
+            use:  [
                 'style-loader',
                 'css-loader'
             ]
         },
         {
-            test:    /\.scss$/,
-            use:     [
+            test: /\.scss$/,
+            use:  [
                 'style-loader',
                 'css-loader',
                 'resolve-url-loader',
@@ -41,15 +41,15 @@ module.exports = (storybookBaseConfig, configType) => {
             ]
         },
         {
-            test: /\.(woff2?|otf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+            test:   /\.(woff2?|otf|eot)(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name]/[name].[ext]'
         },
         {
-            test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+            test:   /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url-loader?limit=10000&mimetype=application/octet-stream&name=fonts/[name]/[name].[ext]'
         },
         {
-            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            test:   /\.svg(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[name]/[name].[ext]'
         },
     );

@@ -3,40 +3,41 @@ import PropTypes from 'prop-types';
 
 import './PlusMinusControls.scss';
 
-const intervalValue = 150;
-let intervalId      = null;
+let intervalId = null;
 
 const PlusMinusControls = ({
     onIncrease,
     onDecrease,
-    increaseBtnDisabled,
-    decreaseBtnDisabled
+    interval,
+    isIncreaseBtnDisabled,
+    isDecreaseBtnDisabled,
 }) => (
     <div className="PlusMinusControls">
         <span
             className="PlusMinusControls__Minus"
             onClick={ onDecrease }
-            onMouseDown={ () => intervalId = setInterval(onDecrease, intervalValue) }
+            onMouseDown={ () => intervalId = setInterval(onDecrease, interval) }
             onMouseUp={ () => clearInterval(intervalId) }
             onMouseOut={ () => clearInterval(intervalId) }
-            aria-disabled={ decreaseBtnDisabled }
+            aria-disabled={ isDecreaseBtnDisabled }
         />
         <span
             className="PlusMinusControls__Plus"
             onClick={ onIncrease }
-            onMouseDown={ () => intervalId = setInterval(onIncrease, intervalValue) }
+            onMouseDown={ () => intervalId = setInterval(onIncrease, interval) }
             onMouseUp={ () => clearInterval(intervalId) }
             onMouseOut={ () => clearInterval(intervalId) }
-            aria-disabled={ increaseBtnDisabled }
+            aria-disabled={ isIncreaseBtnDisabled }
         />
     </div>
 );
 
 PlusMinusControls.propTypes = {
-    onIncrease:          PropTypes.func.isRequired,
-    onDecrease:          PropTypes.func.isRequired,
-    increaseBtnDisabled: PropTypes.bool,
-    decreaseBtnDisabled: PropTypes.bool
+    onIncrease:            PropTypes.func.isRequired,
+    onDecrease:            PropTypes.func.isRequired,
+    interval:              PropTypes.number.isRequired,
+    isIncreaseBtnDisabled: PropTypes.bool,
+    isDecreaseBtnDisabled: PropTypes.bool,
 };
 
-export default PlusMinusControls;
+export default React.memo(PlusMinusControls);

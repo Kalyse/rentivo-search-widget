@@ -1,39 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Select2 from 'react-select2-wrapper';
-import 'react-select2-wrapper/css/select2.css';
+import SingleSelectBox_Common from '~components/shared/SingleSelectBox_Common/SingleSelectBox_Common';
+import withController from './SingleSelectBoxController';
 
-import { convertSchemaToSingleSelectBoxData } from '~core/helpers/convertSchema';
-import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
+const SingleSelectBox = props => <SingleSelectBox_Common className='SingleSelectBox--GuestsField' { ...props }/>;
 
-import './SingleSelectBox.scss';
+SingleSelectBox.propTypes = {
+    value:    PropTypes.string.isRequired,
+    data:     PropTypes.arrayOf(
+        PropTypes.shape({
+            itemTitle: PropTypes.string,
+            itemValue: PropTypes.string
+        })
+    ).isRequired,
+    options:  PropTypes.object,
+    onSelect: PropTypes.func.isRequired
+};
 
-export default class SingleSelectBox extends React.PureComponent {
-    convertedData = convertSchemaToSingleSelectBoxData(this.props.results);
-    guestsField   = React.createRef();
-    state         = {
-        value: this.props.initialValue
-    };
-
-    generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.results);
-
-    guestsFieldSelect = () => this.setState({ value: this.guestsField.current.el.val() });
-
-    render() {
-        return (
-            <div className="SingleSelectBox">
-                <Select2
-                    value={ this.state.value }
-                    data={ this.convertedData }
-                    options={ {
-                        width:                   '100%',
-                        minimumResultsForSearch: 'Infinity'
-                    } }
-                    onSelect={ this.guestsFieldSelect }
-                    ref={ this.guestsField }
-                />
-            </div>
-        );
-    }
-}
+export default withController(React.memo(SingleSelectBox));

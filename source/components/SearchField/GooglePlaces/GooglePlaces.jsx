@@ -11,7 +11,7 @@ export default class GooglePlaces extends React.PureComponent {
     searchField = React.createRef();
 
     state = {
-        address: '',
+        address:          '',
         searchResultData: ''
     };
 
@@ -38,9 +38,9 @@ export default class GooglePlaces extends React.PureComponent {
 
     componentDidMount() {
         loadGoogleMapsAPI({
-            key: this.props.API_KEY,
-            libraries: [ 'places' ],
-            language: 'en'
+            key:       this.props.API_KEY,
+            libraries: ['places'],
+            language:  'en'
         }).then(window.GooglePlacesCallback)
     }
 
@@ -54,30 +54,30 @@ export default class GooglePlaces extends React.PureComponent {
                     googleCallbackName="GooglePlacesCallback"
                     searchOptions={ { componentRestrictions: { ...this.props.componentRestrictions } } }
                 >
-                    {({ getInputProps, suggestions, getSuggestionItemProps }) => (
+                    { ({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div>
                             <input
-                                {...getInputProps({
+                                { ...getInputProps({
                                     placeholder: this.props.placeholder,
-                                    className: 'location-search-input'
-                                })}
+                                    className:   'location-search-input'
+                                }) }
                             />
                             <ul className="autocomplete-dropdown-container">
-                                {suggestions.map(suggestion => {
+                                { suggestions.map(suggestion => {
                                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                                     // inline style for demonstration purpose
-                                    const style = suggestion.active
+                                    const style     = suggestion.active
                                         ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                         : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                     return (
-                                        <li {...getSuggestionItemProps(suggestion, { className, style })}>
-                                            <span>{suggestion.description}</span>
+                                        <li { ...getSuggestionItemProps(suggestion, { className, style }) }>
+                                            <span>{ suggestion.description }</span>
                                         </li>
                                     )
-                                })}
+                                }) }
                             </ul>
                         </div>
-                    )}
+                    ) }
                 </PlacesAutocomplete>
             </div>
 
@@ -86,8 +86,7 @@ export default class GooglePlaces extends React.PureComponent {
 }
 
 GooglePlaces.propTypes = {
-    API_KEY: PropTypes.string,
-    placeholder:  PropTypes.string,
-    mode: PropTypes.string,
+    API_KEY:               PropTypes.string,
+    placeholder:           PropTypes.string,
     componentRestrictions: PropTypes.object
 };

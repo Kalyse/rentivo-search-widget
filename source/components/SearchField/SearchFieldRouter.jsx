@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from "prop-types";
 
 import { SEARCH_FIELD_MODES } from '~core/constants';
 
@@ -30,34 +29,10 @@ export default class SearchField extends React.PureComponent {
         const SuitableComponent = this._getSuitableComponent();
 
         return (
-            <div className="SearchField">
-                <SuitableComponent
-                    { ...this.props.searchFieldConfig }
-                    ref={ this.SuitableComponentRef }
-                />
-            </div>
+            <SuitableComponent
+                { ...this.props.searchFieldConfig }
+                ref={ this.SuitableComponentRef }
+            />
         );
     }
 }
-
-SearchField.propTypes = {
-    searchFieldConfig: PropTypes.oneOfType([
-        PropTypes.shape({
-            initialValue: PropTypes.array,
-            placeholder:  PropTypes.string,
-            searchSchema: PropTypes.array,
-            mode:         PropTypes.string
-        }),
-        PropTypes.shape({
-            initialValue: PropTypes.string,
-            placeholder:  PropTypes.string,
-            guestsSchema: PropTypes.object,
-            mode:         PropTypes.string
-        }),
-        PropTypes.shape({
-            API_KEY:     PropTypes.string,
-            placeholder: PropTypes.string,
-            mode:        PropTypes.string
-        })
-    ])
-};

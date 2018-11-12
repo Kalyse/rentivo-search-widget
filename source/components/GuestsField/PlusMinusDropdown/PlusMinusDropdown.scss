@@ -1,11 +1,11 @@
 @import "~core/style-utils/vars";
 
-.PlusMinus {
+.PlusMinusDropdown {
     $root: &;
     @extend %text-defaults;
     position: relative;
 
-    &__ActiveCategories {
+    &__Results {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
@@ -17,10 +17,6 @@
         border-radius: 5px;
 
         cursor: pointer;
-        transition: border-color $speed, border-radius $speed;
-        &:focus, &:focus-within {
-            border-color: black;
-        }
 
         &:before {
             content: '';
@@ -34,11 +30,9 @@
             border-color: #888 transparent transparent;
             border-style: solid;
             border-width: 5px 4px 0;
-
-            transition: transform $speed;
         }
     }
-    &__ActiveCategory {
+    &__Result {
         padding: 0 3px;
 
         line-height: 28px;
@@ -51,9 +45,9 @@
 
         color: #999999;
     }
-    &__Dropdown {
+    &__OptionsContainer {
         position: absolute;
-        top: -9999px;
+        top: 100%;
         right: 0;
         min-width: 190px;
         width: 100%;
@@ -65,52 +59,17 @@
 
         background: #ffffff;
 
-        opacity: 0;
-        overflow: hidden;
-        transform: translateY(100%);
-        transition: opacity $speed, transform $speed, top 0s step-end $speed;
         z-index: 1;
-    }
-    &__Options {
-        margin: 0;
-        padding: 0;
-
-        list-style-type: none;
-    }
-    &__Option {
-        display: flex;
-        justify-content: space-between;
-        margin: 15px 0;
-
-        &:first-child {
-            margin-top: 0;
-        }
-        &:last-child {
-            margin-bottom: 0;
-        }
-
-        &__Title {
-            display: flex;
-            align-items: center;
-        }
     }
 
     &--open {
-        #{$root}__ActiveCategories {
+        #{$root}__Results {
             border-color: black;
             border-radius: 5px;
 
             &:before {
                 transform: rotate(180deg);
             }
-        }
-
-        #{$root}__Dropdown {
-            top: 100%;
-
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity $speed, transform $speed, top 0s ease 0s;
         }
     }
 }

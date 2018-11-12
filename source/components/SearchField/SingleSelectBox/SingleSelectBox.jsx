@@ -1,47 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Select2 from 'react-select2-wrapper';
-import 'react-select2-wrapper/css/select2.css';
+import SingleSelectBox_Common from '~components/shared/SingleSelectBox_Common/SingleSelectBox_Common';
+import withController from './SingleSelectBoxController';
 
-import { convertSchemaToSingleSelectBoxData } from '~core/helpers/convertSchema';
-import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
-
-import './SingleSelectBox.scss';
-
-export default class SingleSelectBox extends React.PureComponent {
-    convertedData = convertSchemaToSingleSelectBoxData(this.props.results);
-    searchField   = React.createRef();
-    state         = {
-        value: this.props.initialValue
-    };
-
-    generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.results);
-
-    searchFieldSelect = () => this.setState({ value: this.searchField.current.el.val() });
-
-    render() {
-        return (
-            <div className="SingleSelectBox">
-                <Select2
-                    value={ this.state.value }
-                    data={ this.convertedData }
-                    options={ {
-                        placeholder: this.props.placeholder,
-                        width:       '100%',
-                    } }
-                    onSelect={ this.searchFieldSelect }
-                    ref={ this.searchField }
-                />
-            </div>
-
-        );
-    }
-}
+const SingleSelectBox = props => <SingleSelectBox_Common className='SingleSelectBox--SearchField' { ...props }/>;
 
 SingleSelectBox.propTypes = {
-    initialValue: PropTypes.string,
-    placeholder:  PropTypes.string,
-    results:      PropTypes.object,
-    mode:         PropTypes.string
+    value:    PropTypes.string,
+    data:     PropTypes.arrayOf(
+        PropTypes.shape({
+            itemTitle: PropTypes.string,
+            itemValue: PropTypes.string
+        })
+    ).isRequired,
+    options:  PropTypes.shape({
+        placeholder: PropTypes.string.isRequired
+    }).isRequired,
+    onSelect: PropTypes.func.isRequired
 };
+
+export default withController(React.memo(SingleSelectBox));

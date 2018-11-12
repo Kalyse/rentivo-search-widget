@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-export default (Component) => {
-    class WrappedComponent extends React.PureComponent {
+export default (PlusMinusDropdown) => {
+    class PlusMinusDropdownWrapper extends React.PureComponent {
         _getNormalizeCategories = () => {
             const categories = {};
             this.props.results.forEach((category, idx) => {
@@ -34,20 +34,20 @@ export default (Component) => {
 
         normalizeData = () => {
             return {
-                categories:  this._getNormalizeCategories(),
-                options:     this._getNormalizeOptions(),
-                placeholder: this.props.placeholder
+                categories:     this._getNormalizeCategories(),
+                options:        this._getNormalizeOptions(),
+                placeholder:    this.props.placeholder,
+                incDecInterval: this.props.incDecInterval,
             };
         };
 
         render() {
-            return <Component { ...this.normalizeData() } />;
+            return <PlusMinusDropdown { ...this.normalizeData() } />;
         }
     }
 
-    WrappedComponent.propTypes = {
-        placeholder: PropTypes.string,
-        results:     PropTypes.arrayOf(
+    PlusMinusDropdownWrapper.propTypes = {
+        results:        PropTypes.arrayOf(
             PropTypes.shape({
                 categoryTitle:    PropTypes.string.isRequired,
                 categoryKey:      PropTypes.string.isRequired,
@@ -61,8 +61,10 @@ export default (Component) => {
                     })
                 ).isRequired,
             }).isRequired
-        ).isRequired
+        ).isRequired,
+        placeholder:    PropTypes.string,
+        incDecInterval: PropTypes.number,
     };
 
-    return WrappedComponent;
+    return PlusMinusDropdownWrapper;
 };
