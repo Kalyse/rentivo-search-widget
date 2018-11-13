@@ -13,7 +13,7 @@ setOptions({
 });
 
 // automatically import all files ending in *.stories.js
-const req = require.context('../source/stories', true, /.stories.jsx$/);
+const req = require.context('../src/stories', true, /.stories.jsx$/);
 
 function loadStories() {
     req.keys().forEach(filename => req(filename));

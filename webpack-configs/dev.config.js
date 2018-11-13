@@ -9,7 +9,7 @@ const fonts     = require('./dev/fonts');
 const jScript   = require('./dev/jScript');
 
 const PATHS = {
-    source:  path.join(__dirname, '../source'),
+    source:  path.join(__dirname, '../src'),
     build:   path.join(__dirname, '../build'),
     modules: path.join(__dirname, '../node_modules'),
 };
