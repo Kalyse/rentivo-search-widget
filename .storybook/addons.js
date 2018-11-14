@@ -3,24 +3,9 @@ import '@storybook/addon-options/register';
 import '@storybook/addon-actions/register';
 import '@storybook/addon-console';
 import 'storybook-readme/register';
-import addonAPI from '@storybook/addons';
+import addonAPI from "@storybook/addons";
 
-import { UIConfig } from "./constants";
+import PanelsManager from './PanelsManager';
 
-addonAPI.register('rentivo/options', (storybookAPI) => {
-    if (!window.__STORYBOOK_ADDONS) return;
+addonAPI.register('rentivo/options', storybookAPI => new PanelsManager(storybookAPI));
 
-    let { showAddonPanel }   = UIConfig;
-    let { showStoriesPanel } = UIConfig;
-
-    window.__STORYBOOK_ADDONS.toggleFullscreen = () => {
-        showAddonPanel   = !showAddonPanel;
-        showStoriesPanel = !showStoriesPanel;
-
-        storybookAPI.setOptions({
-            ...UIConfig,
-            showAddonPanel,
-            showStoriesPanel
-        })
-    }
-});
