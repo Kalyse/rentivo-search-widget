@@ -22,30 +22,36 @@ storiesOf('Examples of "Search Field" modes', module)
     .add(
         '"single_select_box" mode',
         withReadme(CommonReadme, () => (
-            <Searchbar
-                searchField={ { ...searchFieldConfig_singleSelectBox } }
-                guestsField={ { ...guestsFieldConfig_singleSelectBox } }
-                datesFields={ { ...datesFieldsConfig } }
-            />
+            <Layout>
+                <Searchbar
+                    searchField={ { ...searchFieldConfig_singleSelectBox } }
+                    guestsField={ { ...guestsFieldConfig_singleSelectBox } }
+                    datesFields={ { ...datesFieldsConfig } }
+                />
+            </Layout>
         ))
     )
     .add(
         '"multi_select_box" mode',
         withReadme(CommonReadme, () => (
-            <Searchbar
-                searchField={ { ...searchFieldConfig_multiSelectBox } }
-                guestsField={ { ...guestsFieldConfig_singleSelectBox } }
-                datesFields={ { ...datesFieldsConfig } }
-            />
+            <Layout>
+                <Searchbar
+                    searchField={ { ...searchFieldConfig_multiSelectBox } }
+                    guestsField={ { ...guestsFieldConfig_singleSelectBox } }
+                    datesFields={ { ...datesFieldsConfig } }
+                />
+            </Layout>
         ))
     )
     .add(
         '"google_places" mode',
         withReadme(CommonReadme, () => (
-            <Searchbar
-                searchField={ { ...searchFieldConfig_googlePlaces } }
-                guestsField={ { ...guestsFieldConfig_singleSelectBox } }
-                datesFields={ { ...datesFieldsConfig } }
-            />
+            <Layout>
+                <Searchbar
+                    searchField={ { ...searchFieldConfig_googlePlaces } }
+                    guestsField={ { ...guestsFieldConfig_singleSelectBox } }
+                    datesFields={ { ...datesFieldsConfig } }
+                />
+            </Layout>
         ))
     );
