@@ -1,22 +1,13 @@
 import "@babel/polyfill";
 
-import { configure } from '@storybook/react';
-import { setOptions } from '@storybook/addon-options';
+import { addDecorator, configure } from '@storybook/react';
+import { withOptions } from '@storybook/addon-options';
+import { UIConfig } from "./constants";
+import loadStories from '../stories';
 
-setOptions({
-    name:                   'Rentivo Search Widget Storybook',
-    url:                    'https://github.com/aptenex/rentivo-search-widget',
-    addonPanelInRight:      true,
-    showAddonPanel:         false,
-    hierarchySeparator:     /\//,
-    hierarchyRootSeparator: /\|/
-});
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../src/stories', true, /.stories.jsx$/);
-
-function loadStories() {
-    req.keys().forEach(filename => req(filename));
-}
+addDecorator(
+    withOptions(UIConfig)
+);
 
 configure(loadStories, module);
