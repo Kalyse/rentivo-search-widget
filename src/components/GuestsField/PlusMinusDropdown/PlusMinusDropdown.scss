@@ -4,7 +4,8 @@
     $root: &;
     @extend %text-defaults;
     position: relative;
-
+    user-select: none;
+    
     &__Results {
         display: flex;
         align-items: center;
@@ -12,37 +13,39 @@
         min-height: 50px;
         padding-left: 5px;
         padding-right: 15px;
-
+        
         border: 1px solid #aaa;
         border-radius: 5px;
-
+        
+        background: #ffffff;
+        
         cursor: pointer;
-
         &:before {
             content: '';
             position: absolute;
             top: 50%;
-            right: 5px;
+            right: 7px;
             width: 0;
             height: 0;
             margin-top: -2px;
-
+            
             border-color: #888 transparent transparent;
             border-style: solid;
             border-width: 5px 4px 0;
         }
     }
     &__Result {
+        position: relative;
         padding: 0 3px;
-
+        
         line-height: 28px;
-
+        
         text-overflow: ellipsis;
         white-space: nowrap;
     }
     &__Placeholder {
         padding: 0 3px;
-
+        
         color: #999999;
     }
     &__OptionsContainer {
@@ -51,22 +54,22 @@
         right: 0;
         min-width: 190px;
         width: 100%;
+        margin-top: -1px;
         padding: 15px 8px;
-
-        border: 1px solid #000000;
-        border-radius: 5px;
-        box-shadow: 0 0 5px #000;
-
+        
+        border: 1px solid #aaa;
+        border-radius: 0 0 5px 5px;
+        
         background: #ffffff;
-
+        
         z-index: 1;
     }
-
+    
     &--open {
         #{$root}__Results {
             border-color: black;
-            border-radius: 5px;
-
+            border-radius: 5px 5px 0 0;
+            
             &:before {
                 transform: rotate(180deg);
             }

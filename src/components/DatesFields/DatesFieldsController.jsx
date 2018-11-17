@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { WIDGET_SIZES } from '~core/constants';
 import { generateDatesFieldsPart } from '~core/helpers/prepareSubmitUrl'
-import { DateRangePicker } from "react-dates";
 
 export default (DatesFields) => {
     class DatesFieldsController extends React.PureComponent {
@@ -15,6 +14,13 @@ export default (DatesFields) => {
 
         get urlPart() {
             return generateDatesFieldsPart(this.state, this.props)
+        };
+
+        getNumberOfMonths = () => {
+            if ([WIDGET_SIZES.DEFAULT.id, WIDGET_SIZES.TINY.id].includes(this.props.widgetSizeId)) {
+                return 1;
+            }
+            return 2;
         };
 
         onDatesChange = ({ startDate, endDate }) => this.setState({ startDate, endDate });
@@ -32,7 +38,7 @@ export default (DatesFields) => {
                     onDatesChange={ this.onDatesChange }
                     onFocusChange={ this.onFocusChange }
                     displayFormat={ this.props.dateFormat }
-                    numberOfMonths={ this.state.numberOfMonths }
+                    numberOfMonths={ this.getNumberOfMonths() }
                     appendToBody={ this.props.appendToBody }
                     isOpen={ !!this.state.focusedInput }
                 />
@@ -47,7 +53,7 @@ export default (DatesFields) => {
         initialEndDate:   PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
         dateFormat:       PropTypes.string,
         appendToBody:     PropTypes.bool,
-        widgetSize:       PropTypes.oneOf(Object.values(WIDGET_SIZES))
+        widgetSizeId:     PropTypes.oneOf(Object.keys(WIDGET_SIZES))
     };
 
     DatesFieldsController.defaultProps = {
@@ -56,7 +62,7 @@ export default (DatesFields) => {
         initialStartDate: null,
         initialEndDate:   null,
         dateFormat:       'DD/MM/YYYY',
-        appendToBody:     true,
+        appendToBody:     false,
         numberOfMonths:   2,
     };
 

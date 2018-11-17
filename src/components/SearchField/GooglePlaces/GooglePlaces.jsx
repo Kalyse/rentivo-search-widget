@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
-import loadGoogleMapsAPI from 'load-google-maps-api-2';
+import loadGoogleMapsAPI from "load-google-maps-api-2";
 
 import { generateGooglePlacesPart } from '~core/helpers/prepareSubmitUrl';
 
@@ -12,8 +12,18 @@ export default class GooglePlaces extends React.PureComponent {
 
     state = {
         address:          '',
-        searchResultData: ''
+        searchResultData: '',
     };
+
+    constructor(props) {
+        super(props);
+
+        // look at description for "componentDidMount" code
+        if (window.googlePlacesInstanceCount === undefined) {
+            window.googlePlacesInstanceCount = 0;
+        }
+        this.googlePlacesInstanceId = ++window.googlePlacesInstanceCount;
+    }
 
     generateUrlPart = () => generateGooglePlacesPart(this.state.searchResultData);
 
@@ -36,12 +46,34 @@ export default class GooglePlaces extends React.PureComponent {
             .catch(error => console.error('Error', error));
     };
 
+    // when we have multiple instances of widget with "GooglePlaces" search field mode - occurs multiple loading of google maps API, which leads to errors. To solve this problem I have to write this ugly code. If you find out the better way to solve this problem - be welcome to change this one
     componentDidMount() {
-        loadGoogleMapsAPI({
-            key:       this.props.API_KEY,
-            libraries: ['places'],
-            language:  'en'
-        }).then(window.GooglePlacesCallback)
+        if (!window.google) {
+            if (!window.isGoogleApiLoading) {
+                window.isGoogleApiLoading       = true;
+                window.googlePlacesCallbackList = [];
+                window.googlePlacesCallback     = () => {
+                    window.googlePlacesCallbackList.forEach(callback => window[callback] && window[callback]());
+                };
+
+                loadGoogleMapsAPI({
+                    key:       this.props.API_KEY,
+                    libraries: ['places'],
+                    language:  'en'
+                }).then(() => {
+                    window.googlePlacesCallback();
+                });
+            }
+
+            window.googlePlacesCallbackList.push(`googlePlacesCallback_${ this.googlePlacesInstanceId }`);
+        }
+    }
+
+    componentWillUnmount() {
+        delete window.googlePlacesInstanceCount;
+        delete window.isGoogleApiLoading;
+        delete window.googlePlacesCallback;
+        delete window.googlePlacesCallbackList;
     }
 
     render() {
@@ -51,7 +83,7 @@ export default class GooglePlaces extends React.PureComponent {
                     value={ this.state.address }
                     onChange={ this.handleChange }
                     onSelect={ this.handleSelect }
-                    googleCallbackName="GooglePlacesCallback"
+                    googleCallbackName={ `googlePlacesCallback_${ this.googlePlacesInstanceId }` }
                     searchOptions={ { componentRestrictions: { ...this.props.componentRestrictions } } }
                 >
                     { ({ getInputProps, suggestions, getSuggestionItemProps }) => (

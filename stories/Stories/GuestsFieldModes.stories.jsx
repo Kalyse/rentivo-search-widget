@@ -6,7 +6,7 @@ import { withConsole } from '@storybook/addon-console';
 import withReadme from 'storybook-readme/with-readme';
 import CommonReadme from '../temp/readme.md';
 
-import Layout from '../Layouts/Layout';
+import Layout from './HelperComponents/Layout';
 import Searchbar from '../../src/components/Searchbar/Searchbar';
 
 import searchFieldConfig_singleSelectBox from '../jsonExamples/searchField--singleSelectBox';

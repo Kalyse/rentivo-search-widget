@@ -8,10 +8,14 @@ export default class PanelsManager {
         this.registerFullscreenToggler();
     }
 
-    getInitState = () => ({
-        showAddonPanel:   this.storybookAPI.getQueryParam('showAddonPanel') || UIConfig.showAddonPanel,
-        showStoriesPanel: this.storybookAPI.getQueryParam('showStoriesPanel') || UIConfig.showStoriesPanel
-    });
+    getInitState = () => {
+        const url_string = window.location.href;
+        const url        = new URL(url_string);
+        return {
+            showAddonPanel:   JSON.parse(url.searchParams.get("showAddonPanel")) || UIConfig.showAddonPanel,
+            showStoriesPanel: JSON.parse(url.searchParams.get("showStoriesPanel")) || UIConfig.showStoriesPanel
+        }
+    };
 
     registerFullscreenToggler = () => {
         if (!window.__STORYBOOK_ADDONS) {
@@ -23,19 +27,17 @@ export default class PanelsManager {
                 showAddonPanel:   !this.state.showAddonPanel,
                 showStoriesPanel: !this.state.showStoriesPanel
             });
-
-            this.configureStorybookUI()
         }
     };
 
     configureStorybookUI = () => {
-        this.storybookAPI.setOptions({
-            ...UIConfig,
+        this.storybookAPI.setQueryParams({
             showAddonPanel:   this.state.showAddonPanel,
             showStoriesPanel: this.state.showStoriesPanel
         });
 
-        this.storybookAPI.setQueryParams({
+        this.storybookAPI.setOptions({
+            ...UIConfig,
             showAddonPanel:   this.state.showAddonPanel,
             showStoriesPanel: this.state.showStoriesPanel
         });
@@ -46,5 +48,7 @@ export default class PanelsManager {
             ...this.state,
             ...newState
         };
+
+        this.configureStorybookUI()
     };
 }

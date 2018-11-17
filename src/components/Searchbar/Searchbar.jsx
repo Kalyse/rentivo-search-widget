@@ -8,9 +8,11 @@ const Searchbar = ({
     firstCol,
     secondCol,
     thirdCol,
-    fourthCol
+    fourthCol,
+    sizeClassNames,
+    searchbarRef
 }) => (
-    <form className="Searchbar">
+    <form className={ `Searchbar ${ sizeClassNames }` } ref={ searchbarRef }>
         <div className="l-container">
             <div className="l-grid">
                 <div className="l-col--searchField">{ firstCol }</div>
