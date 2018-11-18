@@ -41,6 +41,7 @@ export default (DatesFields) => {
                     numberOfMonths={ this.getNumberOfMonths() }
                     appendToBody={ this.props.appendToBody }
                     isOpen={ !!this.state.focusedInput }
+                    horizontalMargin={ 20 }
                 />
             );
         }
