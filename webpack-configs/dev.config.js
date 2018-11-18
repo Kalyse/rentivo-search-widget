@@ -10,7 +10,7 @@ const jScript   = require('./dev/jScript');
 
 const PATHS = {
     source:  path.join(__dirname, '../src'),
-    build:   path.join(__dirname, '../build'),
+    dist:    path.join(__dirname, '../dist'),
     modules: path.join(__dirname, '../node_modules'),
 };
 
@@ -21,7 +21,7 @@ module.exports = function () {
                 `${ PATHS.source }/index.jsx`,
             ],
             output:  {
-                path:     PATHS.build,
+                path:     PATHS.dist,
                 filename: 'jquery.rentivo-searchbar.js',
             },
             resolve: {
