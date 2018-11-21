@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Button.scss';
 
 const Button = ({ children, styleType, onClick }) => (
-    <button className={ `Button Button--${ styleType }` }
+    <button className={ `RSW-Button RSW-Button--${ styleType }` }
             type="button"
             onClick={ onClick }
     >{ children }</button>

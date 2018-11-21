@@ -17,7 +17,7 @@ export default (PlusMinusDropdown) => {
             return options;
         };
 
-        _getActiveCategories = () => {
+        getActiveCategories = () => {
             const activeOptions    = {};
             const activeCategories = [];
 
@@ -76,7 +76,7 @@ export default (PlusMinusDropdown) => {
             return (
                 <PlusMinusDropdown
                     placeholder={ this.props.placeholder }
-                    results={ this._getActiveCategories() }
+                    results={ this.getActiveCategories() }
                     isOpen={ this.state.isDropdownOpen }
                     toggleDropdown={ this.toggleDropdown }
                 >
