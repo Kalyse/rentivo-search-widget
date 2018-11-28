@@ -1,7 +1,7 @@
 {
     "mode": "plus_minus",
     "placeholder": "Select guests number",
-    "results": [
+    "data": [
         {
             "categoryTitle": "Guests",
             "categoryKey": "guests",

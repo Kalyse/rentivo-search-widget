@@ -1,0 +1,60 @@
+{
+    "mode": "nested_dropdown",
+    "placeholder": "Where do you want to go?",
+    "data": {
+        "name": "All Villas",
+        "pathFragment": "search",
+        "children": [
+            {
+                "name": "Thailand",
+                "pathFragment": "thailand",
+                "children": [
+                    {
+                        "name": "Koh Samui",
+                        "pathFragment": "koh-samui",
+                        "children": [
+                            {
+                                "name": "Ban Tai",
+                                "pathFragment": "ban-tai"
+                            },
+                            {
+                                "name": "Bang Por",
+                                "pathFragment": "bang-por"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Phuket",
+                        "pathFragment": "phuket",
+                        "children": [
+                            {
+                                "name": "Koh Yao",
+                                "pathFragment": "koh-yao"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Indonesia",
+                "pathFragment": "indonesia",
+                "children": [
+                    {
+                        "name": "Bali",
+                        "pathFragment": "bali",
+                        "children": [
+                            {
+                                "name": "Sanur",
+                                "pathFragment": "sanur"
+                            },
+                            {
+                                "name": "Ubud",
+                                "pathFragment": "ubud"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

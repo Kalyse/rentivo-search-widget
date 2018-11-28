@@ -6,12 +6,12 @@ import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
 export default (SingleSelectBox) => {
     class SingleSelectBoxController extends React.PureComponent {
-        convertedData = convertSchemaToSingleSelectBoxData(this.props.results);
+        convertedData = convertSchemaToSingleSelectBoxData(this.props.data);
         state         = {
             value: this.props.initialValue
         };
 
-        generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.results);
+        generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.data);
 
         handleOptionSelect = e => this.setState({ value: e.target.value });
 
@@ -31,7 +31,7 @@ export default (SingleSelectBox) => {
 
     SingleSelectBoxController.propTypes = {
         placeholder: PropTypes.string.isRequired,
-        results:     PropTypes.shape({
+        data:        PropTypes.shape({
             categoryTitle: PropTypes.string.isRequired,
             categoryKey:   PropTypes.string.isRequired,
             categoryValue: PropTypes.arrayOf(

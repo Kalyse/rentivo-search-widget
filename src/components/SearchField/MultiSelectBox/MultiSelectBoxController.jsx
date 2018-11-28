@@ -8,7 +8,7 @@ import { generateMultiSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxController extends React.PureComponent {
-        convertedData = convertSchemaToMultiSelectBoxData(this.props.results);
+        convertedData = convertSchemaToMultiSelectBoxData(this.props.data);
 
         // it fixes issue with non-recalculating of input's width when resizing window
         select2Reinit           = () => this.forceUpdate();
@@ -18,7 +18,7 @@ export default (MultiSelectBox) => {
             value: this.props.initialValue
         };
 
-        generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.results);
+        generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.data);
 
         searchFieldSelect = (e) => {
             let selectedValues     = [...e.target.options].filter(option => option.selected).map(option => option.value);
@@ -60,7 +60,7 @@ export default (MultiSelectBox) => {
     MultiSelectBoxController.propTypes = {
         initialValue: PropTypes.array,
         placeholder:  PropTypes.string,
-        results:      PropTypes.array,
+        data:         PropTypes.array,
     };
 
     return MultiSelectBoxController;

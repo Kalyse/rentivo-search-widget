@@ -1,7 +1,7 @@
 {
     "mode": "multi_select_box",
     "placeholder": "Where do you want to go?",
-    "results": [
+    "data": [
         {
             "categoryTitle": "Popular in Italy",
             "singleResult": true,

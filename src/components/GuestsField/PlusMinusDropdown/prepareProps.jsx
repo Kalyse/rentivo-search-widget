@@ -5,7 +5,7 @@ export default (PlusMinusDropdown) => {
     class PlusMinusDropdownWrapper extends React.PureComponent {
         _getNormalizeCategories = () => {
             const categories = {};
-            this.props.results.forEach((category, idx) => {
+            this.props.data.forEach((category, idx) => {
                 categories[category.categoryKey] = {
                     id:        category.categoryKey,
                     title:     category.categoryTitle,
@@ -19,7 +19,7 @@ export default (PlusMinusDropdown) => {
 
         _getNormalizeOptions = () => {
             const options = {};
-            this.props.results.forEach(category => category.categoryValue.forEach(option => {
+            this.props.data.forEach(category => category.categoryValue.forEach(option => {
                 options[option.itemValue] = {
                     id:         option.itemValue,
                     categoryId: category.categoryKey,
@@ -47,7 +47,7 @@ export default (PlusMinusDropdown) => {
     }
 
     PlusMinusDropdownWrapper.propTypes = {
-        results:        PropTypes.arrayOf(
+        data:           PropTypes.arrayOf(
             PropTypes.shape({
                 categoryTitle:    PropTypes.string.isRequired,
                 categoryKey:      PropTypes.string.isRequired,

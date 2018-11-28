@@ -119,38 +119,9 @@ export default (Searchbar) => {
     }
 
     SearchbarController.propTypes = {
-        searchField:  PropTypes.oneOfType([
-            PropTypes.shape({
-                initialValue: PropTypes.array,
-                placeholder:  PropTypes.string,
-                data:         PropTypes.array,
-                mode:         PropTypes.string
-            }),
-            PropTypes.shape({
-                initialValue: PropTypes.string,
-                placeholder:  PropTypes.string,
-                data:         PropTypes.object,
-                mode:         PropTypes.string
-            }),
-            PropTypes.shape({
-                API_KEY:               PropTypes.string,
-                placeholder:           PropTypes.string,
-                mode:                  PropTypes.string,
-                componentRestrictions: PropTypes.object
-            })
-        ]).isRequired,
-        datesFields:  PropTypes.shape({
-            startDateId:      PropTypes.string,
-            endDateId:        PropTypes.string,
-            initialStartDate: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-            initialEndDate:   PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-            dateFormat:       PropTypes.string,
-            appendToBody:     PropTypes.bool
-        }),
-        guestsField:  PropTypes.shape({
-            initialValue: PropTypes.string,
-            data:         PropTypes.object
-        }).isRequired,
+        searchField:  PropTypes.object.isRequired,
+        datesFields:  PropTypes.object,
+        guestsField:  PropTypes.object.isRequired,
         baseUrl:      PropTypes.string.isRequired,
         appendString: PropTypes.string,
     };
