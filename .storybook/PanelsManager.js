@@ -11,9 +11,17 @@ export default class PanelsManager {
     getInitState = () => {
         const url_string = window.location.href;
         const url        = new URL(url_string);
+        
+        const showStoriesPanel = JSON.parse(url.searchParams.get("showStoriesPanel")) !== null
+            ? JSON.parse(url.searchParams.get("showStoriesPanel"))
+            : UIConfig.showStoriesPanel;
+        const showAddonPanel   = JSON.parse(url.searchParams.get("showAddonPanel")) !== null
+            ? JSON.parse(url.searchParams.get("showAddonPanel"))
+            : UIConfig.showAddonPanel;
+
         return {
-            showAddonPanel:   JSON.parse(url.searchParams.get("showAddonPanel")) || UIConfig.showAddonPanel,
-            showStoriesPanel: JSON.parse(url.searchParams.get("showStoriesPanel")) || UIConfig.showStoriesPanel
+            showStoriesPanel,
+            showAddonPanel
         }
     };
 
@@ -22,25 +30,29 @@ export default class PanelsManager {
             throw new Error('Accessing nonexistent global object "__STORYBOOK_ADDONS"');
         }
 
-        window.__STORYBOOK_ADDONS.toggleFullscreen = () => {
+        window.__STORYBOOK_ADDONS.toggleStoriesPanel = (e) => {
+            if (this.state.showStoriesPanel === true) {
+                e.target.textContent = 'Show Stories Panel'
+            } else {
+                e.target.textContent = 'Hide Stories Panel'
+            }
+
             this.setState({
-                showAddonPanel:   !this.state.showAddonPanel,
                 showStoriesPanel: !this.state.showStoriesPanel
             });
-        }
-    };
+        };
 
-    configureStorybookUI = () => {
-        this.storybookAPI.setQueryParams({
-            showAddonPanel:   this.state.showAddonPanel,
-            showStoriesPanel: this.state.showStoriesPanel
-        });
+        window.__STORYBOOK_ADDONS.toggleAddonPanel = (e) => {
+            if (this.state.showAddonPanel === true) {
+                e.target.textContent = 'Show Addons Panel'
+            } else {
+                e.target.textContent = 'Hide Addons Panel'
+            }
 
-        this.storybookAPI.setOptions({
-            ...UIConfig,
-            showAddonPanel:   this.state.showAddonPanel,
-            showStoriesPanel: this.state.showStoriesPanel
-        });
+            this.setState({
+                showAddonPanel: !this.state.showAddonPanel,
+            });
+        };
     };
 
     setState = (newState) => {
@@ -50,5 +62,18 @@ export default class PanelsManager {
         };
 
         this.configureStorybookUI()
+    };
+
+    configureStorybookUI = () => {
+        this.storybookAPI.setQueryParams({
+            showStoriesPanel: this.state.showStoriesPanel,
+            showAddonPanel:   this.state.showAddonPanel
+        });
+
+        this.storybookAPI.setOptions({
+            ...UIConfig,
+            showStoriesPanel: this.state.showStoriesPanel,
+            showAddonPanel:   this.state.showAddonPanel
+        });
     };
 }

@@ -5,6 +5,7 @@ import { SEARCH_FIELD_MODES } from '~core/constants';
 import MultiSelectBox from './MultiSelectBox/MultiSelectBox';
 import SingleSelectBox from './SingleSelectBox/SingleSelectBox';
 import GooglePlaces from './GooglePlaces/GooglePlaces';
+import NestedDropdown from './NestedDropdown/NestedDropdown';
 
 export default class SearchField extends React.PureComponent {
     SuitableComponentRef = React.createRef();
@@ -15,6 +16,8 @@ export default class SearchField extends React.PureComponent {
 
     _getSuitableComponent = () => {
         switch (this.props.searchFieldConfig.mode) {
+            case SEARCH_FIELD_MODES.NESTED_DROPDOWN:
+                return NestedDropdown;
             case SEARCH_FIELD_MODES.GOOGLE_PLACES:
                 return GooglePlaces;
             case SEARCH_FIELD_MODES.SINGLE_SELECT_BOX:

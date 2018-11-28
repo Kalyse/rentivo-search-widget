@@ -28,7 +28,7 @@ export default (MultiSelectBox) => {
             // if specified 'singleResult' for current optGroup - replace old option by new
             if (JSON.parse(selectedOptGroup.dataset.singleResult)) {
                 const optGroupValues = [...selectedOptGroup.children].map((option) => option.value);
-                selectedValues       = selectedValues.filter(val => !optGroupValues.some(optGroupVal => val === optGroupVal));
+                selectedValues       = selectedValues.filter(val => !optGroupValues.includes(val));
                 selectedValues.push(selectedOption.value);
             }
 

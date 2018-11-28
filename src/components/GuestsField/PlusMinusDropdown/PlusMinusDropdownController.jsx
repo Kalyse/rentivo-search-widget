@@ -26,7 +26,7 @@ export default (PlusMinusDropdown) => {
                 .forEach(([optKey, optValue]) => activeOptions[optKey] = optValue);
 
             Object.values(this.props.categories)
-                .filter((catValue) => catValue.optionsId.some(option => Object.keys(activeOptions).includes(option)))
+                .filter(({ optionsId }) => optionsId.some(option => Object.keys(activeOptions).includes(option)))
                 .sort((prevCatValue, nextCatValue) => prevCatValue.order - nextCatValue.order)
                 .forEach(catValue => {
                     activeCategories.push({
@@ -83,7 +83,7 @@ export default (PlusMinusDropdown) => {
                     { Object.values(this.props.options).map((option) => (
                         <PlusMinusOption
                             key={ option.id }
-                            title={ `${this.state.options[option.id]} ${option.title}` }
+                            title={ `${ this.state.options[option.id] } ${ option.title }` }
                             controls={
                                 <PlusMinusControls
                                     onIncrease={ this.handleOptionIncrease.bind(this, option.id) }
@@ -114,12 +114,12 @@ export default (PlusMinusDropdown) => {
             maxNumber:  PropTypes.number,
             categoryId: PropTypes.string
         }).isRequired,
-        placeholder:    PropTypes.string,
-        incDecInterval: PropTypes.number
+        placeholder:    PropTypes.string.isRequired,
+        incDecInterval: PropTypes.number.isRequired
     };
 
     PlusMinusDropdownController.defaultProps = {
-        placeholder:    "Select guests number",
+        placeholder:    'Select guests number',
         incDecInterval: 150
     };
 

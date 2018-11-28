@@ -46,4 +46,13 @@ storiesOf('Examples of "Search Field" modes', module)
                 datesFields={ { ...datesFieldsConfig } }
             />
         </Layout>
+    ))
+    .add('"nested_dropdown" mode', () => (
+        <Layout>
+            <Searchbar
+                searchField={ { mode: 'nested_dropdown' } }
+                guestsField={ { ...guestsFieldConfig_singleSelectBox } }
+                datesFields={ { ...datesFieldsConfig } }
+            />
+        </Layout>
     ));

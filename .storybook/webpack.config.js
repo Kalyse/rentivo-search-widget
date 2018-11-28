@@ -1,4 +1,6 @@
-const path = require("path");
+const path    = require("path");
+const webpack = require('webpack');
+
 
 const PATHS = {
     source:  path.join(__dirname, '../src'),
@@ -51,8 +53,15 @@ module.exports = (storybookBaseConfig, configType) => {
         {
             test:   /\.svg(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[name]/[name].[ext]'
-        },
+        }
     );
+
+    /*storybookBaseConfig.plugins.push(
+        new webpack.ProvidePlugin({
+            $:      "jquery",
+            jQuery: "jquery",
+        })
+    );*/
 
     // Return the altered config
     return storybookBaseConfig;

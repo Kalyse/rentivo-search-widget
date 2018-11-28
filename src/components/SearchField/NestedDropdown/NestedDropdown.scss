@@ -1,0 +1,16 @@
+.NestedDropdown {
+    &__SearchInput {
+        display: block;
+        padding: 5px 8px;
+        
+        border: none;
+    
+        background-color: transparent;
+        
+        color: #444;
+        
+        &:focus, &:focus-within {
+            border-color: black;
+        }
+    }
+}

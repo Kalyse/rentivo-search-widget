@@ -1,0 +1,17 @@
+.NestedMenuSearchResultsTitle {
+    display: flex;
+    align-items: center;
+    padding: 13px 6px 12px;
+    
+    border-bottom: 1px solid #cccccc;
+    
+    background: white;
+    
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+    &:only-child {
+        border-bottom: none;
+    }
+}

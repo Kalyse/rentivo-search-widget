@@ -1,0 +1,58 @@
+.NestedMenuItem {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background: white;
+    cursor: pointer;
+    
+    i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        
+        font-size: 16px;
+        
+        cursor: pointer;
+        
+        &:hover {
+            background: #5897fb;
+            color: #ffffff;
+        }
+        
+        &.is-selected {
+            background: #ddd;
+            
+            &:hover {
+                background: #5897fb;
+                color: #ffffff;
+            }
+        }
+    }
+    
+    span {
+        flex: 1;
+        padding: 12px 6px 12px 12px;
+        
+        &:hover {
+            background: #5897fb;
+            color: #ffffff;
+        }
+    }
+    
+    &.is-hovered {
+        background: #5897fb;
+        color: white;
+    }
+    
+    &.is-selected {
+        span {
+            background: #ddd;
+            
+            &:hover {
+                background: #5897fb;
+                color: #ffffff;
+            }
+        }
+    }
+}

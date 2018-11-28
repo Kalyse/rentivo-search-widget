@@ -1,7 +1,11 @@
 @import "./vars";
 
 @mixin min-widget-size($size) {
-    @if $size == $xs-min {
+    @if $size == $tn-min {
+        .rsw-tn {
+            @content;
+        }
+    } @else if $size == $xs-min {
         .rsw-xs {
             @content;
         }

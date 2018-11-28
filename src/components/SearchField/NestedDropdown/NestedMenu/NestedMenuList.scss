@@ -1,0 +1,46 @@
+@import "~core/style-utils/vars";
+
+.NestedMenuList {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    
+    background: #ffffff;
+    
+    list-style-type: none;
+    overflow-y: auto;
+    transition: left ($speed * 2);
+    z-index: 1;
+    
+    
+    &.is-open {
+        left: 0;
+        
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            
+            background: #000000;
+            
+            opacity: 0.3;
+            z-index: 1;
+            transition: opacity ($speed * 2), z-index ($speed * 2);
+        }
+    }
+    
+    &.is-current {
+        &:before {
+            opacity: 0;
+            z-index: -1;
+            transition: opacity ($speed * 2), z-index 0s ease ($speed * 2);
+        }
+    }
+}

@@ -1,23 +1,20 @@
 <style>
     .css-16z7x6f {
-        height: calc(100vh - 36px) !important;
+        height: calc(100vh - 50px) !important;
     }
 
-    .fullscreen {
+    .panelToggler {
         display: block;
         position: fixed;
-        width: 100%;
-        left: 0;
-        right: 0;
         bottom: 0;
-        padding: 10px 0;
+        padding: 0 25px;
 
-        background: #008D13;
+        background: #405681;
 
         color: #fff;
         font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 16px;
+        font-size: 14px;
+        line-height: 50px;
         text-align: center;
         text-decoration: none;
 
@@ -25,25 +22,49 @@
         z-index: 1000;
     }
 
-    .fullscreen:hover {
-        background: #4CAF50;
+    .panelToggler:hover {
+        background: #31456d;
+    }
+
+    .panelToggler--stories {
+        left: 0;
+
+        border-radius: 0 5px 0 0;
+    }
+
+    .panelToggler--addons {
+        right: 0;
+
+        border-radius: 5px 0 0 0;
     }
 </style>
 <script>
-    var TogglePanelsElement         = document.createElement('a');
-    TogglePanelsElement.className   = 'fullscreen';
-    TogglePanelsElement.textContent = 'Show/Hide Panels';
-    TogglePanelsElement.href        = '#';
+    var ToggleStoriesPanelElement         = document.createElement('a');
+    ToggleStoriesPanelElement.className   = 'panelToggler panelToggler--stories';
+    ToggleStoriesPanelElement.textContent = 'Show/Hide Stories Panel';
+    ToggleStoriesPanelElement.href        = '#';
 
-    TogglePanelsElement.addEventListener('click', (e) => {
+    ToggleStoriesPanelElement.addEventListener('click', (e) => {
         e.preventDefault();
-        if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleFullscreen) return;
-        window.__STORYBOOK_ADDONS.toggleFullscreen();
+        if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleStoriesPanel) return;
+        window.__STORYBOOK_ADDONS.toggleStoriesPanel(e);
+    });
+
+    var ToggleAddonPanelElement         = document.createElement('a');
+    ToggleAddonPanelElement.className   = 'panelToggler panelToggler--addons';
+    ToggleAddonPanelElement.textContent = 'Show/Hide Addon Panel';
+    ToggleAddonPanelElement.href        = '#';
+
+    ToggleAddonPanelElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleAddonPanel) return;
+        window.__STORYBOOK_ADDONS.toggleAddonPanel(e);
     });
 
     !function appendToBody() {
         if (document.body) {
-            document.body.appendChild(TogglePanelsElement);
+            document.body.appendChild(ToggleStoriesPanelElement);
+            document.body.appendChild(ToggleAddonPanelElement);
         } else {
             setTimeout(appendToBody, 500);
         }

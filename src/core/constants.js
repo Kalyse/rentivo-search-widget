@@ -1,7 +1,8 @@
 export const SEARCH_FIELD_MODES = {
     SINGLE_SELECT_BOX: 'single_select_box',
     MULTI_SELECT_BOX:  'multi_select_box',
-    GOOGLE_PLACES:     'google_places'
+    GOOGLE_PLACES:     'google_places',
+    NESTED_DROPDOWN:   'nested_dropdown',
 };
 
 export const GUESTS_FIELD_MODES = {
@@ -45,4 +46,9 @@ export const WIDGET_SIZES = {
         width:      1440,
         classnames: 'rsw-tn rsw-xs rsw-sm rsw-md rsw-lg rsw-xg'
     },
+};
+
+export const ROOT_MENUS_ID = {
+    DEFAULT:        'defaultRootMenu',
+    SEARCH_RESULTS: 'searchResultsMenu'
 };

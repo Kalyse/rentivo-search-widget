@@ -1,0 +1,11 @@
+@import "~core/style-utils/vars";
+
+.NestedMenu {
+    @extend %text-defaults;
+    position: relative;
+    
+    border-radius: 0 0 5px 5px;
+    
+    overflow-x: hidden;
+    transition: height ($speed * 2);
+}

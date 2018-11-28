@@ -7,23 +7,21 @@ import './Dropdown.scss';
 class Dropdown extends React.PureComponent {
     DropdownRef = React.createRef();
 
-    closeDropdownByDocumentClick = (e) => {
+    handleOutsideClick = (e) => {
         const target       = e.target;
         const dropdownNode = this.DropdownRef.current;
-        const itsDropdown  = target === dropdownNode || dropdownNode.contains(target);
-        if (!itsDropdown && this.props.isOpen) {
-            console.log(target);
-            this.props.toggleDropdown();
+        if (!dropdownNode.contains(target) && this.props.isOpen) {
+            this.props.closeDropdown();
         }
 
     };
 
     componentDidMount() {
-        document.addEventListener('click', this.closeDropdownByDocumentClick);
+        document.addEventListener('click', this.handleOutsideClick);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.closeDropdownByDocumentClick);
+        document.removeEventListener('click', this.handleOutsideClick);
     }
 
     render() {
@@ -52,11 +50,11 @@ class Dropdown extends React.PureComponent {
 }
 
 Dropdown.propTypes = {
-    isOpen:         PropTypes.bool.isRequired,
-    head:           PropTypes.element.isRequired,
-    body:           PropTypes.element.isRequired,
-    toggleDropdown: PropTypes.func.isRequired,
-    bodyAlign:      PropTypes.oneOf(['left', 'right']).isRequired,
+    isOpen:        PropTypes.bool.isRequired,
+    head:          PropTypes.element.isRequired,
+    body:          PropTypes.element.isRequired,
+    closeDropdown: PropTypes.func.isRequired,
+    bodyAlign:     PropTypes.oneOf(['left', 'right']).isRequired,
 };
 
 Dropdown.defaultProps = {

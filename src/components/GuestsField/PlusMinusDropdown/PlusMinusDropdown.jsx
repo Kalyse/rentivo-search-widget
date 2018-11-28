@@ -30,7 +30,7 @@ class PlusMinusDropdown extends React.PureComponent {
                     head={ DropdownHead }
                     body={ DropdownBody }
                     bodyAlign='right'
-                    toggleDropdown={ this.props.toggleDropdown }
+                    closeDropdown={ this.props.toggleDropdown }
                     isOpen={ this.props.isOpen }
                 />
             </div>
