@@ -1,6 +1,5 @@
 {
     "mode": "single_select_box",
-    "placeholder": "Where do you want to go?",
     "data": {
         "categoryTitle": "Destinations",
         "categoryKey": "location",

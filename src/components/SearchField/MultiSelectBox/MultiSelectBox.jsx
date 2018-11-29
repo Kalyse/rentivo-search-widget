@@ -5,6 +5,7 @@ import Select2 from 'react-select2-wrapper';
 import 'react-select2-wrapper/css/select2.css';
 
 import withController from './MultiSelectBoxController';
+import withPreparedProps from './prepareProps';
 import './MultiSelectBox.scss';
 
 const MultiSelectBox = ({
@@ -34,4 +35,4 @@ MultiSelectBox.propTypes = {
     onSelect:    PropTypes.func
 };
 
-export default withController(React.memo(MultiSelectBox));
+export default withPreparedProps(withController(React.memo(MultiSelectBox)));

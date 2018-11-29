@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { convertSchemaToSingleSelectBoxData } from '~core/helpers/convertSchema';
 import { generateSingleSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
 export default (SingleSelectBox) => {
     class SingleSelectBoxController extends React.PureComponent {
-        convertedData = convertSchemaToSingleSelectBoxData(this.props.data);
-        state         = {
-            value: this.props.initialValue || this.convertedData[0].id
+        state = {
+            value: this.props.initialValue
         };
 
         generateUrlPart = () => generateSingleSelectBoxPart(this.state.value, this.props.data);
@@ -19,7 +17,7 @@ export default (SingleSelectBox) => {
             return (
                 <SingleSelectBox
                     value={ this.state.value }
-                    data={ this.convertedData }
+                    data={ this.props.data }
                     onSelect={ this.handleOptionSelect }
                     options={ {
                         minimumResultsForSearch: 'Infinity'
@@ -30,17 +28,8 @@ export default (SingleSelectBox) => {
     }
 
     SingleSelectBoxController.propTypes = {
-        initialValue: PropTypes.string,
-        data:         PropTypes.shape({
-            categoryTitle: PropTypes.string.isRequired,
-            categoryKey:   PropTypes.string.isRequired,
-            categoryValue: PropTypes.arrayOf(
-                PropTypes.shape({
-                    itemTitle: PropTypes.string.isRequired,
-                    itemValue: PropTypes.string.isRequired
-                })
-            ).isRequired
-        }).isRequired,
+        initialValue: PropTypes.string.isRequired,
+        data:         PropTypes.array.isRequired,
     };
 
     return SingleSelectBoxController;

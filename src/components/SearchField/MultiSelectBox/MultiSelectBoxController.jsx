@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
 
-import { convertSchemaToMultiSelectBoxData } from '~core/helpers/convertSchema';
 import { generateMultiSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxController extends React.PureComponent {
-        convertedData = convertSchemaToMultiSelectBoxData(this.props.data);
-
-        // it fixes issue with non-recalculating of input's width when resizing window
+        // it fixes issue with non-recalculating of input's width during resizing window
         select2Reinit           = () => this.forceUpdate();
         _throttledSelect2Reinit = throttle(this.select2Reinit, 500);
 
@@ -47,7 +44,7 @@ export default (MultiSelectBox) => {
             return (
                 <MultiSelectBox
                     value={ this.state.value }
-                    data={ this.convertedData }
+                    data={ this.props.data }
                     placeholder={ this.props.placeholder }
                     onSelect={ this.searchFieldSelect }
                     key={ Math.random() }
