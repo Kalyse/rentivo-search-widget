@@ -118,10 +118,5 @@ export default (PlusMinusDropdown) => {
         incDecInterval: PropTypes.number.isRequired
     };
 
-    PlusMinusDropdownController.defaultProps = {
-        placeholder:    'Select guests number',
-        incDecInterval: 150
-    };
-
     return PlusMinusDropdownController;
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default (PlusMinusDropdown) => {
     class PlusMinusDropdownWrapper extends React.PureComponent {
-        _getNormalizeCategories = () => {
+        _getNormalizedCategories = () => {
             const categories = {};
             this.props.data.forEach((category, idx) => {
                 categories[category.categoryKey] = {
@@ -17,7 +17,7 @@ export default (PlusMinusDropdown) => {
             return categories;
         };
 
-        _getNormalizeOptions = () => {
+        _getNormalizedOptions = () => {
             const options = {};
             this.props.data.forEach(category => category.categoryValue.forEach(option => {
                 options[option.itemValue] = {
@@ -34,8 +34,8 @@ export default (PlusMinusDropdown) => {
 
         normalizeData = () => {
             return {
-                categories:     this._getNormalizeCategories(),
-                options:        this._getNormalizeOptions(),
+                categories:     this._getNormalizedCategories(),
+                options:        this._getNormalizedOptions(),
                 placeholder:    this.props.placeholder,
                 incDecInterval: this.props.incDecInterval,
             };
@@ -64,6 +64,11 @@ export default (PlusMinusDropdown) => {
         ).isRequired,
         placeholder:    PropTypes.string,
         incDecInterval: PropTypes.number,
+    };
+
+    PlusMinusDropdownWrapper.defaultProps = {
+        placeholder:    'Select guests number',
+        incDecInterval: 150
     };
 
     return PlusMinusDropdownWrapper;

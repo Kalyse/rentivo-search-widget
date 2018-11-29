@@ -12,6 +12,7 @@ import Searchbar from '../../src/components/Searchbar/Searchbar';
 import searchFieldConfig_singleSelectBox from '../jsonExamples/searchField--singleSelectBox';
 import searchFieldConfig_multiSelectBox from '../jsonExamples/searchField--multiSelectBox';
 import searchFieldConfig_googlePlaces from '../jsonExamples/searchField--googlePlaces';
+import searchFieldConfig_nestedDropdown from '../jsonExamples/searchField--nestedDropdown';
 
 import guestsFieldConfig_singleSelectBox from '../jsonExamples/guestsField--singleSelectBox';
 
@@ -50,7 +51,7 @@ storiesOf('Examples of "Search Field" modes', module)
     .add('"nested_dropdown" mode', () => (
         <Layout>
             <Searchbar
-                searchField={ { mode: 'nested_dropdown' } }
+                searchField={ { ...searchFieldConfig_nestedDropdown } }
                 guestsField={ { ...guestsFieldConfig_singleSelectBox } }
                 datesFields={ { ...datesFieldsConfig } }
             />
