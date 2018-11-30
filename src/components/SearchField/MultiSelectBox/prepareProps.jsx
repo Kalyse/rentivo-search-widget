@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxWrapper extends React.PureComponent {
@@ -30,7 +31,17 @@ export default (MultiSelectBox) => {
         };
 
         render() {
-            return <MultiSelectBox ref={ this.props.forwardedRef } { ...this.normalizeData() } />;
+            return (
+                <WidgetConsumer>
+                    { (context) => (
+                        <MultiSelectBox
+                            context={ context }
+                            ref={ this.props.forwardedRef }
+                            { ...this.normalizeData() }
+                        />
+                    ) }
+                </WidgetConsumer>
+            );
         }
     }
 

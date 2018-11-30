@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
@@ -9,6 +9,11 @@ import SearchField from '~components/SearchField/SearchFieldRouter';
 import GuestsField from '~components/GuestsField/GuestsFieldRouter';
 import DatesFields from '~components/DatesFields/DatesFields';
 import Button from '~components/shared/Button/Button';
+
+export const NewContext     = createContext({ a: 'b' });
+const WidgetContext         = createContext({});
+export const WidgetProvider = WidgetContext.Provider;
+export const WidgetConsumer = WidgetContext.Consumer;
 
 export default (Searchbar) => {
     class SearchbarController extends React.PureComponent {
@@ -50,19 +55,23 @@ export default (Searchbar) => {
 
         _throttledManageWidgetSize = throttle(this._manageWidgetSize, 500);
 
-        state = {
-            searchField: {},
-            datesFields: {},
-            guestsField: {},
-            widgetSize:  WIDGET_SIZES.DEFAULT.id
+        initState = {
+            searchField:  this.props.searchField,
+            datesFields:  this.props.datesFields,
+            guestsField:  this.props.guestsField,
+            baseUrl:      this.props.baseUrl,
+            appendString: this.props.appendString,
+            widgetSize:   WIDGET_SIZES.DEFAULT.id
         };
 
+        state = { ...this.initState };
+
         handleFormSubmit = () => {
-            const redirectionURL = this.props.searchField.mode === SEARCH_FIELD_MODES.NESTED_DROPDOWN
+            const redirectionURL = this.state.searchField.mode === SEARCH_FIELD_MODES.NESTED_DROPDOWN
                 ? this.generateCustomUrl()
                 : this.generateDefaultUrl();
-            // alert('Redirection URL: \n' + redirectionURL);
-            console.log(redirectionURL);
+            alert('Redirection URL: \n' + redirectionURL);
+            // console.log(redirectionURL);
             // return window.location.href = redirectionURL;
         };
 
@@ -73,7 +82,7 @@ export default (Searchbar) => {
 
             let urlChunks = [datesFieldsUrlPart, guestsFieldUrlPart];
 
-            if (this.props.searchField.mode === SEARCH_FIELD_MODES.GOOGLE_PLACES) {
+            if (this.state.searchField.mode === SEARCH_FIELD_MODES.GOOGLE_PLACES) {
                 urlChunks.push(searchFieldUrlPart);
             } else {
                 urlChunks.unshift(searchFieldUrlPart);
@@ -81,12 +90,12 @@ export default (Searchbar) => {
 
             urlChunks = urlChunks.filter(chunk => !!chunk);
 
-            return this.props.baseUrl + urlChunks.join('/') + this.props.appendString;
+            return this.state.baseUrl + urlChunks.join('/') + this.state.appendString;
         };
 
         generateCustomUrl = () => {
-            if (this.props.guestsField.mode !== GUESTS_FIELD_MODES.SINGLE_SELECT_BOX) {
-                return new Error(`GuestsField mode '${ this.props.guestsField.mode }' 
+            if (this.state.guestsField.mode !== GUESTS_FIELD_MODES.SINGLE_SELECT_BOX) {
+                return new Error(`GuestsField mode '${ this.state.guestsField.mode }' 
                 incompatible with SearchField mode '${ SEARCH_FIELD_MODES.NESTED_DROPDOWN }'`);
             }
 
@@ -96,7 +105,7 @@ export default (Searchbar) => {
 
             const urlChunks = [searchFieldUrlPart, guestsFieldUrlPart, datesFieldsUrlPart];
 
-            return this.props.baseUrl + urlChunks.join('') + this.props.appendString;
+            return this.state.baseUrl + urlChunks.join('') + this.state.appendString;
         };
 
         componentDidMount() {
@@ -110,29 +119,53 @@ export default (Searchbar) => {
 
         render() {
             return (
-                <Searchbar
-                    searchbarRef={ this.SearchbarRef }
-                    sizeClassNames={ WIDGET_SIZES[this.state.widgetSize].classnames }
-                    firstCol={
-                        <SearchField
-                            searchFieldConfig={ this.props.searchField }
-                            ref={ this.SearchFieldRef }
-                        /> }
-                    secondCol={
-                        <DatesFields
-                            { ...this.props.datesFields }
-                            widgetSizeId={ this.state.widgetSize }
-                            ref={ this.DatesFieldsRef }
-                        /> }
-                    thirdCol={
-                        <GuestsField
-                            guestsFieldConfig={ this.props.guestsField }
-                            ref={ this.GuestsFieldRef }
-                        /> }
-                    fourthCol={
-                        <Button styleType="search" onClick={ this.handleFormSubmit }>Search</Button>
-                    }
-                />
+                <WidgetProvider
+                    value={ {
+                        initState: {
+                            datesFields:  this.initState.datesFields,
+                            guestsField:  this.initState.guestsField,
+                            baseUrl:      this.initState.baseUrl,
+                            appendString: this.initState.appendString,
+                        },
+                        state:     {
+                            datesFields:  this.state.datesFields,
+                            guestsField:  this.state.guestsField,
+                            baseUrl:      this.state.baseUrl,
+                            appendString: this.state.appendString,
+                        },
+                        actions:   {
+                            setCustomDatesFields:  (datesFields) => this.setState({ datesFields }),
+                            setCustomGuestsField:  (guestsField) => this.setState({ guestsField }),
+                            setCustomBaseUrl:      (baseUrl) => this.setState({ baseUrl }),
+                            setCustomAppendString: (appendString) => this.setState({ appendString }),
+                        }
+                    } }
+
+                >
+                    <Searchbar
+                        searchbarRef={ this.SearchbarRef }
+                        sizeClassNames={ WIDGET_SIZES[this.state.widgetSize].classnames }
+                        firstCol={
+                            <SearchField
+                                searchFieldConfig={ this.state.searchField }
+                                ref={ this.SearchFieldRef }
+                            /> }
+                        secondCol={
+                            <DatesFields
+                                { ...this.state.datesFields }
+                                widgetSizeId={ this.state.widgetSize }
+                                ref={ this.DatesFieldsRef }
+                            /> }
+                        thirdCol={
+                            <GuestsField
+                                guestsFieldConfig={ this.state.guestsField }
+                                ref={ this.GuestsFieldRef }
+                            /> }
+                        fourthCol={
+                            <Button styleType="search" onClick={ this.handleFormSubmit }>Search</Button>
+                        }
+                    />
+                </WidgetProvider>
             );
         }
     }

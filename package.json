@@ -26,9 +26,9 @@
     "load-google-maps-api-2": "^1.0.2",
     "lodash": "^4.17.11",
     "moment": "^2.22.1",
-    "react": "^16.3.2",
+    "react": "^16.6.3",
     "react-dates": "^16.7.0",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.6.3",
     "react-places-autocomplete": "^7.1.2",
     "react-select2-wrapper": "^1.0.4-beta6"
   },

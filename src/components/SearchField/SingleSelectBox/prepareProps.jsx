@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
 
 export default (SingleSelectBox) => {
     class SingleSelectBoxWrapper extends React.PureComponent {
@@ -21,9 +22,21 @@ export default (SingleSelectBox) => {
         };
 
         render() {
-            return <SingleSelectBox ref={ this.props.forwardedRef } { ...this.normalizeData() } />
+            return (
+                <WidgetConsumer>
+                    { (context) => (
+                        <SingleSelectBox
+                            context={ context }
+                            ref={ this.props.forwardedRef }
+                            { ...this.normalizeData() }
+                        />
+                    ) }
+                </WidgetConsumer>
+            );
         }
     }
+
+    SingleSelectBoxWrapper.contextType = WidgetConsumer;
 
     SingleSelectBoxWrapper.propTypes = {
         placeholder: PropTypes.string,

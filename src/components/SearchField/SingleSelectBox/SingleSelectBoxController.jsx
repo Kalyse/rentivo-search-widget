@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
 
 import { generateSingleSelectBoxPart } from './helpers/urlGenerator';
 
@@ -9,9 +10,28 @@ export default (SingleSelectBox) => {
             value: null
         };
 
+        setCustomWidgetConfig   = setCustomWidgetConfig.bind(this);
+        resetCustomWidgetConfig = resetCustomWidgetConfig.bind(this);
+
         generateUrlPart = () => this.state.value && generateSingleSelectBoxPart(this.state.value, this.props.rawData);
 
-        handleOptionSelect = e => this.setState({ value: e.target.value });
+        updateGlobalWidgetConfig = (newValue) => {
+            // if has a custom widget config - change state of Searchbar
+            const { customWidgetConfig } = this.props.rawData.categoryValue.find(({ itemValue }) => itemValue === newValue);
+
+            if (customWidgetConfig) {
+                this.setCustomWidgetConfig(customWidgetConfig);
+            } else {
+                this.resetCustomWidgetConfig();
+            }
+        };
+
+        handleOptionSelect = e => {
+            const newValue = e.target.value;
+            this.setState({ value: newValue }, () => {
+                this.updateGlobalWidgetConfig(newValue);
+            });
+        };
 
         render() {
             return (
@@ -30,7 +50,8 @@ export default (SingleSelectBox) => {
     SingleSelectBoxController.propTypes = {
         placeholder: PropTypes.string.isRequired,
         data:        PropTypes.array.isRequired,
-        rawData:     PropTypes.object.isRequired
+        rawData:     PropTypes.object.isRequired,
+        context:     PropTypes.object.isRequired
     };
 
     return SingleSelectBoxController;

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import last from 'lodash/last'
 import { ROOT_MENUS_ID } from '~core/constants';
 
+import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
+
 import { generateNestedDropdownPart } from './helpers/urlGenerator';
 
 import NestedMenu from './NestedMenu/NestedMenu';
@@ -38,6 +40,10 @@ export default (NestedDropdown) => {
             currentRootMenuId: ROOT_MENUS_ID.DEFAULT,
             openSubmenusId:    [],
         };
+
+
+        setCustomWidgetConfig   = setCustomWidgetConfig.bind(this);
+        resetCustomWidgetConfig = resetCustomWidgetConfig.bind(this);
 
         generateUrlPart       = generateNestedDropdownPart.bind(this);
         generateCustomUrlPart = generateNestedDropdownPart.bind(this);
@@ -76,12 +82,26 @@ export default (NestedDropdown) => {
             });
         };
 
+        updateGlobalWidgetConfig = (selectedOption) => {
+            // if has a custom widget config - change state of Searchbar
+            const { customWidgetConfig } = selectedOption;
+
+            if (customWidgetConfig) {
+                this.setCustomWidgetConfig(customWidgetConfig);
+            } else {
+                this.resetCustomWidgetConfig();
+            }
+        };
+
         handleItemSelect = optionId => {
             this.setState({
                 searchInputValue:  this.props.options[optionId].title,
                 selectedOptionId:  optionId,
                 currentRootMenuId: ROOT_MENUS_ID.DEFAULT
-            }, this.closeDropdown);
+            }, () => {
+                this.closeDropdown();
+                this.updateGlobalWidgetConfig(this.props.options[optionId])
+            });
         };
 
         countMenuRows = () => {

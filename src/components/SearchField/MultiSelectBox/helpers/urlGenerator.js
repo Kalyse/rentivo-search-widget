@@ -1,23 +1,23 @@
-function _getWoeid(chosenItems, searchSchema) {
+function _getWoeid(chosenItems, data) {
     let woeid = null;
 
     chosenItems.forEach((item) => {
         const [categoryIdx, itemIdx] = item.split('/');
-        const { singleResult }       = searchSchema[categoryIdx];
+        const { singleResult }       = data[categoryIdx];
 
         if (!singleResult) {
             return;
         }
 
-        woeid = searchSchema[categoryIdx].categoryValue[itemIdx].WOEID;
+        woeid = data[categoryIdx].categoryValue[itemIdx].WOEID;
     });
 
     return woeid;
 }
 
-export function generateMultiSelectBoxPart(chosenItems, searchSchema) {
+export function generateMultiSelectBoxPart(chosenItems, data) {
     const urlChunks       = [];
-    const WOEID           = _getWoeid(chosenItems, searchSchema);
+    const WOEID           = _getWoeid(chosenItems, data);
     const searchFieldPart = {};
 
     if (WOEID) {
@@ -26,8 +26,8 @@ export function generateMultiSelectBoxPart(chosenItems, searchSchema) {
 
     chosenItems.forEach((item) => {
         const [categoryIdx, itemIdx] = item.split('/');
-        const { categoryKey }        = searchSchema[categoryIdx];
-        const { itemValue }          = searchSchema[categoryIdx].categoryValue[itemIdx];
+        const { categoryKey }        = data[categoryIdx];
+        const { itemValue }          = data[categoryIdx].categoryValue[itemIdx];
 
         if (!searchFieldPart.hasOwnProperty(categoryKey)) {
             searchFieldPart[categoryKey] = [];

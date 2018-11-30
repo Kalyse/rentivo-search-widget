@@ -11,11 +11,97 @@
             },
             {
                 "itemTitle": "Sorrento and Amalfi",
-                "itemValue": "NR"
+                "itemValue": "NR",
+                "customWidgetConfig": {
+                    "baseUrl": "http://new-base-url.com/",
+                    "appendString": "?qwerty=dvorak",
+                    "datesFields": {
+                        "startDateId": "CustomStartDateId",
+                        "endDateId": "CustomEndDateId"
+                    },
+                    "guestsField": {
+                        "mode": "plus_minus",
+                        "placeholder": "Select guests number",
+                        "data": [
+                            {
+                                "categoryTitle": "Guests",
+                                "categoryKey": "guests",
+                                "placeholderOrder": 2,
+                                "categoryValue": [
+                                    {
+                                        "itemTitle": "Adults",
+                                        "itemValue": "adults",
+                                        "minNumber": 2,
+                                        "maxNumber": 17
+                                    },
+                                    {
+                                        "itemTitle": "Children",
+                                        "itemValue": "children",
+                                        "minNumber": 0,
+                                        "maxNumber": 5
+                                    },
+                                    {
+                                        "itemTitle": "Infants",
+                                        "itemValue": "infants",
+                                        "minNumber": 0,
+                                        "maxNumber": 5
+                                    }
+                                ]
+                            },
+                            {
+                                "categoryTitle": "Pets",
+                                "categoryKey": "pets",
+                                "placeholderOrder": -1,
+                                "categoryValue": [
+                                    {
+                                        "itemTitle": "Dogs",
+                                        "itemValue": "dogs",
+                                        "minNumber": 0,
+                                        "maxNumber": 3
+                                    },
+                                    {
+                                        "itemTitle": "Cats",
+                                        "itemValue": "cats",
+                                        "minNumber": 0,
+                                        "maxNumber": 3
+                                    }
+                                ]
+                            },
+                            {
+                                "categoryTitle": "Other",
+                                "categoryKey": "other",
+                                "placeholderOrder": 0,
+                                "categoryValue": [
+                                    {
+                                        "itemTitle": "Imaginary friends",
+                                        "itemValue": "imaginary_friends",
+                                        "minNumber": 0,
+                                        "maxNumber": 10
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
             },
             {
                 "itemTitle": "Sicily",
-                "itemValue": "SI"
+                "itemValue": "SI",
+                "customWidgetConfig": {
+                    "guestsField": {
+                        "mode": "single_select_box",
+                        "data": {
+                            "categoryTitle": "Sleeps",
+                            "categoryKey": "sleeps",
+                            "categoryValue": [
+                                {
+                                    "itemTitle": "3 Guests",
+                                    "itemValue": "3"
+                                }
+                            ]
+                        }
+                    }
+                }
             },
             {
                 "itemTitle": "Umbria",

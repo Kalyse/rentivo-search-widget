@@ -54,7 +54,15 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "customWidgetConfig": {
+                    "baseUrl": "http://new-base-url.com/",
+                    "appendString": "?qwerty=dvorak",
+                    "datesFields": {
+                        "startDateId": "CustomStartDateId",
+                        "endDateId": "CustomEndDateId"
+                    }
+                }
             }
         ]
     }

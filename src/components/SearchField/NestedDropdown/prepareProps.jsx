@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
 
 import { ROOT_MENUS_ID } from '~core/constants';
 
@@ -10,14 +11,16 @@ export default (NestedDropdown) => {
 
         _getNormalizedOptions = (data = this.props.data.children, options = {}) => {
             data.forEach(option => {
-                const optionId      = `option-${ option.pathFragment }`;
-                const nextSubmenuId = option.children ? `submenu-${ option.pathFragment }` : null;
+                const optionId           = `option-${ option.pathFragment }`;
+                const nextSubmenuId      = option.children ? `submenu-${ option.pathFragment }` : null;
+                const customWidgetConfig = option.customWidgetConfig ? option.customWidgetConfig : null;
 
                 options[optionId] = {
                     id:           optionId,
                     title:        option.name,
                     pathFragment: option.pathFragment,
-                    nextSubmenuId
+                    nextSubmenuId,
+                    customWidgetConfig
                 };
 
                 if (option.children) {
@@ -78,7 +81,17 @@ export default (NestedDropdown) => {
         };
 
         render() {
-            return <NestedDropdown ref={ this.props.forwardedRef } { ...this.normalizeData() }/>;
+            return (
+                <WidgetConsumer>
+                    { (context) => (
+                        <NestedDropdown
+                            context={ context }
+                            ref={ this.props.forwardedRef }
+                            { ...this.normalizeData() }
+                        />
+                    ) }
+                </WidgetConsumer>
+            );
         }
     }
 
