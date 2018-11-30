@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import loadGoogleMapsAPI from "load-google-maps-api-2";
 
-import { generateGooglePlacesPart } from '~core/helpers/prepareSubmitUrl';
+import { generateGooglePlacesPart } from './helpers/urlGenerator';
 
 import './GooglePlaces.scss';
 
@@ -25,7 +25,8 @@ export default class GooglePlaces extends React.PureComponent {
         this.googlePlacesInstanceId = ++window.googlePlacesInstanceCount;
     }
 
-    generateUrlPart = () => generateGooglePlacesPart(this.state.searchResultData);
+    generateUrlPart       = () => generateGooglePlacesPart(this.state.searchResultData);
+    generateCustomUrlPart = () => null;
 
     handleChange = address => {
         this.setState({ address });

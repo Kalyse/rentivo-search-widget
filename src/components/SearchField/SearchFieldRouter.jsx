@@ -14,6 +14,10 @@ export default class SearchField extends React.PureComponent {
         return this.SuitableComponentRef.current.generateUrlPart()
     };
 
+    get customUrlPart() {
+        return this.SuitableComponentRef.current.generateCustomUrlPart()
+    };
+
     _getSuitableComponent = () => {
         switch (this.props.searchFieldConfig.mode) {
             case SEARCH_FIELD_MODES.NESTED_DROPDOWN:

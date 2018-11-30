@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 export default (PlusMinusDropdown) => {
     class PlusMinusDropdownWrapper extends React.PureComponent {
+        generateUrlPart       = () => this.props.forwardedRef.current.generateUrlPart();
+        generateCustomUrlPart = () => null;
+
         _getNormalizedCategories = () => {
             const categories = {};
             this.props.data.forEach((category, idx) => {
@@ -42,7 +45,7 @@ export default (PlusMinusDropdown) => {
         };
 
         render() {
-            return <PlusMinusDropdown { ...this.normalizeData() } />;
+            return <PlusMinusDropdown ref={ this.props.forwardedRef } { ...this.normalizeData() } />;
         }
     }
 
@@ -71,5 +74,7 @@ export default (PlusMinusDropdown) => {
         incDecInterval: 150
     };
 
-    return PlusMinusDropdownWrapper;
+    return React.forwardRef((props, ref) => {
+        return <PlusMinusDropdownWrapper { ...props } forwardedRef={ ref }/>;
+    });
 };

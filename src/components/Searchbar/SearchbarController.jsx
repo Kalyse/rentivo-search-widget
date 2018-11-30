@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
 
-import {
-    SEARCH_FIELD_MODES,
-    WIDGET_SIZES
-} from '~core/constants';
+import { GUESTS_FIELD_MODES, SEARCH_FIELD_MODES, WIDGET_SIZES } from '~core/constants';
 
 import SearchField from '~components/SearchField/SearchFieldRouter';
 import GuestsField from '~components/GuestsField/GuestsFieldRouter';
@@ -60,7 +57,16 @@ export default (Searchbar) => {
             widgetSize:  WIDGET_SIZES.DEFAULT.id
         };
 
-        submitForm = () => {
+        handleFormSubmit = () => {
+            const redirectionURL = this.props.searchField.mode === SEARCH_FIELD_MODES.NESTED_DROPDOWN
+                ? this.generateCustomUrl()
+                : this.generateDefaultUrl();
+            // alert('Redirection URL: \n' + redirectionURL);
+            console.log(redirectionURL);
+            // return window.location.href = redirectionURL;
+        };
+
+        generateDefaultUrl = () => {
             const searchFieldUrlPart = this.SearchFieldRef.current.urlPart;
             const datesFieldsUrlPart = this.DatesFieldsRef.current.urlPart;
             const guestsFieldUrlPart = this.GuestsFieldRef.current.urlPart;
@@ -75,9 +81,22 @@ export default (Searchbar) => {
 
             urlChunks = urlChunks.filter(chunk => !!chunk);
 
-            const completedUrl = this.props.baseUrl + urlChunks.join('/') + this.props.appendString;
+            return this.props.baseUrl + urlChunks.join('/') + this.props.appendString;
+        };
 
-            return window.location.href = completedUrl;
+        generateCustomUrl = () => {
+            if (this.props.guestsField.mode !== GUESTS_FIELD_MODES.SINGLE_SELECT_BOX) {
+                return new Error(`GuestsField mode '${ this.props.guestsField.mode }' 
+                incompatible with SearchField mode '${ SEARCH_FIELD_MODES.NESTED_DROPDOWN }'`);
+            }
+
+            const searchFieldUrlPart = this.SearchFieldRef.current.customUrlPart;
+            const datesFieldsUrlPart = this.DatesFieldsRef.current.customUrlPart;
+            const guestsFieldUrlPart = this.GuestsFieldRef.current.customUrlPart;
+
+            const urlChunks = [searchFieldUrlPart, guestsFieldUrlPart, datesFieldsUrlPart];
+
+            return this.props.baseUrl + urlChunks.join('') + this.props.appendString;
         };
 
         componentDidMount() {
@@ -111,7 +130,7 @@ export default (Searchbar) => {
                             ref={ this.GuestsFieldRef }
                         /> }
                     fourthCol={
-                        <Button styleType="search" onClick={ this.submitForm }>Search</Button>
+                        <Button styleType="search" onClick={ this.handleFormSubmit }>Search</Button>
                     }
                 />
             );
@@ -127,7 +146,8 @@ export default (Searchbar) => {
     };
 
     SearchbarController.defaultProps = {
-        baseUrl: `${ window.location.protocol }//${ window.location.host }`
+        baseUrl:      `${ window.location.protocol }//${ window.location.host }/`,
+        appendString: '',
     };
 
     return SearchbarController;

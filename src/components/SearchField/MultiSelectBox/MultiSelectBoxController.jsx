@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
 
-import { generateMultiSelectBoxPart } from '~core/helpers/prepareSubmitUrl';
+import { generateMultiSelectBoxPart } from './helpers/urlGenerator';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxController extends React.PureComponent {
@@ -12,11 +12,10 @@ export default (MultiSelectBox) => {
         _throttledSelect2Reinit = throttle(this.select2Reinit, 500);
 
         state = {
-            value: this.props.initialValue
+            value: []
         };
 
-        generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.data);
-
+        generateUrlPart   = () => generateMultiSelectBoxPart(this.state.value, this.props.rawData);
         searchFieldSelect = (e) => {
             let selectedValues     = [...e.target.options].filter(option => option.selected).map(option => option.value);
             const selectedOption   = e.params.data.element;
@@ -55,9 +54,9 @@ export default (MultiSelectBox) => {
     }
 
     MultiSelectBoxController.propTypes = {
-        initialValue: PropTypes.array,
-        placeholder:  PropTypes.string,
-        data:         PropTypes.array,
+        placeholder: PropTypes.string.isRequired,
+        data:        PropTypes.array.isRequired,
+        rawData:     PropTypes.array.isRequired,
     };
 
     return MultiSelectBoxController;

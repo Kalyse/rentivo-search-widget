@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxWrapper extends React.PureComponent {
+        generateUrlPart       = () => this.props.forwardedRef.current.generateUrlPart();
+        generateCustomUrlPart = () => null;
+
         _getNormalizedData = () => {
             return this.props.data.map(({ categoryTitle, categoryValue, singleResult }, categoryIdx) => {
+                // @formatter:off
                 return {
                     text:     categoryTitle,
                     children: categoryValue.map(({ itemTitle: text }, itemIdx) => ({
@@ -13,18 +17,20 @@ export default (MultiSelectBox) => {
                     })),
                     "data-single-result": String(singleResult)
                 };
+                // @formatter:on
             });
         };
 
         normalizeData = () => {
             return {
                 data:        this._getNormalizedData(),
+                rawData:     this.props.data,
                 placeholder: this.props.placeholder
             };
         };
 
         render() {
-            return <MultiSelectBox { ...this.normalizeData() } />;
+            return <MultiSelectBox ref={ this.props.forwardedRef } { ...this.normalizeData() } />;
         }
     }
 
@@ -50,5 +56,7 @@ export default (MultiSelectBox) => {
         placeholder: 'Where do you want to go?'
     };
 
-    return MultiSelectBoxWrapper;
+    return React.forwardRef((props, ref) => {
+        return <MultiSelectBoxWrapper { ...props } forwardedRef={ ref }/>;
+    });
 };

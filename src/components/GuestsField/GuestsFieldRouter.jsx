@@ -12,6 +12,10 @@ export default class GuestsField extends React.PureComponent {
         return this.SuitableComponentRef.current.generateUrlPart()
     };
 
+    get customUrlPart() {
+        return this.SuitableComponentRef.current.generateCustomUrlPart()
+    };
+
     _getSuitableComponent = () => {
         switch (this.props.guestsFieldConfig.mode) {
             case GUESTS_FIELD_MODES.PLUS_MINUS:

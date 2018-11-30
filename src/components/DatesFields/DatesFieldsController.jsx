@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { WIDGET_SIZES } from '~core/constants';
-import { generateDatesFieldsPart } from '~core/helpers/prepareSubmitUrl'
+import { generateCustomDatesFieldsPart, generateDatesFieldsPart } from './helpers/urlGenerator';
 
 export default (DatesFields) => {
     class DatesFieldsController extends React.PureComponent {
@@ -13,7 +13,11 @@ export default (DatesFields) => {
         };
 
         get urlPart() {
-            return generateDatesFieldsPart(this.state, this.props)
+            return generateDatesFieldsPart(this.state, this.props);
+        };
+
+        get customUrlPart() {
+            return generateCustomDatesFieldsPart(this.state, this.props);
         };
 
         getNumberOfMonths = () => {

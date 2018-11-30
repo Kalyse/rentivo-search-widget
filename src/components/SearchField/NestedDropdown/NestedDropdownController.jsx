@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import last from 'lodash/last'
 import { ROOT_MENUS_ID } from '~core/constants';
 
+import { generateNestedDropdownPart } from './helpers/urlGenerator';
+
 import NestedMenu from './NestedMenu/NestedMenu';
 import NestedMenuList from './NestedMenu/NestedMenuList';
 import NestedMenuItem from './NestedMenu/NestedMenuItem';
@@ -12,6 +14,7 @@ import NestedMenuSearchResultsTitle from './NestedMenu/NestedMenuSearchResultsTi
 
 export default (NestedDropdown) => {
     class NestedDropdownController extends React.PureComponent {
+
         _getSubmenusChainByOptionId = optionId => {
             const currSubmenu = Object.values(this.props.submenus).find(({ optionsId }) => optionsId.includes(optionId));
             return currSubmenu ? this._getSubmenusChain(currSubmenu.id) : [];
@@ -35,6 +38,9 @@ export default (NestedDropdown) => {
             currentRootMenuId: ROOT_MENUS_ID.DEFAULT,
             openSubmenusId:    [],
         };
+
+        generateUrlPart       = generateNestedDropdownPart.bind(this);
+        generateCustomUrlPart = generateNestedDropdownPart.bind(this);
 
         openDropdown  = () => this.setState({ isDropdownOpen: true });
         closeDropdown = () => {
@@ -172,9 +178,31 @@ export default (NestedDropdown) => {
     }
 
     NestedDropdownController.propTypes = {
-        options:     PropTypes.object.isRequired,
-        rootMenus:   PropTypes.object.isRequired,
-        submenus:    PropTypes.object.isRequired,
+        options:     PropTypes.objectOf(
+            PropTypes.shape({
+                id:            PropTypes.string.isRequired,
+                title:         PropTypes.string.isRequired,
+                pathFragment:  PropTypes.string.isRequired,
+                nextSubmenuId: PropTypes.string
+            })
+        ).isRequired,
+        rootMenus:   PropTypes.objectOf(
+            PropTypes.shape({
+                id:           PropTypes.string.isRequired,
+                title:        PropTypes.string,
+                pathFragment: PropTypes.string,
+                optionsId:    PropTypes.arrayOf(PropTypes.string).isRequired
+            })
+        ).isRequired,
+        submenus:    PropTypes.objectOf(
+            PropTypes.shape({
+                id:            PropTypes.string.isRequired,
+                title:         PropTypes.string.isRequired,
+                pathFragment:  PropTypes.string.isRequired,
+                optionsId:     PropTypes.arrayOf(PropTypes.string).isRequired,
+                prevSubmenuId: PropTypes.string
+            })
+        ).isRequired,
         placeholder: PropTypes.string.isRequired,
     };
 

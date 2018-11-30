@@ -1,1 +1,4 @@
-{}
+{
+    "startDateId": "SomeStartDate",
+    "endDateId": "SomeEndDate"
+}
