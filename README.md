@@ -29,7 +29,7 @@ Then, before your closing ```<body>``` tag add:
 <script type="text/javascript" src="jquery.rentivo-searchbar.js"></script>
 ```
 
-Both css and js files are placed in the [dist](https://github.com/aptenex/rentivo-search-widget/tree/master/build) directory on the repository 
+Both css and js files are placed in the [dist](https://github.com/aptenex/rentivo-search-widget/tree/master/dist) directory on the repository 
 
 ### Dependencies
 
