@@ -4,13 +4,13 @@
     "description": "Searchbar widget for Rentivo project",
     "main": "index.js",
     "scripts": {
-        "start": "NODE_ENV=storybook npm run storybook",
+        "start": "npm run storybook",
         "ie10": "webpack-dev-server --config ./webpack-configs/dev.config.js --inline=false",
         "build-watch": "webpack --watch --config ./webpack-configs/prod.config.js",
         "build": "webpack --config ./webpack-configs/prod.config.js",
         "serv": "static build",
-        "storybook": "start-storybook -p 9001 -c .storybook",
-        "build-storybook": "NODE_ENV=storybook build-storybook"
+        "storybook": "STORYBOOK_ENV=storybook start-storybook -p 9001 -c .storybook",
+        "build-storybook": "STORYBOOK_ENV=storybook build-storybook"
     },
     "browserslist": [
         "> 1%",

@@ -9,7 +9,7 @@ export default class WidgetWrapper extends React.Component {
     }
 
     state = {
-        containerWidth: null,
+        containerWidth: this.props.width,
         hasError:       false
     };
 
@@ -32,7 +32,7 @@ export default class WidgetWrapper extends React.Component {
         });
     };
 
-    _throttledManageWidgetSize = throttle(this._manageWidgetSize, 150, { leading: true, trailing: true });
+    _throttledManageWidgetSize = throttle(this._manageWidgetSize, 150);
 
     componentDidMount() {
         this._manageWidgetSize();
@@ -43,10 +43,11 @@ export default class WidgetWrapper extends React.Component {
         window.removeEventListener('resize', this._throttledManageWidgetSize);
     }
 
-    componentWillUpdate(nextProps, nextState, nextContext) {
-        /*if (this.props.width !== nextProps.width) {
+    // to invoke resize event when window was not actually be resized
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.width !== prevProps.width || this.state.containerWidth !== prevState.containerWidth) {
             this._throttledInvokeRisize();
-        }*/
+        }
     }
 
     componentDidCatch(error, info) {
@@ -55,7 +56,6 @@ export default class WidgetWrapper extends React.Component {
 
     render() {
         if (this.state.hasError) {
-            // You can render any custom fallback UI
             return <h1>Something went wrong</h1>;
         }
 
@@ -75,7 +75,6 @@ export default class WidgetWrapper extends React.Component {
                     ...this.props.style
                 } }
                 ref={ this.WidgetWrapperRef }
-                key={ Math.random() }
             >
                 <div
                     style={ {

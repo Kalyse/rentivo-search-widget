@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
 
 import { ROOT_MENUS_ID } from '~core/constants';
+import { searchField } from '~core/defaults';
 
 export default (NestedDropdown) => {
     class NestedDropdownWrapper extends React.PureComponent {
@@ -108,9 +109,8 @@ export default (NestedDropdown) => {
     };
 
     NestedDropdownWrapper.defaultProps = {
-        menuTitlePrefix: 'All villas in ',
-        placeholder:     'Where do you want to go?',
-        dumb:            false
+        ...searchField.nestedDropdown,
+        dumb: false
 
     };
 

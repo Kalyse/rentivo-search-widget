@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
+import { searchField } from '~core/defaults';
 
 export default (SingleSelectBox) => {
     class SingleSelectBoxWrapper extends React.PureComponent {
@@ -55,8 +56,8 @@ export default (SingleSelectBox) => {
     };
 
     SingleSelectBoxWrapper.defaultProps = {
-        placeholder: 'Where do you want to go?',
-        dumb:        false
+        ...searchField.singleSelectBox,
+        dumb: false
     };
 
     return React.forwardRef((props, ref) => {

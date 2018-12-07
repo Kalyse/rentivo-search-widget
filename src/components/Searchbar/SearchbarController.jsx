@@ -37,7 +37,7 @@ export default (Searchbar) => {
             this.setState({ widgetSize });
         };
 
-        _throttledManageWidgetSize = throttle(this._manageWidgetSize, 500);
+        _throttledManageWidgetSize = throttle(this._manageWidgetSize, 150);
 
         initState = {
             searchField:          this.props.searchField,
@@ -61,7 +61,7 @@ export default (Searchbar) => {
         };
 
         redirectPage = (e) => {
-            if (process.env.NODE_ENV === 'storybook') {
+            if (process.env.STORYBOOK_ENV) {
                 return;
             }
 

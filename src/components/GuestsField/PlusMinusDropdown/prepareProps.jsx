@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { guestsField } from '~core/defaults';
 
 export default (PlusMinusDropdown) => {
     class PlusMinusDropdownWrapper extends React.PureComponent {
@@ -70,8 +71,7 @@ export default (PlusMinusDropdown) => {
     };
 
     PlusMinusDropdownWrapper.defaultProps = {
-        placeholder:    'Select guests number',
-        incDecInterval: 150
+        ...guestsField.plusMinus
     };
 
     return React.forwardRef((props, ref) => {

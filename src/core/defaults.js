@@ -15,3 +15,31 @@ export const datesFields = {
     startDatePlaceholderText: 'Start Date',
     endDatePlaceholderText:   'End Date'
 };
+
+export const guestsField = {
+    plusMinus: {
+        placeholder:    'Select guests number',
+        incDecInterval: 150
+    }
+};
+
+export const searchField = {
+    singleSelectBox: {
+        placeholder: 'Where do you want to go?',
+    },
+    multiSelectBox:  {
+        placeholder: 'Where do you want to go?'
+    },
+    googlePlaces:    {
+        placeholder:   'Search Places ...',
+        searchOptions: {
+            componentRestrictions: {
+                country: 'uk'
+            }
+        }
+    },
+    nestedDropdown:  {
+        menuTitlePrefix: 'All villas in ',
+        placeholder:     'Where do you want to go?',
+    }
+};

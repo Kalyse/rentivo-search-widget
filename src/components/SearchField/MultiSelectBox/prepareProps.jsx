@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { WidgetConsumer } from '~components/Searchbar/SearchbarController';
+import { searchField } from '~core/defaults';
 
 export default (MultiSelectBox) => {
     class MultiSelectBoxWrapper extends React.PureComponent {
@@ -66,8 +67,8 @@ export default (MultiSelectBox) => {
     };
 
     MultiSelectBoxWrapper.defaultProps = {
-        placeholder: 'Where do you want to go?',
-        dumb:        false
+        ...searchField.multiSelectBox,
+        dumb: false
     };
 
     return React.forwardRef((props, ref) => {

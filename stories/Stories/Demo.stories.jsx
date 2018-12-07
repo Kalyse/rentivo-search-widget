@@ -65,7 +65,7 @@ storiesOf('Demo', module)
 
             const width = number(
                 'width',
-                600,
+                1100,
                 {
                     range: true,
                     min:   320,

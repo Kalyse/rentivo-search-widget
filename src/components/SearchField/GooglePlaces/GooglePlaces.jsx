@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import loadGoogleMapsAPI from "load-google-maps-api-2";
+import { searchField } from '~core/defaults';
 
 import { generateGooglePlacesPart } from './helpers/urlGenerator';
 
@@ -48,8 +49,8 @@ class GooglePlaces extends React.PureComponent {
     handleError = (status, clearSuggestions) => {
         const allowedErrorsStatuses = ['NOT_FOUND', 'ZERO_RESULTS'];
         if (!allowedErrorsStatuses.includes(status)) {
-            console.error('Google Maps API returned error with status: ', status);
             clearSuggestions();
+            throw new Error(`Google Maps API returned error with status: ${ status }`);
         }
     };
 
@@ -126,9 +127,13 @@ class GooglePlaces extends React.PureComponent {
 }
 
 GooglePlaces.propTypes = {
-    API_KEY:       PropTypes.string,
+    API_KEY:       PropTypes.string.isRequired,
     placeholder:   PropTypes.string,
     searchOptions: PropTypes.object
+};
+
+GooglePlaces.defaultProps = {
+    ...searchField.googlePlaces
 };
 
 export default GooglePlaces;
