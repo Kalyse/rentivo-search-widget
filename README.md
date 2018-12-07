@@ -1,7 +1,7 @@
 # rentivo-search-widget
 Rentivo standalone search widget. (Suitable for use only with Rentivo platforms).
 
-#### [Documentation](https://evisotskiy.github.io/rentivo-search-widget/) | [Demo](https://evisotskiy.github.io/rentivo-search-widget/) | [Source](https://github.com/aptenex/rentivo-search-widget)
+#### [Documentation](https://evisotskiy.github.io/rentivo-search-widget/) | [Demo](https://evisotskiy.github.io/rentivo-search-widget/?selectedKind=Demo&selectedStory=default&full=0&addons=1&stories=1&panelRight=1&addonPanel=storybooks%2Fstorybook-addon-knobs&showStoriesPanel=true&showAddonPanel=true) | [Source](https://github.com/aptenex/rentivo-search-widget)
 
 ### Run project on development mode
 ```
