@@ -43,13 +43,15 @@ function getGuestsFieldConfig(guestsFieldMode) {
     }
 }
 
-/*const SearchbarWrapper = ({ children, ...props }) => {
-    return (
-        <React.Fragment>
-            {React.cloneElement(children, props)}
-        </React.Fragment>
-    )
-};*/
+function getValidatedWidgetConfig(widgetConfig, searchFieldMode, guestsFieldMode) {
+    if (searchFieldMode === 'google') {
+        return {
+            ...widgetConfig,
+            urlTransformerScheme: 'encoded_google_places'
+        };
+    }
+    return widgetConfig;
+}
 
 storiesOf('Demo', module)
     .addDecorator(withKnobs)
@@ -99,6 +101,10 @@ storiesOf('Demo', module)
                 GROUP_IDS.GUESTS_FIELD
             );
 
+            const searchFieldConfig     = getSearchFieldConfig(searchFieldMode);
+            const guestsFieldConfig     = getGuestsFieldConfig(guestsFieldMode);
+            const validatedWidgetConfig = getValidatedWidgetConfig(_widgetConfig, searchFieldMode, guestsFieldMode);
+
             return (
                 <React.Fragment>
                     <Marked md={ `
@@ -109,9 +115,9 @@ On this page you can test all combinations of configs. __Be careful with testing
                     <PreviewComponent>
                         <WidgetWrapper width={ width }>
                             <Searchbar
-                                { ..._widgetConfig }
-                                searchField={ object('searchFields config', getSearchFieldConfig(searchFieldMode), GROUP_IDS.SEARCH_FIELD) }
-                                guestsField={ object('guestsField config', getGuestsFieldConfig(guestsFieldMode), GROUP_IDS.GUESTS_FIELD) }
+                                { ...validatedWidgetConfig }
+                                searchField={ object('searchFields config', searchFieldConfig, GROUP_IDS.SEARCH_FIELD) }
+                                guestsField={ object('guestsField config', guestsFieldConfig, GROUP_IDS.GUESTS_FIELD) }
                                 datesFields={ object('datesFields config', datesFields, GROUP_IDS.DATES_FIELDS) }
                             />
                         </WidgetWrapper>
