@@ -14,7 +14,17 @@ export function generateNestedDropdownPart() {
     }
 
     if (urlChunks.length) {
-        return urlChunks.join('/') + '/';
+        return urlChunks.join('/');
+    }
+
+    return null;
+}
+
+export function generateCustomNestedDropdownPart() {
+    const normalPart = generateNestedDropdownPart.call(this);
+
+    if (normalPart) {
+        return normalPart + '/';
     }
 
     return null;

@@ -5,7 +5,7 @@ import { ROOT_MENUS_ID } from '~core/constants';
 
 import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
 
-import { generateNestedDropdownPart } from './helpers/urlGenerator';
+import { generateNestedDropdownPart, generateCustomNestedDropdownPart } from './helpers/urlGenerator';
 
 import NestedMenu from './NestedMenu/NestedMenu';
 import NestedMenuList from './NestedMenu/NestedMenuList';
@@ -46,7 +46,7 @@ export default (NestedDropdown) => {
         resetCustomWidgetConfig = resetCustomWidgetConfig.bind(this);
 
         generateUrlPart       = generateNestedDropdownPart.bind(this);
-        generateCustomUrlPart = generateNestedDropdownPart.bind(this);
+        generateCustomUrlPart = generateCustomNestedDropdownPart.bind(this);
 
         openDropdown  = () => this.setState({ isDropdownOpen: true });
         closeDropdown = () => {
