@@ -77,8 +77,6 @@ storiesOf('Demo', module)
                 GROUP_IDS.GENERAL
             );
 
-            const _widgetConfig = object('widgetConfig', widgetConfig, GROUP_IDS.GENERAL);
-
             const searchFieldMode = select(
                 'Choose Search Field mode',
                 {
@@ -103,7 +101,9 @@ storiesOf('Demo', module)
 
             const searchFieldConfig     = getSearchFieldConfig(searchFieldMode);
             const guestsFieldConfig     = getGuestsFieldConfig(guestsFieldMode);
-            const validatedWidgetConfig = getValidatedWidgetConfig(_widgetConfig, searchFieldMode, guestsFieldMode);
+            const validatedWidgetConfig = getValidatedWidgetConfig(widgetConfig, searchFieldMode, guestsFieldMode);
+
+            const _widgetConfig = object('widgetConfig', validatedWidgetConfig, GROUP_IDS.GENERAL);
 
             return (
                 <React.Fragment>
@@ -115,7 +115,7 @@ On this page you can test all combinations of configs. __Be careful with testing
                     <PreviewComponent>
                         <WidgetWrapper width={ width }>
                             <Searchbar
-                                { ...validatedWidgetConfig }
+                                { ..._widgetConfig }
                                 searchField={ object('searchFields config', searchFieldConfig, GROUP_IDS.SEARCH_FIELD) }
                                 guestsField={ object('guestsField config', guestsFieldConfig, GROUP_IDS.GUESTS_FIELD) }
                                 datesFields={ object('datesFields config', datesFields, GROUP_IDS.DATES_FIELDS) }
