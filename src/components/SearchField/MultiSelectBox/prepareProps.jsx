@@ -26,7 +26,8 @@ export default (MultiSelectBox) => {
             return {
                 data:        this._getNormalizedData(),
                 rawData:     this.props.data,
-                placeholder: this.props.placeholder
+                placeholder: this.props.placeholder,
+                dumb:        this.props.dumb
             };
         };
 
@@ -60,11 +61,13 @@ export default (MultiSelectBox) => {
                     })
                 ).isRequired
             })
-        ).isRequired
+        ).isRequired,
+        dumb:        PropTypes.bool
     };
 
     MultiSelectBoxWrapper.defaultProps = {
-        placeholder: 'Where do you want to go?'
+        placeholder: 'Where do you want to go?',
+        dumb:        false
     };
 
     return React.forwardRef((props, ref) => {

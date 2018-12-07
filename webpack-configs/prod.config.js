@@ -8,8 +8,9 @@ const jScript  = require('./prod/jScript');
 
 const PATHS = {
     source:  path.join(__dirname, '../src'),
-    dist:   path.join(__dirname, '../dist'),
+    dist:    path.join(__dirname, '../dist'),
     modules: path.join(__dirname, '../node_modules'),
+    docs:    path.join(__dirname, '../docs'),
 };
 
 module.exports = function () {
@@ -28,6 +29,7 @@ module.exports = function () {
                 alias:      {
                     '~core':       path.join(PATHS.source, 'core'),
                     '~components': path.join(PATHS.source, 'components'),
+                    '~docs':       PATHS.docs,
                 }
             },
         },

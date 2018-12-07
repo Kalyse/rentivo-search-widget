@@ -7,7 +7,7 @@ import { generateGooglePlacesPart } from './helpers/urlGenerator';
 
 import './GooglePlaces.scss';
 
-export default class GooglePlaces extends React.PureComponent {
+class GooglePlaces extends React.PureComponent {
     searchField = React.createRef();
 
     state = {
@@ -28,9 +28,7 @@ export default class GooglePlaces extends React.PureComponent {
     generateUrlPart       = () => generateGooglePlacesPart(this.state.searchResultData);
     generateCustomUrlPart = () => null;
 
-    handleChange = address => {
-        this.setState({ address });
-    };
+    handleChange = address => this.setState({ address });
 
     handleSelect = address => {
         this.setState({ address });
@@ -45,6 +43,14 @@ export default class GooglePlaces extends React.PureComponent {
                 this.setState({ searchResultData })
             })
             .catch(error => console.error('Error', error));
+    };
+
+    handleError = (status, clearSuggestions) => {
+        const allowedErrorsStatuses = ['NOT_FOUND', 'ZERO_RESULTS'];
+        if (!allowedErrorsStatuses.includes(status)) {
+            console.error('Google Maps API returned error with status: ', status);
+            clearSuggestions();
+        }
     };
 
     // when we have multiple instances of widget with "GooglePlaces" search field mode - occurs multiple loading of google maps API, which leads to errors. To solve this problem I have to write this ugly code. If you find out the better way to solve this problem - be welcome to change this one
@@ -82,10 +88,11 @@ export default class GooglePlaces extends React.PureComponent {
             <div className="GooglePlaces">
                 <PlacesAutocomplete
                     value={ this.state.address }
-                    onChange={ this.handleChange }
+                    onChange={ this.handleChange.bind(this) }
+                    onError={ this.handleError }
                     onSelect={ this.handleSelect }
                     googleCallbackName={ `googlePlacesCallback_${ this.googlePlacesInstanceId }` }
-                    searchOptions={ { componentRestrictions: { ...this.props.componentRestrictions } } }
+                    searchOptions={ this.props.searchOptions }
                 >
                     { ({ getInputProps, suggestions, getSuggestionItemProps }) => (
                         <div>
@@ -119,7 +126,9 @@ export default class GooglePlaces extends React.PureComponent {
 }
 
 GooglePlaces.propTypes = {
-    API_KEY:               PropTypes.string,
-    placeholder:           PropTypes.string,
-    componentRestrictions: PropTypes.object
+    API_KEY:       PropTypes.string,
+    placeholder:   PropTypes.string,
+    searchOptions: PropTypes.object
 };
+
+export default GooglePlaces;

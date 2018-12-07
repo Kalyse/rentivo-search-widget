@@ -12,8 +12,8 @@ export default (PlusMinusDropdown) => {
                 categories[category.categoryKey] = {
                     id:        category.categoryKey,
                     title:     category.categoryTitle,
-                    order:     category.placeholderOrder || idx,
-                    optionsId: category.categoryValue.map(option => option.itemValue)
+                    order:     category.placeholderOrder || 1,
+                    optionsId: category.categoryValue.map(option => option.itemKey)
                 };
             });
 
@@ -23,8 +23,8 @@ export default (PlusMinusDropdown) => {
         _getNormalizedOptions = () => {
             const options = {};
             this.props.data.forEach(category => category.categoryValue.forEach(option => {
-                options[option.itemValue] = {
-                    id:         option.itemValue,
+                options[option.itemKey] = {
+                    id:         option.itemKey,
                     categoryId: category.categoryKey,
                     title:      option.itemTitle,
                     minNumber:  option.minNumber,
@@ -50,6 +50,8 @@ export default (PlusMinusDropdown) => {
     }
 
     PlusMinusDropdownWrapper.propTypes = {
+        placeholder:    PropTypes.string,
+        incDecInterval: PropTypes.number,
         data:           PropTypes.arrayOf(
             PropTypes.shape({
                 categoryTitle:    PropTypes.string.isRequired,
@@ -58,15 +60,13 @@ export default (PlusMinusDropdown) => {
                 categoryValue:    PropTypes.arrayOf(
                     PropTypes.shape({
                         itemTitle: PropTypes.string.isRequired,
-                        itemValue: PropTypes.string.isRequired,
+                        itemKey:   PropTypes.string.isRequired,
                         minNumber: PropTypes.number.isRequired,
                         maxNumber: PropTypes.number.isRequired,
                     })
                 ).isRequired,
             }).isRequired
         ).isRequired,
-        placeholder:    PropTypes.string,
-        incDecInterval: PropTypes.number,
     };
 
     PlusMinusDropdownWrapper.defaultProps = {

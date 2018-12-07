@@ -10,6 +10,12 @@ export const GUESTS_FIELD_MODES = {
     PLUS_MINUS:        'plus_minus'
 };
 
+export const URL_TRANSFORMER_SCHEMES = {
+    DEFAULT:               'default',
+    ENCODED_GOOGLE_PLACES: 'encoded_google_places',
+    ALTERNATIVE:           'alternative'
+};
+
 export const WIDGET_SIZES = {
     DEFAULT:     {
         id:         'DEFAULT',
@@ -23,7 +29,7 @@ export const WIDGET_SIZES = {
     },
     EXTRA_SMALL: {
         id:         'EXTRA_SMALL',
-        width:      580,
+        width:      620,
         classnames: 'rsw-tn rsw-xs',
     },
     SMALL:       {

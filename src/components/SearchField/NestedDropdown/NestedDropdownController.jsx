@@ -100,7 +100,10 @@ export default (NestedDropdown) => {
                 currentRootMenuId: ROOT_MENUS_ID.DEFAULT
             }, () => {
                 this.closeDropdown();
-                this.updateGlobalWidgetConfig(this.props.options[optionId])
+
+                if (!this.props.dumb) {
+                    this.updateGlobalWidgetConfig(this.props.options[optionId])
+                }
             });
         };
 
@@ -224,6 +227,7 @@ export default (NestedDropdown) => {
             })
         ).isRequired,
         placeholder: PropTypes.string.isRequired,
+        dumb:        PropTypes.bool.isRequired
     };
 
     return NestedDropdownController;

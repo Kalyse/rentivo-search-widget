@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
 
-import { GUESTS_FIELD_MODES, SEARCH_FIELD_MODES, WIDGET_SIZES } from '~core/constants';
+import { GUESTS_FIELD_MODES, SEARCH_FIELD_MODES, URL_TRANSFORMER_SCHEMES, WIDGET_SIZES } from '~core/constants';
+import { widgetConfig } from '~core/defaults';
+import getWidgetSize from '~core/helpers/getWidgetSize';
 
 import SearchField from '~components/SearchField/SearchFieldRouter';
 import GuestsField from '~components/GuestsField/GuestsFieldRouter';
 import DatesFields from '~components/DatesFields/DatesFields';
 import Button from '~components/shared/Button/Button';
 
-export const NewContext     = createContext({ a: 'b' });
+import getRedirectionURL from './helpers/urlComposer';
+
 const WidgetContext         = createContext({});
 export const WidgetProvider = WidgetContext.Provider;
 export const WidgetConsumer = WidgetContext.Consumer;
@@ -22,25 +25,6 @@ export default (Searchbar) => {
         DatesFieldsRef = React.createRef();
         GuestsFieldRef = React.createRef();
 
-        _getWidgetSize = (containerWidth) => {
-            switch (true) {
-                case containerWidth >= WIDGET_SIZES.EXTRA_LARGE.width:
-                    return WIDGET_SIZES.EXTRA_LARGE.id;
-                case containerWidth >= WIDGET_SIZES.LARGE.width:
-                    return WIDGET_SIZES.LARGE.id;
-                case containerWidth >= WIDGET_SIZES.MIDDLE.width:
-                    return WIDGET_SIZES.MIDDLE.id;
-                case containerWidth >= WIDGET_SIZES.SMALL.width:
-                    return WIDGET_SIZES.SMALL.id;
-                case containerWidth >= WIDGET_SIZES.EXTRA_SMALL.width:
-                    return WIDGET_SIZES.EXTRA_SMALL.id;
-                case containerWidth >= WIDGET_SIZES.TINY.width:
-                    return WIDGET_SIZES.TINY.id;
-                default:
-                    return WIDGET_SIZES.DEFAULT.id;
-            }
-        };
-
         _getContainerWidth = () => {
             const container      = this.SearchbarRef.current.parentNode;
             const containerWidth = getComputedStyle(container).width;
@@ -49,72 +33,68 @@ export default (Searchbar) => {
 
         _manageWidgetSize = () => {
             const containerWidth = this._getContainerWidth();
-            const widgetSize     = this._getWidgetSize(containerWidth);
+            const widgetSize     = getWidgetSize(containerWidth, WIDGET_SIZES);
             this.setState({ widgetSize });
         };
 
         _throttledManageWidgetSize = throttle(this._manageWidgetSize, 500);
 
         initState = {
-            searchField:  this.props.searchField,
-            datesFields:  this.props.datesFields,
-            guestsField:  this.props.guestsField,
-            baseUrl:      this.props.baseUrl,
-            appendString: this.props.appendString,
-            widgetSize:   WIDGET_SIZES.DEFAULT.id
+            searchField:          this.props.searchField,
+            datesFields:          this.props.datesFields,
+            guestsField:          this.props.guestsField,
+            baseUrl:              this.props.baseUrl,
+            appendString:         this.props.appendString,
+            searchBtnText:        this.props.searchBtnText,
+            urlTransformerScheme: this.props.urlTransformerScheme,
+            widgetSize:           WIDGET_SIZES.DEFAULT.id
         };
 
         state = { ...this.initState };
 
+        getRedirectionURL = getRedirectionURL.bind(this);
+
         handleFormSubmit = () => {
-            const redirectionURL = this.state.searchField.mode === SEARCH_FIELD_MODES.NESTED_DROPDOWN
-                ? this.generateCustomUrl()
-                : this.generateDefaultUrl();
-            alert('Redirection URL: \n' + redirectionURL);
-            // console.log(redirectionURL);
-            // return window.location.href = redirectionURL;
+            const redirectionURL = this.getRedirectionURL();
+            const event          = new CustomEvent('redirect', { 'detail': redirectionURL });
+            window.dispatchEvent(event);
         };
 
-        generateDefaultUrl = () => {
-            const searchFieldUrlPart = this.SearchFieldRef.current.urlPart;
-            const datesFieldsUrlPart = this.DatesFieldsRef.current.urlPart;
-            const guestsFieldUrlPart = this.GuestsFieldRef.current.urlPart;
+        redirectPage = (e) => {
+            if (process.env.NODE_ENV === 'storybook') {
+                return;
+            }
 
-            let urlChunks = [datesFieldsUrlPart, guestsFieldUrlPart];
-
-            if (this.state.searchField.mode === SEARCH_FIELD_MODES.GOOGLE_PLACES) {
-                urlChunks.push(searchFieldUrlPart);
+            const isInIFrame = (
+                window.location !== window.parent.location
+            );
+            if (isInIFrame === true) {
+                // iframe
+                window.top.location.href = e.detail;
             } else {
-                urlChunks.unshift(searchFieldUrlPart);
+                // no iframe
+                window.location.href = e.detail;
             }
-
-            urlChunks = urlChunks.filter(chunk => !!chunk);
-
-            return this.state.baseUrl + urlChunks.join('/') + this.state.appendString;
-        };
-
-        generateCustomUrl = () => {
-            if (this.state.guestsField.mode !== GUESTS_FIELD_MODES.SINGLE_SELECT_BOX) {
-                return new Error(`GuestsField mode '${ this.state.guestsField.mode }' 
-                incompatible with SearchField mode '${ SEARCH_FIELD_MODES.NESTED_DROPDOWN }'`);
-            }
-
-            const searchFieldUrlPart = this.SearchFieldRef.current.customUrlPart;
-            const datesFieldsUrlPart = this.DatesFieldsRef.current.customUrlPart;
-            const guestsFieldUrlPart = this.GuestsFieldRef.current.customUrlPart;
-
-            const urlChunks = [searchFieldUrlPart, guestsFieldUrlPart, datesFieldsUrlPart];
-
-            return this.state.baseUrl + urlChunks.join('') + this.state.appendString;
         };
 
         componentDidMount() {
             this._manageWidgetSize();
-            window.addEventListener('resize', this._throttledManageWidgetSize)
+            window.addEventListener('resize', this._throttledManageWidgetSize);
+            window.addEventListener('redirect', this.redirectPage);
         }
 
         componentWillUnmount() {
-            window.removeEventListener('resize', this._throttledManageWidgetSize)
+            window.removeEventListener('resize', this._throttledManageWidgetSize);
+            window.removeEventListener('redirect', this.redirectPage);
+        }
+
+        componentWillUpdate(nextProps, nextState) {
+            if (this.props !== nextProps) {
+                this.initState = { ...nextProps };
+                this.setState({
+                    ...nextProps
+                });
+            }
         }
 
         render() {
@@ -122,22 +102,28 @@ export default (Searchbar) => {
                 <WidgetProvider
                     value={ {
                         initState: {
-                            datesFields:  this.initState.datesFields,
-                            guestsField:  this.initState.guestsField,
-                            baseUrl:      this.initState.baseUrl,
-                            appendString: this.initState.appendString,
+                            datesFields:          this.initState.datesFields,
+                            guestsField:          this.initState.guestsField,
+                            baseUrl:              this.initState.baseUrl,
+                            appendString:         this.initState.appendString,
+                            searchBtnText:        this.initState.searchBtnText,
+                            urlTransformerScheme: this.initState.urlTransformerScheme,
                         },
                         state:     {
-                            datesFields:  this.state.datesFields,
-                            guestsField:  this.state.guestsField,
-                            baseUrl:      this.state.baseUrl,
-                            appendString: this.state.appendString,
+                            datesFields:          this.state.datesFields,
+                            guestsField:          this.state.guestsField,
+                            baseUrl:              this.state.baseUrl,
+                            appendString:         this.state.appendString,
+                            searchBtnText:        this.state.searchBtnText,
+                            urlTransformerScheme: this.state.urlTransformerScheme,
                         },
                         actions:   {
-                            setCustomDatesFields:  (datesFields) => this.setState({ datesFields }),
-                            setCustomGuestsField:  (guestsField) => this.setState({ guestsField }),
-                            setCustomBaseUrl:      (baseUrl) => this.setState({ baseUrl }),
-                            setCustomAppendString: (appendString) => this.setState({ appendString }),
+                            setCustomDatesFields:    (datesFields) => this.setState({ datesFields }),
+                            setCustomGuestsField:    (guestsField) => this.setState({ guestsField }),
+                            setCustomBaseUrl:        (baseUrl) => this.setState({ baseUrl }),
+                            setCustomAppendString:   (appendString) => this.setState({ appendString }),
+                            setSearchBtnText:        (searchBtnText) => this.setState({ searchBtnText }),
+                            setUrlTransformerScheme: (urlTransformerScheme) => this.setState({ urlTransformerScheme })
                         }
                     } }
 
@@ -162,7 +148,8 @@ export default (Searchbar) => {
                                 ref={ this.GuestsFieldRef }
                             /> }
                         fourthCol={
-                            <Button styleType="search" onClick={ this.handleFormSubmit }>Search</Button>
+                            <Button styleType="search"
+                                    onClick={ this.handleFormSubmit }>{ this.state.searchBtnText }</Button>
                         }
                     />
                 </WidgetProvider>
@@ -171,16 +158,17 @@ export default (Searchbar) => {
     }
 
     SearchbarController.propTypes = {
-        searchField:  PropTypes.object.isRequired,
-        datesFields:  PropTypes.object,
-        guestsField:  PropTypes.object.isRequired,
-        baseUrl:      PropTypes.string.isRequired,
-        appendString: PropTypes.string,
+        searchField:          PropTypes.object.isRequired,
+        datesFields:          PropTypes.object,
+        guestsField:          PropTypes.object.isRequired,
+        baseUrl:              PropTypes.string,
+        appendString:         PropTypes.string,
+        searchBtnText:        PropTypes.string,
+        urlTransformerScheme: PropTypes.oneOf(Object.values(URL_TRANSFORMER_SCHEMES))
     };
 
     SearchbarController.defaultProps = {
-        baseUrl:      `${ window.location.protocol }//${ window.location.host }/`,
-        appendString: '',
+        ...widgetConfig
     };
 
     return SearchbarController;

@@ -13,6 +13,12 @@ export function setCustomWidgetConfig(widgetConfig) {
     if (widgetConfig.appendString) {
         this.props.context.actions.setCustomAppendString(widgetConfig.appendString);
     }
+    if (widgetConfig.searchBtnText) {
+        this.props.context.actions.setCustomBaseUrl(widgetConfig.searchBtnText);
+    }
+    if (widgetConfig.urlTransformerScheme) {
+        this.props.context.actions.setCustomAppendString(widgetConfig.urlTransformerScheme);
+    }
 }
 
 export function resetCustomWidgetConfig() {
@@ -27,5 +33,11 @@ export function resetCustomWidgetConfig() {
     }
     if (this.props.context.state.appendString !== this.props.context.initState.appendString) {
         this.props.context.actions.setCustomAppendString(this.props.context.initState.appendString);
+    }
+    if (this.props.context.state.searchBtnText !== this.props.context.initState.searchBtnText) {
+        this.props.context.actions.setSearchBtnText(this.props.context.initState.searchBtnText);
+    }
+    if (this.props.context.state.urlTransformerScheme !== this.props.context.initState.urlTransformerScheme) {
+        this.props.context.actions.setUrlTransformerScheme(this.props.context.initState.urlTransformerScheme);
     }
 }

@@ -17,7 +17,8 @@ export default (SingleSelectBox) => {
             return {
                 data:        this._getNormalizedData(),
                 rawData:     this.props.data,
-                placeholder: this.props.placeholder
+                placeholder: this.props.placeholder,
+                dumb:        this.props.dumb
             };
         };
 
@@ -41,7 +42,6 @@ export default (SingleSelectBox) => {
     SingleSelectBoxWrapper.propTypes = {
         placeholder: PropTypes.string,
         data:        PropTypes.shape({
-            categoryTitle: PropTypes.string.isRequired,
             categoryKey:   PropTypes.string.isRequired,
             categoryValue: PropTypes.arrayOf(
                 PropTypes.shape({
@@ -51,10 +51,12 @@ export default (SingleSelectBox) => {
                 })
             ).isRequired
         }).isRequired,
+        dumb:        PropTypes.bool
     };
 
     SingleSelectBoxWrapper.defaultProps = {
-        placeholder: 'Where do you want to go?'
+        placeholder: 'Where do you want to go?',
+        dumb:        false
     };
 
     return React.forwardRef((props, ref) => {

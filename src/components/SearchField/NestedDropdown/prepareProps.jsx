@@ -76,7 +76,8 @@ export default (NestedDropdown) => {
                 options:     this._getNormalizedOptions(),
                 rootMenus:   this._getNormalizedRootMenus(),
                 submenus:    this._getNormalizedSubmenus(),
-                placeholder: this.props.placeholder
+                placeholder: this.props.placeholder,
+                dumb:        this.props.dumb
             };
         };
 
@@ -102,12 +103,14 @@ export default (NestedDropdown) => {
             name:         PropTypes.string.isRequired,
             pathFragment: PropTypes.string.isRequired,
             children:     PropTypes.array.isRequired
-        }).isRequired
+        }).isRequired,
+        dumb:            PropTypes.bool
     };
 
     NestedDropdownWrapper.defaultProps = {
         menuTitlePrefix: 'All villas in ',
         placeholder:     'Where do you want to go?',
+        dumb:            false
 
     };
 

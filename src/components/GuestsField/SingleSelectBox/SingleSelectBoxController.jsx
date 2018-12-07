@@ -26,6 +26,14 @@ export default (SingleSelectBox) => {
                 />
             );
         }
+        
+        componentWillUpdate(nextProps) {
+            if(nextProps.initialValue !== this.props.initialValue) {
+                this.setState({
+                    value: nextProps.initialValue
+                });
+            }
+        }
     }
 
     SingleSelectBoxController.propTypes = {

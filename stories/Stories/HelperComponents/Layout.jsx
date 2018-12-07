@@ -1,7 +1,7 @@
 import React from 'react';
-import CCenter from './CCenter';
-import CSection from './CSection';
-import CTitle from './CTitle';
+import Center from './Center';
+import Section from './Section';
+import Title from './Title';
 
 const sizeExamples = [
     {
@@ -38,10 +38,10 @@ export default ({ children }) => {
             padding:    "15px",
             fontFamily: 'Arial, sans-serif'
         } }>{ sizeExamples.map((size, idx) => (
-            <CSection key={ idx }>
-                <CTitle>{ size.title }</CTitle>
-                <CCenter maxWidth={ size.maxWidth }>{ children }</CCenter>
-            </CSection>
+            <Section key={ idx }>
+                <Title>{ size.title }</Title>
+                <Center maxWidth={ size.maxWidth }>{ children }</Center>
+            </Section>
         )) }</main>
     );
 };

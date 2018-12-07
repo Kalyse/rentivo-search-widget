@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Dropdown from '~components/shared/Dropdown/Dropdown'
 import withController from './NestedDropdownController';
 import withPreparedProps from './prepareProps';
-import NestedMenu from './NestedMenu/NestedMenu';
 
 import './NestedDropdown.scss';
 

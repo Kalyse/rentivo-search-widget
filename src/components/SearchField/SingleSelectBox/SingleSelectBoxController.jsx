@@ -29,7 +29,9 @@ export default (SingleSelectBox) => {
         handleOptionSelect = e => {
             const newValue = e.target.value;
             this.setState({ value: newValue }, () => {
-                this.updateGlobalWidgetConfig(newValue);
+                if (!this.props.dumb) {
+                    this.updateGlobalWidgetConfig(newValue);
+                }
             });
         };
 
@@ -51,7 +53,8 @@ export default (SingleSelectBox) => {
         placeholder: PropTypes.string.isRequired,
         data:        PropTypes.array.isRequired,
         rawData:     PropTypes.object.isRequired,
-        context:     PropTypes.object.isRequired
+        context:     PropTypes.object.isRequired,
+        dumb:        PropTypes.bool.isRequired
     };
 
     return SingleSelectBoxController;

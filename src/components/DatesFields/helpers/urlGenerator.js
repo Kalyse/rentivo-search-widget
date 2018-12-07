@@ -1,12 +1,12 @@
-export function generateDatesFieldsPart({ startDate, endDate }, { startDateId, endDateId }) {
+export function generateDatesFieldsPart({ startDate, endDate }, { startDateId, endDateId, urlDateFormat }) {
     const urlChunks = [];
 
     if (startDate) {
-        urlChunks.push(`${ startDateId }:${ startDate.format('YYYY-MM-DD') }`);
+        urlChunks.push(`${ startDateId }:${ startDate.format(urlDateFormat) }`);
     }
 
     if (endDate) {
-        urlChunks.push(`${ endDateId }:${ endDate.format('YYYY-MM-DD') }`);
+        urlChunks.push(`${ endDateId }:${ endDate.format(urlDateFormat) }`);
     }
 
     if (urlChunks.length) {
@@ -16,15 +16,15 @@ export function generateDatesFieldsPart({ startDate, endDate }, { startDateId, e
     return null;
 }
 
-export function generateCustomDatesFieldsPart({ startDate, endDate }, { startDateId, endDateId }) {
+export function generateCustomDatesFieldsPart({ startDate, endDate }, { startDateId, endDateId, urlDateFormat }) {
     const urlChunks = [];
 
     if (startDate) {
-        urlChunks.push(`${ startDateId }=${ startDate.format('YYYY-MM-DD') }`);
+        urlChunks.push(`${ startDateId }=${ startDate.format(urlDateFormat) }`);
     }
 
     if (endDate) {
-        urlChunks.push(`${ endDateId }=${ endDate.format('YYYY-MM-DD') }`);
+        urlChunks.push(`${ endDateId }=${ endDate.format(urlDateFormat) }`);
     }
 
     if (urlChunks.length) {

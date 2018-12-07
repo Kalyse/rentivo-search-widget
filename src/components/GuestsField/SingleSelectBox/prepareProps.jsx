@@ -28,7 +28,6 @@ export default (SingleSelectBox) => {
     SingleSelectBoxWrapper.propTypes = {
         initialValue: PropTypes.string,
         data:         PropTypes.shape({
-            categoryTitle: PropTypes.string.isRequired,
             categoryKey:   PropTypes.string.isRequired,
             categoryValue: PropTypes.arrayOf(
                 PropTypes.shape({
@@ -37,10 +36,6 @@ export default (SingleSelectBox) => {
                 })
             ).isRequired
         }).isRequired,
-    };
-
-    SingleSelectBoxWrapper.defaultProps = {
-        placeholder: 'Where do you want to go?'
     };
 
     return React.forwardRef((props, ref) => {

@@ -37,6 +37,34 @@
 
         border-radius: 5px 0 0 0;
     }
+
+    .Pane div[role="tablist"] + div form label {
+        flex-wrap: wrap;
+    }
+
+    .Pane div[role="tablist"] + div form label > * {
+        min-width: 100%
+    }
+
+    .Pane div[role="tablist"] + div form label > input[type="checkbox"] {
+        min-width: auto;
+    }
+
+    .Pane div[role="tablist"] + div form label > textarea {
+        /*max-height: 200px;*/
+    }
+
+    .Pane div[role="tablist"] + div form label > *:first-child {
+        font-weight: bold;
+    }
+
+    .Pane div[role="tablist"] + div form label > *:first-child {
+        font-weight: bold;
+    }
+
+    .Pane div[role="tablist"] + div div[role="tablist"] button[role="tab"]:last-child {
+        display: none;
+    }
 </style>
 <script>
     var ToggleStoriesPanelElement         = document.createElement('a');
@@ -69,4 +97,21 @@
             setTimeout(appendToBody, 500);
         }
     }();
+</script>
+<script>
+    // Overwrite the default title - cannot be set in the API
+    document.title = 'Rentivo Search Widget Storybook';
+</script>
+<script>
+    !function manageTabs() {
+        if (document.body) {
+            // hide readme tab
+            const toHidingTabs = ['README'];
+            [...document.querySelectorAll('.Pane div[role="tablist"] button[role="tab"]')]
+                .filter(tab => toHidingTabs.includes(tab.textContent))
+                .forEach(tab => tab.style.display = 'none');
+        } else {
+            setTimeout(manageTabs, 500)
+        }
+    }()
 </script>

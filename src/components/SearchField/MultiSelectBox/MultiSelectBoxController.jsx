@@ -19,7 +19,7 @@ export default (MultiSelectBox) => {
         setCustomWidgetConfig   = setCustomWidgetConfig.bind(this);
         resetCustomWidgetConfig = resetCustomWidgetConfig.bind(this);
 
-        generateUrlPart    = () => generateMultiSelectBoxPart(this.state.value, this.props.rawData);
+        generateUrlPart = () => generateMultiSelectBoxPart(this.state.value, this.props.rawData);
 
         updateGlobalWidgetConfig = (selectedOption) => {
             // if has a custom widget config - change state of Searchbar
@@ -51,7 +51,9 @@ export default (MultiSelectBox) => {
             }
 
             this.setState({ value: selectedValues }, () => {
-                this.updateGlobalWidgetConfig(selectedOption);
+                if (!this.props.dumb) {
+                    this.updateGlobalWidgetConfig(selectedOption);
+                }
             });
         };
 
@@ -81,7 +83,8 @@ export default (MultiSelectBox) => {
         placeholder: PropTypes.string.isRequired,
         data:        PropTypes.array.isRequired,
         rawData:     PropTypes.array.isRequired,
-        context:     PropTypes.object.isRequired
+        context:     PropTypes.object.isRequired,
+        dumb:        PropTypes.bool.isRequired,
     };
 
     return MultiSelectBoxController;

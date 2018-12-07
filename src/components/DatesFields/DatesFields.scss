@@ -80,6 +80,10 @@
         }
     }
     
+    .DateRangePicker_picker__directionLeft {
+        //margin-left: 30px;
+    }
+    
     &--open {
         .DateRangePickerInput {
             border-color: black;
@@ -90,18 +94,21 @@
 // Rules begin to work when widget size >= $tn-min
 @include min-widget-size($tn-min) {
     .DatesFields {
-        .DateRangePickerInput {
-            .DateInput {
-                flex-basis: 45.77%;
-                max-width: 45.77%;
-                
-                &:before {
-                    font-size: 20px;
-                }
+        .DateRangePicker {
+            &_picker {
+                margin-left: 60px;
             }
             
-            &_arrow {
-                display: block;
+            &Input {
+                .DateInput {
+                    &:before {
+                        font-size: 20px;
+                    }
+                    
+                    &:last-child .DateInput_fang {
+                        left: 50px;
+                    }
+                }
             }
         }
     }
@@ -110,9 +117,24 @@
 // Rules begin to work when widget size >= $xs-min
 @include min-widget-size($xs-min) {
     .DatesFields {
-        .DateRangePickerInput {
-            .DateInput:last-child .DateInput_fang {
-                left: 50%;
+        .DateRangePicker {
+            &_picker {
+                margin-left: 0;
+            }
+            
+            &Input {
+                .DateInput {
+                    flex-basis: 45.77%;
+                    max-width: 45.77%;
+                    
+                    &:last-child .DateInput_fang {
+                        left: 50%;
+                    }
+                }
+                
+                &_arrow {
+                    display: block;
+                }
             }
         }
     }

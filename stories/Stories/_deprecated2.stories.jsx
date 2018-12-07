@@ -1,10 +1,6 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
-
-import withReadme from 'storybook-readme/with-readme';
-import CommonReadme from '../temp/readme.md';
 
 import Layout from './HelperComponents/Layout';
 import Searchbar from '../../src/components/Searchbar/Searchbar';
@@ -18,9 +14,8 @@ import guestsFieldConfig_singleSelectBox from '../jsonExamples/guestsField--sing
 
 import datesFieldsConfig from '../jsonExamples/datesFields';
 
-storiesOf('Examples of "Search Field" modes', module)
-    .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-    .addDecorator(withReadme(CommonReadme))
+// deprecated
+storiesOf('ugly/"Search Field" modes', module)
     .add('"single_select_box" mode', () => (
         <Layout>
             <Searchbar

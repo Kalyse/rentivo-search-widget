@@ -11,7 +11,7 @@ const NestedMenu = ({
         <div
             className='NestedMenu'
             style={ {
-                height: rows <= 7 ? rows * 40 + 'px' : 280 + 'px'
+                height: `${rows < 6 ? rows * 40 : 240}px`
             } }
         >{ children }</div>
     );

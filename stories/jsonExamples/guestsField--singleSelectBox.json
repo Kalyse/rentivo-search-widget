@@ -1,7 +1,6 @@
 {
     "mode": "single_select_box",
     "data": {
-        "categoryTitle": "Sleeps",
         "categoryKey": "sleeps",
         "categoryValue": [
             {

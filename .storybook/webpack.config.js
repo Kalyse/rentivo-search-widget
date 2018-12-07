@@ -6,6 +6,7 @@ const PATHS = {
     source:  path.join(__dirname, '../src'),
     build:   path.join(__dirname, '../build'),
     modules: path.join(__dirname, '../node_modules'),
+    docs:    path.join(__dirname, '../docs'),
 };
 
 // Export a function. Accept the base config as the only param.
@@ -22,7 +23,8 @@ module.exports = (storybookBaseConfig, configType) => {
                 modules:    [PATHS.modules, PATHS.source],
                 alias:      {
                     '~core':       path.join(PATHS.source, 'core'),
-                    '~components': path.join(PATHS.source, 'components')
+                    '~components': path.join(PATHS.source, 'components'),
+                    '~docs':       PATHS.docs,
                 }
             }
         },

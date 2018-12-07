@@ -1,10 +1,6 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
-
-import withReadme from 'storybook-readme/with-readme';
-import CommonReadme from '../temp/readme.md';
 
 import Layout from './HelperComponents/Layout';
 import Searchbar from '../../src/components/Searchbar/Searchbar';
@@ -16,11 +12,11 @@ import guestsFieldConfig_plusMinus from '../jsonExamples/guestsField--plusMinus'
 
 import datesFieldsConfig from '../jsonExamples/datesFields';
 
-storiesOf('Examples of "Guests Field" modes', module)
-    .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
+// deprecated
+storiesOf('ugly/"Guests Field" modes', module)
     .add(
         '"single_select_box" mode',
-        withReadme(CommonReadme, () => (
+        () => (
             <Layout>
                 <Searchbar
                     searchField={ { ...searchFieldConfig_singleSelectBox } }
@@ -28,11 +24,11 @@ storiesOf('Examples of "Guests Field" modes', module)
                     datesFields={ { ...datesFieldsConfig } }
                 />
             </Layout>
-        ))
+        )
     )
     .add(
         '"plus_minus" mode',
-        withReadme(CommonReadme, () => (
+        () => (
             <Layout>
                 <Searchbar
                     searchField={ { ...searchFieldConfig_singleSelectBox } }
@@ -40,5 +36,5 @@ storiesOf('Examples of "Guests Field" modes', module)
                     datesFields={ { ...datesFieldsConfig } }
                 />
             </Layout>
-        ))
+        )
     );

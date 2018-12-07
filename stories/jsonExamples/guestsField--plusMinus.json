@@ -1,6 +1,7 @@
 {
     "mode": "plus_minus",
     "placeholder": "Select guests number",
+    "incDecInterval": 150,
     "data": [
         {
             "categoryTitle": "Guests",
@@ -9,19 +10,19 @@
             "categoryValue": [
                 {
                     "itemTitle": "Adults",
-                    "itemValue": "adults",
+                    "itemKey": "adults",
                     "minNumber": 2,
                     "maxNumber": 17
                 },
                 {
                     "itemTitle": "Children",
-                    "itemValue": "children",
+                    "itemKey": "children",
                     "minNumber": 0,
                     "maxNumber": 5
                 },
                 {
                     "itemTitle": "Infants",
-                    "itemValue": "infants",
+                    "itemKey": "infants",
                     "minNumber": 0,
                     "maxNumber": 5
                 }
@@ -34,13 +35,13 @@
             "categoryValue": [
                 {
                     "itemTitle": "Dogs",
-                    "itemValue": "dogs",
+                    "itemKey": "dogs",
                     "minNumber": 0,
                     "maxNumber": 3
                 },
                 {
                     "itemTitle": "Cats",
-                    "itemValue": "cats",
+                    "itemKey": "cats",
                     "minNumber": 0,
                     "maxNumber": 3
                 }
@@ -49,11 +50,10 @@
         {
             "categoryTitle": "Other",
             "categoryKey": "other",
-            "placeholderOrder": 0,
             "categoryValue": [
                 {
                     "itemTitle": "Imaginary friends",
-                    "itemValue": "imaginary_friends",
+                    "itemKey": "imaginary_friends",
                     "minNumber": 0,
                     "maxNumber": 10
                 }
