@@ -1,0 +1,123 @@
+<style>
+    .css-16z7x6f {
+        height: calc(100vh - 50px) !important;
+    }
+
+    .panelToggler {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        padding: 0 25px;
+
+        background: #405681;
+
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+
+        transition: background-color 0.3s;
+        z-index: 1000;
+    }
+
+    .panelToggler:hover {
+        background: #31456d;
+    }
+
+    .panelToggler--stories {
+        left: 0;
+
+        border-radius: 0 5px 0 0;
+    }
+
+    .panelToggler--addons {
+        right: 0;
+
+        border-radius: 5px 0 0 0;
+    }
+
+    .Pane div[role="tablist"] + div form label {
+        flex-wrap: wrap;
+    }
+
+    .Pane div[role="tablist"] + div form label > * {
+        min-width: 100%
+    }
+
+    .Pane div[role="tablist"] + div form label > input[type="checkbox"] {
+        min-width: auto;
+    }
+
+    .Pane div[role="tablist"] + div form label > textarea {
+        /*max-height: 200px;*/
+    }
+
+    .Pane div[role="tablist"] + div form label > *:first-child {
+        font-weight: bold;
+    }
+
+    .Pane div[role="tablist"] + div form label > *:first-child {
+        font-weight: bold;
+    }
+
+    .Pane div[role="tablist"] + div div[role="tablist"] button[role="tab"]:last-child {
+        display: none;
+    }
+</style>
+<script>
+    var ToggleStoriesPanelElement         = document.createElement('a');
+    ToggleStoriesPanelElement.className   = 'panelToggler panelToggler--stories';
+    ToggleStoriesPanelElement.textContent = 'Show/Hide Stories Panel';
+    ToggleStoriesPanelElement.href        = '#';
+
+    ToggleStoriesPanelElement.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleStoriesPanel) return;
+        window.__STORYBOOK_ADDONS.toggleStoriesPanel(e);
+    });
+
+    var ToggleAddonPanelElement         = document.createElement('a');
+    ToggleAddonPanelElement.className   = 'panelToggler panelToggler--addons';
+    ToggleAddonPanelElement.textContent = 'Show/Hide Addon Panel';
+    ToggleAddonPanelElement.href        = '#';
+
+    ToggleAddonPanelElement.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleAddonPanel) return;
+        window.__STORYBOOK_ADDONS.toggleAddonPanel(e);
+    });
+
+    !function appendToBody() {
+        if (document.body) {
+            document.body.appendChild(ToggleStoriesPanelElement);
+            document.body.appendChild(ToggleAddonPanelElement);
+        } else {
+            setTimeout(appendToBody, 500);
+        }
+    }();
+</script>
+<script>
+    // Overwrite the default title - cannot be set in the API
+    document.title = 'Rentivo Search Widget Storybook';
+</script>
+<script>
+    !function manageTabs() {
+        if (document.body) {
+            // hide readme tab
+            var toHidingTabs = ['README'];
+            var tabList      = document.querySelectorAll('.Pane div[role="tablist"] button[role="tab"]');
+            tabList          = Array.prototype.slice.call(tabList, '0');
+            tabList
+                .filter(function (tab) {
+                    return ~toHidingTabs.indexOf(tab.textContent)
+                })
+                .forEach(function (tab) {
+                    tab.style.display = 'none';
+                });
+        } else {
+            setTimeout(manageTabs, 500)
+        }
+    }()
+</script>

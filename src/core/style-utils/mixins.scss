@@ -1,0 +1,29 @@
+@import "./vars";
+
+@mixin min-widget-size($size) {
+    @if $size == $tn-min {
+        .rsw-tn {
+            @content;
+        }
+    } @else if $size == $xs-min {
+        .rsw-xs {
+            @content;
+        }
+    } @else if $size == $sm-min {
+        .rsw-sm {
+            @content;
+        }
+    } @else if $size == $md-min {
+        .rsw-md {
+            @content;
+        }
+    } @else if $size == $lg-min {
+        .rsw-lg {
+            @content;
+        }
+    } @else if $size == $xg-min {
+        .rsw-xg {
+            @content;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.PlusMinusOption {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__Title {
+        display: flex;
+        align-items: center;
+    }
+}

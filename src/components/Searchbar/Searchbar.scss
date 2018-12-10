@@ -1,0 +1,111 @@
+@import "~core/style-utils/index";
+
+// global widget styles (only for common elements)
+.Searchbar {
+    * {
+        &, &:before, &:after {
+            outline: none;
+            box-sizing: border-box;
+        }
+    }
+    
+    input {
+        @extend %text-defaults;
+        
+        width: 100%;
+    }
+    
+    @at-root .select2-container {
+        @extend %text-defaults;
+    }
+}
+
+// layout
+.l-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+}
+
+.l-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: -2.5px;
+    margin-right: -2.5px;
+    padding: 0;
+    
+    & > * {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding-left: 2.5px;
+        padding-right: 2.5px;
+    }
+}
+
+[class*=l-col] {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+// Rules begin to work when widget size >= $tn-min
+@include min-widget-size($tn-min) {
+    .l-col {
+        &--searchField {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--datesFields {
+            flex-basis: 100%;
+            max-width: 100%;
+        }
+        &--guestsField {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--submitBtn {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+// Rules begin to work when widget size >= $sm-min
+@include min-widget-size($sm-min) {
+    .l-col {
+        &--searchField {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+        &--datesFields {
+            flex-basis: 50%;
+            max-width: 50%;
+        }
+    }
+}
+
+// Rules begin to work when widget size >= $md-min
+@include min-widget-size($md-min) {
+    .l-col {
+        &--searchField {
+            flex-basis: 32.38%;
+            max-width: 32.38%;
+        }
+        &--datesFields {
+            flex-basis: 35.24%;
+            max-width: 35.24%;
+        }
+        &--guestsField {
+            flex-basis: 15.71%;
+            max-width: 15.71%;
+        }
+        &--submitBtn {
+            flex-basis: 16.67%;
+            max-width: 16.67%;
+        }
+    }
+}

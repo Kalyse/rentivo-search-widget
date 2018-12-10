@@ -1,0 +1,10 @@
+{
+    "startDateId": "SomeStartDate",
+    "endDateId": "SomeEndDate",
+    "startDatePlaceholderText": "Start Date",
+    "endDatePlaceholderText": "End Date",
+    "inputDateFormat": "DD/MM/YYYY",
+    "urlDateFormat": "YYYY-MM-DD",
+    "appendToBody": false,
+    "numberOfMonths": 2
+}

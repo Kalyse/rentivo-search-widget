@@ -1,0 +1,20 @@
+.NestedMenuBack {
+    display: flex;
+    align-items: center;
+    padding: 13px 6px 12px;
+    
+    border-bottom: 1px solid #cccccc;
+    
+    background: white;
+    
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+    cursor: pointer;
+    
+    &:hover {
+        background: #5897fb;
+        color: #ffffff;
+    }
+}

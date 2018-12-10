@@ -1,0 +1,69 @@
+{
+    "mode": "nested_dropdown",
+    "placeholder": "Where do you want to go?",
+    "menuTitlePrefix": "All villas in ",
+    "data": {
+        "name": "Asia",
+        "pathFragment": "search",
+        "children": [
+            {
+                "name": "Thailand",
+                "pathFragment": "thailand",
+                "children": [
+                    {
+                        "name": "Koh Samui",
+                        "pathFragment": "koh-samui",
+                        "children": [
+                            {
+                                "name": "Ban Tai",
+                                "pathFragment": "ban-tai"
+                            },
+                            {
+                                "name": "Bang Por",
+                                "pathFragment": "bang-por"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Phuket",
+                        "pathFragment": "phuket",
+                        "children": [
+                            {
+                                "name": "Koh Yao",
+                                "pathFragment": "koh-yao"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Indonesia",
+                "pathFragment": "indonesia",
+                "children": [
+                    {
+                        "name": "Bali",
+                        "pathFragment": "bali",
+                        "children": [
+                            {
+                                "name": "Sanur",
+                                "pathFragment": "sanur"
+                            },
+                            {
+                                "name": "Ubud",
+                                "pathFragment": "ubud"
+                            }
+                        ]
+                    }
+                ],
+                "customWidgetConfig": {
+                    "baseUrl": "http://new-base-url.com/",
+                    "appendString": "?qwerty=dvorak",
+                    "datesFields": {
+                        "startDateId": "CustomStartDateId",
+                        "endDateId": "CustomEndDateId"
+                    }
+                }
+            }
+        ]
+    }
+}

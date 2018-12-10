@@ -1,0 +1,67 @@
+.PlusMinusControls {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 80px;
+    height: 40px;
+    span {
+        flex-basis: 50%;
+        max-width: 50%;
+
+        border: 1px solid #000000;
+
+        cursor: pointer;
+        &:first-child {
+            border-right: none;
+        }
+        &[aria-disabled="true"] {
+            border-color: #ccc;
+            &:before,
+            &:after {
+                background: #ccc;
+            }
+        }
+        &:not([aria-disabled="true"]) + [aria-disabled="true"] {
+            border-left-color: #000;
+        }
+    }
+    &__Plus {
+        position: relative;
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            background: #000000;
+        }
+        &:before {
+            width: 2px;
+            height: 40%;
+
+            transform: translate(-1px, -50%);
+        }
+        &:after {
+            width: 40%;
+            height: 2px;
+
+            transform: translate(-50%, -1px);
+        }
+    }
+    &__Minus {
+        position: relative;
+        &:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 40%;
+            height: 2px;
+
+            background: #000000;
+
+            transform: translate(-50%, -1px);
+        }
+    }
+}
