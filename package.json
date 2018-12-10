@@ -1,6 +1,6 @@
 {
     "name": "rentivo-searchbar-widget",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Searchbar widget for Rentivo project",
     "main": "index.js",
     "scripts": {
