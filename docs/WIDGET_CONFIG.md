@@ -107,7 +107,7 @@ General widget settings
         </td>
     </tr>
     <tr>
-        <td valign="top">GuestsField*</td>
+        <td valign="top">guestsField*</td>
         <td valign="top">-</td>
         <td valign="top">
             <p><code>
