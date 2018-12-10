@@ -1,5 +1,4 @@
 import React from 'react';
-import { UIConfig } from '../../.storybook/constants'
 
 import { storiesOf } from '@storybook/react';
 import withDocs from 'storybook-readme/with-docs';
@@ -27,6 +26,7 @@ storiesOf('Guests Field', module)
                 <FieldWrapper width={ number(...fieldWidthDefaults) }>
                     <SingleSelectBox
                         { ...guestsFieldConfig_singleSelectBox }
+                        dumb
                     />
                 </FieldWrapper>
             );
@@ -42,6 +42,7 @@ storiesOf('Guests Field', module)
                         { ...guestsFieldConfig_plusMinus }
                         placeholder={ text('placeholder', placeholder) }
                         incDecInterval={ number('incDecInterval', incDecInterval) }
+                        dumb
                     />
                 </FieldWrapper>
             );

@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Cookie from '~core/Services/Cookie';
 import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
 
 import { generateSingleSelectBoxPart } from './helpers/urlGenerator';
 
 export default (SingleSelectBox) => {
     class SingleSelectBoxController extends React.PureComponent {
+        cookie = new Cookie();
+
         state = {
-            value: null
+            value: !this.props.dumb && this.cookie.get('SearchField.SingleSelectBox.value') || null
         };
 
         setCustomWidgetConfig   = setCustomWidgetConfig.bind(this);
@@ -31,6 +35,7 @@ export default (SingleSelectBox) => {
             this.setState({ value: newValue }, () => {
                 if (!this.props.dumb) {
                     this.updateGlobalWidgetConfig(newValue);
+                    this.cookie.set('SearchField.SingleSelectBox.value', newValue);
                 }
             });
         };

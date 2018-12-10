@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
+
+import Cookie from '~core/Services/Cookie';
 import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
 
 import { generateMultiSelectBoxPart } from './helpers/urlGenerator';
@@ -12,8 +14,10 @@ export default (MultiSelectBox) => {
         select2Reinit           = () => this.forceUpdate();
         _throttledSelect2Reinit = throttle(this.select2Reinit, 500);
 
+        cookie = new Cookie();
+
         state = {
-            value: []
+            value: !this.props.dumb && this.cookie.get('SearchField.MultiSelectBox.value') || []
         };
 
         setCustomWidgetConfig   = setCustomWidgetConfig.bind(this);
@@ -27,12 +31,10 @@ export default (MultiSelectBox) => {
             const { singleResult }       = this.props.rawData[categoryIdx];
             const { customWidgetConfig } = this.props.rawData[categoryIdx].categoryValue[itemIdx];
 
-            if (!singleResult) {
-                return;
-            }
-
             if (customWidgetConfig) {
-                this.setCustomWidgetConfig(customWidgetConfig);
+                if (singleResult) {
+                    this.setCustomWidgetConfig(customWidgetConfig);
+                }
             } else {
                 this.resetCustomWidgetConfig();
             }
@@ -53,6 +55,7 @@ export default (MultiSelectBox) => {
             this.setState({ value: selectedValues }, () => {
                 if (!this.props.dumb) {
                     this.updateGlobalWidgetConfig(selectedOption);
+                    this.cookie.set('SearchField.MultiSelectBox.value', selectedValues);
                 }
             });
         };

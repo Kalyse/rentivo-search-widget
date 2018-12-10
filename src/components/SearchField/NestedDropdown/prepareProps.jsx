@@ -111,7 +111,6 @@ export default (NestedDropdown) => {
     NestedDropdownWrapper.defaultProps = {
         ...searchField.nestedDropdown,
         dumb: false
-
     };
 
     return React.forwardRef((props, ref) => {

@@ -58,3 +58,5 @@ export const ROOT_MENUS_ID = {
     DEFAULT:        'defaultRootMenu',
     SEARCH_RESULTS: 'searchResultsMenu'
 };
+
+export const COOKIE_PREFIX = 'RSW_';

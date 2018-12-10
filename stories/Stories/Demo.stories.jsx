@@ -19,14 +19,13 @@ import URLToRedirect from './HelperComponents/URLToRedirect';
 
 function getSearchFieldConfig(searchFieldMode) {
     switch (searchFieldMode) {
-        case 'single':
-            return searchFieldConfig_singleSelectBox;
-        case 'multi':
+        case 'multi_select_box':
             return searchFieldConfig_multiSelectBox;
-        case 'google':
+        case 'google_places':
             return searchFieldConfig_googlePlaces;
-        case 'nested':
+        case 'nested_dropdown':
             return searchFieldConfig_nestedDropdown;
+        case 'single_select_box':
         default:
             return searchFieldConfig_singleSelectBox;
     }
@@ -34,22 +33,22 @@ function getSearchFieldConfig(searchFieldMode) {
 
 function getGuestsFieldConfig(guestsFieldMode) {
     switch (guestsFieldMode) {
-        case 'single':
-            return guestsFieldConfig_singleSelectBox;
         case 'plus_minus':
             return guestsFieldConfig_plusMinus;
+        case 'single_select_box':
         default:
             return guestsFieldConfig_singleSelectBox;
     }
 }
 
 function getValidatedWidgetConfig(widgetConfig, searchFieldMode, guestsFieldMode) {
-    if (searchFieldMode === 'google') {
+    if (searchFieldMode === 'google_places') {
         return {
             ...widgetConfig,
             urlTransformerScheme: 'encoded_google_places'
         };
     }
+
     return widgetConfig;
 }
 
@@ -80,27 +79,28 @@ storiesOf('Demo', module)
             const searchFieldMode = select(
                 'Choose Search Field mode',
                 {
-                    single_select_box: 'single',
-                    multi_select_box:  'multi',
-                    google_places:     'google',
-                    nested_dropdown:   'nested'
+                    single_select_box: 'single_select_box',
+                    multi_select_box:  'multi_select_box',
+                    google_places:     'google_places',
+                    nested_dropdown:   'nested_dropdown'
                 },
-                'single',
+                'single_select_box',
                 GROUP_IDS.SEARCH_FIELD
             );
 
             const guestsFieldMode = select(
                 'Choose Guests Field mode',
                 {
-                    single_select_box: 'single',
+                    single_select_box: 'single_select_box',
                     plus_minus:        'plus_minus',
                 },
-                'single',
+                'single_select_box',
                 GROUP_IDS.GUESTS_FIELD
             );
 
-            const searchFieldConfig     = getSearchFieldConfig(searchFieldMode);
-            const guestsFieldConfig     = getGuestsFieldConfig(guestsFieldMode);
+            const searchFieldConfig = getSearchFieldConfig(searchFieldMode);
+            const guestsFieldConfig = getGuestsFieldConfig(guestsFieldMode);
+
             const validatedWidgetConfig = getValidatedWidgetConfig(widgetConfig, searchFieldMode, guestsFieldMode);
 
             const _widgetConfig = object('widgetConfig', validatedWidgetConfig, GROUP_IDS.GENERAL);
@@ -124,5 +124,10 @@ On this page you can test all combinations of configs. __Be careful with testing
                     </PreviewComponent>
                 </React.Fragment>
             );
+        },
+        {
+            knobs: {
+                timestamps: false
+            }
         }
     );

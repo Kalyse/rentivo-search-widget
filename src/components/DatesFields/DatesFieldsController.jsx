@@ -1,17 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
+import Cookie from '~core/Services/Cookie';
 import { WIDGET_SIZES } from '~core/constants';
 import { datesFields } from '~core/defaults';
 import { generateCustomDatesFieldsPart, generateDatesFieldsPart } from './helpers/urlGenerator';
 
 export default (DatesFields) => {
     class DatesFieldsController extends React.PureComponent {
-        state = {
-            focusedInput: null,
-            startDate:    null,
-            endDate:      null
-        };
+        constructor(props) {
+            super(props);
+
+            this.cookie = new Cookie();
+
+            let startDate = null;
+            let endDate   = null;
+
+            if (!this.props.dumb) {
+                const initStartDate = this.cookie.get('DatesFields.startDate');
+                const initEndDate   = this.cookie.get('DatesFields.endDate');
+
+                if (initStartDate) {
+                    startDate = moment(initStartDate);
+                }
+                if (initEndDate) {
+                    endDate = moment(initEndDate);
+                }
+            }
+
+            this.state = {
+                focusedInput: null,
+                startDate,
+                endDate
+            };
+        }
 
         get urlPart() {
             return generateDatesFieldsPart(this.state, this.props);
@@ -28,7 +51,18 @@ export default (DatesFields) => {
             return this.props.numberOfMonths;
         };
 
-        onDatesChange = ({ startDate, endDate }) => this.setState({ startDate, endDate });
+        onDatesChange = ({ startDate, endDate }) => {
+            this.setState({ startDate, endDate }, () => {
+                if (!this.props.dumb) {
+                    if (startDate) {
+                        this.cookie.set('DatesFields.startDate', startDate.format());
+                    }
+                    if (endDate) {
+                        this.cookie.set('DatesFields.endDate', endDate.format());
+                    }
+                }
+            });
+        };
 
         onFocusChange = focusedInput => this.setState({ focusedInput });
 
@@ -63,11 +97,13 @@ export default (DatesFields) => {
         numberOfMonths:           PropTypes.number,
         startDatePlaceholderText: PropTypes.string,
         endDatePlaceholderText:   PropTypes.string,
-        widgetSizeId:             PropTypes.oneOf(Object.keys(WIDGET_SIZES))
+        widgetSizeId:             PropTypes.oneOf(Object.keys(WIDGET_SIZES)),
+        dumb:                     PropTypes.bool.isRequired
     };
 
     DatesFieldsController.defaultProps = {
-        ...datesFields
+        ...datesFields,
+        dumb: false
     };
 
     return DatesFieldsController;

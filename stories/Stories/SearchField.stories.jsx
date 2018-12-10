@@ -68,6 +68,7 @@ storiesOf('Search Field', module)
                         { ...searchFieldConfig_googlePlaces }
                         searchOptions={ object('searchOptions', searchOptions) }
                         placeholder={ text('placeholder', placeholder) }
+                        dumb
                     />
                 </FieldWrapper>
             );

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import loadGoogleMapsAPI from "load-google-maps-api-2";
+
+import Cookie from '~core/Services/Cookie';
 import { searchField } from '~core/defaults';
 
 import { generateGooglePlacesPart } from './helpers/urlGenerator';
@@ -10,10 +12,11 @@ import './GooglePlaces.scss';
 
 class GooglePlaces extends React.PureComponent {
     searchField = React.createRef();
+    cookie = new Cookie();
 
     state = {
-        address:          '',
-        searchResultData: '',
+        address:          !this.props.dumb && this.cookie.get('SearchField.GooglePlaces.address') || '',
+        searchResultData: !this.props.dumb && this.cookie.get('SearchField.GooglePlaces.searchResultData') || '',
     };
 
     constructor(props) {
@@ -32,7 +35,11 @@ class GooglePlaces extends React.PureComponent {
     handleChange = address => this.setState({ address });
 
     handleSelect = address => {
-        this.setState({ address });
+        this.setState({ address }, () => {
+            if (!this.props.dumb) {
+                this.cookie.set('SearchField.GooglePlaces.address', address)
+            }
+        });
 
         geocodeByAddress(address)
             .then(results => {
@@ -41,7 +48,11 @@ class GooglePlaces extends React.PureComponent {
                     rentivoDestinationField: address.replace(', ', '--')
                 };
 
-                this.setState({ searchResultData })
+                this.setState({ searchResultData }, () => {
+                    if (!this.props.dumb) {
+                        this.cookie.set('SearchField.GooglePlaces.searchResultData', searchResultData)
+                    }
+                })
             })
             .catch(error => console.error('Error', error));
     };
@@ -129,11 +140,13 @@ class GooglePlaces extends React.PureComponent {
 GooglePlaces.propTypes = {
     API_KEY:       PropTypes.string.isRequired,
     placeholder:   PropTypes.string,
-    searchOptions: PropTypes.object
+    searchOptions: PropTypes.object,
+    dumb:          PropTypes.bool.isRequired
 };
 
 GooglePlaces.defaultProps = {
-    ...searchField.googlePlaces
+    ...searchField.googlePlaces,
+    dumb: false
 };
 
 export default GooglePlaces;

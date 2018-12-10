@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Cookie from '~core/Services/Cookie';
+
 import { generatePlusMinusDropdownPart } from './helpers/urlGenerator';
 
-import PlusMinusOption from "./PlusMinusOption/PlusMinusOption";
-import PlusMinusControls from "./PlusMinusControls/PlusMinusControls";
+import PlusMinusOption from "./PrivateComponents/PlusMinusOption";
+import PlusMinusControls from "./PrivateComponents/PlusMinusControls";
+import PlusMinusDropdownHead from "./PrivateComponents/PlusMinusDropdownHead";
 
 export default (PlusMinusDropdown) => {
     class PlusMinusDropdownController extends React.PureComponent {
@@ -19,8 +22,10 @@ export default (PlusMinusDropdown) => {
             return options;
         };
 
+        cookie = new Cookie();
+
         state = {
-            options:        this._getInitStateOptions(),
+            options:        !this.props.dumb && this.cookie.get('GuestsField.PlusMinus.options') || this._getInitStateOptions(),
             isDropdownOpen: false
         };
 
@@ -32,20 +37,29 @@ export default (PlusMinusDropdown) => {
         handleOptionIncrease = optionId => {
             if (this.isIncreaseBtnDisabled(optionId)) return;
 
-            this.setState({
-                options: {
-                    ...this.state.options,
-                    [optionId]: this.state.options[optionId] + 1
+            const options = {
+                ...this.state.options,
+                [optionId]: this.state.options[optionId] + 1
+            };
+
+            this.setState({ options }, () => {
+                if (!this.props.dumb) {
+                    this.cookie.set('GuestsField.PlusMinus.options', options);
                 }
             });
         };
+
         handleOptionDecrease = optionId => {
             if (this.isDecreaseBtnDisabled(optionId)) return;
 
-            this.setState({
-                options: {
-                    ...this.state.options,
-                    [optionId]: this.state.options[optionId] - 1
+            const options = {
+                ...this.state.options,
+                [optionId]: this.state.options[optionId] - 1
+            };
+
+            this.setState({ options }, () => {
+                if (!this.props.dumb) {
+                    this.cookie.set('GuestsField.PlusMinus.options', options);
                 }
             });
         };
@@ -86,10 +100,14 @@ export default (PlusMinusDropdown) => {
         render() {
             return (
                 <PlusMinusDropdown
-                    placeholder={ this.props.placeholder }
-                    results={ this.getActiveEntities('categories') }
                     isOpen={ this.state.isDropdownOpen }
                     toggleDropdown={ this.toggleDropdown }
+                    DropdownHead={
+                        <PlusMinusDropdownHead
+                            results={ this.getActiveEntities('categories') }
+                            placeholder={ this.props.placeholder }
+                            onHeadClick={ this.toggleDropdown }
+                        /> }
                 >
                     { Object.values(this.props.options).map((option) => (
                         <PlusMinusOption
@@ -130,7 +148,8 @@ export default (PlusMinusDropdown) => {
             }).isRequired
         ),
         placeholder:    PropTypes.string.isRequired,
-        incDecInterval: PropTypes.number.isRequired
+        incDecInterval: PropTypes.number.isRequired,
+        dumb:           PropTypes.bool.isRequired
     };
 
     return PlusMinusDropdownController;

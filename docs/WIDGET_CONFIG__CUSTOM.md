@@ -2,7 +2,7 @@
 
 Is used to change general widget settings for certain Search Field's items when they chosen
 
-CustomWidgetConfig interface is have the same properties as WidgetConfig except 'searchField'. All properties are optional
+CustomWidgetConfig interface is have the same properties as WidgetConfig except 'searchField' and 'cookieConfig'. All properties are optional
 
 ### CustomWidgetConfig interface
 

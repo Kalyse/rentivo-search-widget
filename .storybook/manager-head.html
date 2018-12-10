@@ -72,7 +72,7 @@
     ToggleStoriesPanelElement.textContent = 'Show/Hide Stories Panel';
     ToggleStoriesPanelElement.href        = '#';
 
-    ToggleStoriesPanelElement.addEventListener('click', (e) => {
+    ToggleStoriesPanelElement.addEventListener('click', function (e) {
         e.preventDefault();
         if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleStoriesPanel) return;
         window.__STORYBOOK_ADDONS.toggleStoriesPanel(e);
@@ -83,7 +83,7 @@
     ToggleAddonPanelElement.textContent = 'Show/Hide Addon Panel';
     ToggleAddonPanelElement.href        = '#';
 
-    ToggleAddonPanelElement.addEventListener('click', (e) => {
+    ToggleAddonPanelElement.addEventListener('click', function (e) {
         e.preventDefault();
         if (!window.__STORYBOOK_ADDONS || !window.__STORYBOOK_ADDONS.toggleAddonPanel) return;
         window.__STORYBOOK_ADDONS.toggleAddonPanel(e);
@@ -106,10 +106,16 @@
     !function manageTabs() {
         if (document.body) {
             // hide readme tab
-            const toHidingTabs = ['README'];
-            [...document.querySelectorAll('.Pane div[role="tablist"] button[role="tab"]')]
-                .filter(tab => toHidingTabs.includes(tab.textContent))
-                .forEach(tab => tab.style.display = 'none');
+            var toHidingTabs = ['README'];
+            var tabList      = document.querySelectorAll('.Pane div[role="tablist"] button[role="tab"]');
+            tabList          = Array.prototype.slice.call(tabList, '0');
+            tabList
+                .filter(function (tab) {
+                    return ~toHidingTabs.indexOf(tab.textContent)
+                })
+                .forEach(function (tab) {
+                    tab.style.display = 'none';
+                });
         } else {
             setTimeout(manageTabs, 500)
         }

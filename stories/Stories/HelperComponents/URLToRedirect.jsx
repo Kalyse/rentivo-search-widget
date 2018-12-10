@@ -39,7 +39,7 @@ export default class URLToRedirect extends React.PureComponent {
                 } }>{ this.state.generatedURL && 'URL to redirect: ' }</span>
                 <span
                     style={ {
-                        textDecoration: 'underline',
+                        // textDecoration: 'underline',
                         marginLeft:     '5px',
                         overflowWrap:   'break-word',
                         wordWrap:       'break-word'

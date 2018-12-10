@@ -43,3 +43,9 @@ export const searchField = {
         placeholder:     'Where do you want to go?',
     }
 };
+
+export const cookieConfig = {
+    isAllowed: true,
+    maxAge:    24,
+    nameSpace: 'DEFAULT'
+};

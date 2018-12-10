@@ -10,24 +10,12 @@ import './PlusMinusDropdown.scss';
 
 class PlusMinusDropdown extends React.PureComponent {
     render() {
-        const DropdownHead = (
-            <div className="PlusMinusDropdown__ResultsContainer" onClick={ this.props.toggleDropdown }>
-                { this.props.results.length
-                    ? this.props.results.map((result, idx, array) => (
-                        <span className="PlusMinusDropdown__Result" key={ result.id }>
-                            { `${result.value} ${result.title}${ idx + 1 < array.length ? ',' : '' }` }
-                        </span>
-                    ))
-                    : <span className="PlusMinusDropdown__Placeholder">{ this.props.placeholder }</span>
-                }
-            </div>
-        );
         const DropdownBody = <div className="PlusMinusDropdown__OptionsContainer">{ this.props.children }</div>;
 
         return (
             <div className="PlusMinusDropdown">
                 <Dropdown
-                    head={ DropdownHead }
+                    head={ this.props.DropdownHead }
                     body={ DropdownBody }
                     bodyAlign='right'
                     closeDropdown={ this.props.toggleDropdown }
@@ -40,9 +28,8 @@ class PlusMinusDropdown extends React.PureComponent {
 
 PlusMinusDropdown.propTypes = {
     isOpen:         PropTypes.bool.isRequired,
-    results:        PropTypes.array.isRequired,
-    placeholder:    PropTypes.string.isRequired,
     toggleDropdown: PropTypes.func.isRequired,
+    DropdownHead:   PropTypes.element.isRequired,
 };
 
 export default withPreparedProps(withController(PlusMinusDropdown));

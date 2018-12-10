@@ -1,4 +1,5 @@
-import { UIConfig } from './constants'
+import { UIConfig } from './constants';
+import 'url-polyfill';
 
 export default class PanelsManager {
     constructor(API) {
@@ -11,7 +12,7 @@ export default class PanelsManager {
     getInitState = () => {
         const url_string = window.location.href;
         const url        = new URL(url_string);
-        
+
         const showStoriesPanel = JSON.parse(url.searchParams.get("showStoriesPanel")) !== null
             ? JSON.parse(url.searchParams.get("showStoriesPanel"))
             : UIConfig.showStoriesPanel;

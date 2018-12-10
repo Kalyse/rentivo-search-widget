@@ -42,6 +42,7 @@ export default (PlusMinusDropdown) => {
                 options:        this._getNormalizedOptions(),
                 placeholder:    this.props.placeholder,
                 incDecInterval: this.props.incDecInterval,
+                dumb:           this.props.dumb
             };
         };
 
@@ -68,10 +69,12 @@ export default (PlusMinusDropdown) => {
                 ).isRequired,
             }).isRequired
         ).isRequired,
+        dumb:           PropTypes.bool,
     };
 
     PlusMinusDropdownWrapper.defaultProps = {
-        ...guestsField.plusMinus
+        ...guestsField.plusMinus,
+        dumb: false
     };
 
     return React.forwardRef((props, ref) => {

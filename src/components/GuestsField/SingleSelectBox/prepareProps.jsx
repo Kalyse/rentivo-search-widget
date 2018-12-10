@@ -17,6 +17,7 @@ export default (SingleSelectBox) => {
                 data:         this._getNormalizedData(),
                 rawData:      this.props.data,
                 initialValue: this.props.initialValue || this._getNormalizedData()[0].id,
+                dumb:         this.props.dumb
             };
         };
 
@@ -36,6 +37,10 @@ export default (SingleSelectBox) => {
                 })
             ).isRequired
         }).isRequired,
+    };
+
+    SingleSelectBoxWrapper.defaultProps = {
+        dumb: false
     };
 
     return React.forwardRef((props, ref) => {

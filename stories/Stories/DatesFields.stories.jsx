@@ -32,6 +32,7 @@ storiesOf('Dates Fields', module)
                         startDatePlaceholderText={ text('startDatePlaceholderText', startDatePlaceholderText) }
                         endDatePlaceholderText={ text('endDatePlaceholderText', endDatePlaceholderText) }
                         appendToBody={ boolean('appendToBody', appendToBody) }
+                        dumb
                     />
                 </FieldWrapper>
             );

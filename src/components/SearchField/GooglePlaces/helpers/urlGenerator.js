@@ -1,4 +1,4 @@
-import { b64EncodeUnicode } from './base64';
+import { b64EncodeUnicode } from '~core/helpers/base64';
 
 export function generateGooglePlacesPart(data) {
     if (data) {

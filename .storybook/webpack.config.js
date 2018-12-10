@@ -1,5 +1,8 @@
-const path    = require("path");
-const webpack = require('webpack');
+const path         = require("path");
+const webpack      = require('webpack');
+// postCSS plugins
+const autoprefixer = require('autoprefixer');
+const cssnano      = require('cssnano');
 
 
 const PATHS = {
@@ -32,7 +35,8 @@ module.exports = (storybookBaseConfig, configType) => {
             test: /\.css$/,
             use:  [
                 'style-loader',
-                'css-loader'
+                'css-loader',
+                'postcss-loader'
             ]
         },
         {
@@ -40,6 +44,7 @@ module.exports = (storybookBaseConfig, configType) => {
             use:  [
                 'style-loader',
                 'css-loader',
+                'postcss-loader',
                 'resolve-url-loader',
                 'sass-loader?sourceMap'
             ]
@@ -56,6 +61,19 @@ module.exports = (storybookBaseConfig, configType) => {
             test:   /\.svg(\?v=\d+\.\d+\.\d+)?$/,
             loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[name]/[name].[ext]'
         }
+    );
+
+    storybookBaseConfig.plugins.push(
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: function () {
+                    return [
+                        autoprefixer,
+                        cssnano
+                    ]
+                }
+            }
+        })
     );
 
     /*storybookBaseConfig.plugins.push(

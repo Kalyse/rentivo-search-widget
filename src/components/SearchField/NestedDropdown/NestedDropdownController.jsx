@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import last from 'lodash/last'
+
+import Cookie from '~core/Services/Cookie';
 import { ROOT_MENUS_ID } from '~core/constants';
 
 import { resetCustomWidgetConfig, setCustomWidgetConfig } from '~core/helpers/customWidgetConfig';
 
-import { generateNestedDropdownPart, generateCustomNestedDropdownPart } from './helpers/urlGenerator';
+import { generateCustomNestedDropdownPart, generateNestedDropdownPart } from './helpers/urlGenerator';
 
-import NestedMenu from './NestedMenu/NestedMenu';
-import NestedMenuList from './NestedMenu/NestedMenuList';
-import NestedMenuItem from './NestedMenu/NestedMenuItem';
-import NestedMenuTitle from './NestedMenu/NestedMenuTitle';
-import NestedMenuBackLink from './NestedMenu/NestedMenuBackLink';
-import NestedMenuSearchResultsTitle from './NestedMenu/NestedMenuSearchResultsTitle';
+import NestedMenu from './PrivateComponents/NestedMenu';
+import NestedMenuList from './PrivateComponents/NestedMenuList';
+import NestedMenuItem from './PrivateComponents/NestedMenuItem';
+import NestedMenuTitle from './PrivateComponents/NestedMenuTitle';
+import NestedMenuBackLink from './PrivateComponents/NestedMenuBackLink';
+import NestedMenuSearchResultsTitle from './PrivateComponents/NestedMenuSearchResultsTitle';
 
 export default (NestedDropdown) => {
     class NestedDropdownController extends React.PureComponent {
@@ -33,10 +35,12 @@ export default (NestedDropdown) => {
             return submenusCain;
         };
 
+        cookie = new Cookie();
+
         state = {
             isDropdownOpen:    false,
-            searchInputValue:  '',
-            selectedOptionId:  null,
+            searchInputValue:  !this.props.dumb && this.cookie.get('SearchField.NestedDropdown.searchInputValue') || '',
+            selectedOptionId:  !this.props.dumb && this.cookie.get('SearchField.NestedDropdown.selectedOptionId') || null,
             currentRootMenuId: ROOT_MENUS_ID.DEFAULT,
             openSubmenusId:    [],
         };
@@ -94,15 +98,18 @@ export default (NestedDropdown) => {
         };
 
         handleItemSelect = optionId => {
+            const searchInputValue = this.props.options[optionId].title;
             this.setState({
-                searchInputValue:  this.props.options[optionId].title,
+                searchInputValue,
                 selectedOptionId:  optionId,
                 currentRootMenuId: ROOT_MENUS_ID.DEFAULT
             }, () => {
                 this.closeDropdown();
 
                 if (!this.props.dumb) {
-                    this.updateGlobalWidgetConfig(this.props.options[optionId])
+                    this.updateGlobalWidgetConfig(this.props.options[optionId]);
+                    this.cookie.set('SearchField.NestedDropdown.searchInputValue', searchInputValue);
+                    this.cookie.set('SearchField.NestedDropdown.selectedOptionId', optionId);
                 }
             });
         };

@@ -1,10 +1,13 @@
+import 'custom-event-polyfill';
 import React, { createContext } from 'react';
+import Cookie from '~core/Services/Cookie';
 import PropTypes from 'prop-types';
 
 import throttle from 'lodash/throttle';
+import omit from 'lodash/omit';
 
 import { GUESTS_FIELD_MODES, SEARCH_FIELD_MODES, URL_TRANSFORMER_SCHEMES, WIDGET_SIZES } from '~core/constants';
-import { widgetConfig } from '~core/defaults';
+import { cookieConfig, widgetConfig } from '~core/defaults';
 import getWidgetSize from '~core/helpers/getWidgetSize';
 
 import SearchField from '~components/SearchField/SearchFieldRouter';
@@ -19,11 +22,13 @@ export const WidgetProvider = WidgetContext.Provider;
 export const WidgetConsumer = WidgetContext.Consumer;
 
 export default (Searchbar) => {
-    class SearchbarController extends React.PureComponent {
+    class SearchbarController extends React.Component {
         SearchbarRef   = React.createRef();
         SearchFieldRef = React.createRef();
         DatesFieldsRef = React.createRef();
         GuestsFieldRef = React.createRef();
+
+        cookie = new Cookie({ ...this.props.cookieConfig });
 
         _getContainerWidth = () => {
             const container      = this.SearchbarRef.current.parentNode;
@@ -39,18 +44,17 @@ export default (Searchbar) => {
 
         _throttledManageWidgetSize = throttle(this._manageWidgetSize, 150);
 
-        initState = {
+
+        state = {
             searchField:          this.props.searchField,
-            datesFields:          this.props.datesFields,
-            guestsField:          this.props.guestsField,
-            baseUrl:              this.props.baseUrl,
-            appendString:         this.props.appendString,
-            searchBtnText:        this.props.searchBtnText,
-            urlTransformerScheme: this.props.urlTransformerScheme,
+            datesFields:          this.cookie.get('datesFields') || this.props.datesFields,
+            guestsField:          this.cookie.get('guestsField') || this.props.guestsField,
+            baseUrl:              this.cookie.get('baseUrl') || this.props.baseUrl,
+            appendString:         this.cookie.get('appendString') || this.props.appendString,
+            searchBtnText:        this.cookie.get('searchBtnText') || this.props.searchBtnText,
+            urlTransformerScheme: this.cookie.get('urlTransformerScheme') || this.props.urlTransformerScheme,
             widgetSize:           WIDGET_SIZES.DEFAULT.id
         };
-
-        state = { ...this.initState };
 
         getRedirectionURL = getRedirectionURL.bind(this);
 
@@ -88,45 +92,51 @@ export default (Searchbar) => {
             window.removeEventListener('redirect', this.redirectPage);
         }
 
-        componentWillUpdate(nextProps, nextState) {
-            if (this.props !== nextProps) {
-                this.initState = { ...nextProps };
-                this.setState({
-                    ...nextProps
-                });
+        // when storybook's state is changing
+        componentWillReceiveProps(nextProps) {
+            if (!process.env.STORYBOOK_ENV) {
+                return;
             }
+            if (this.props === nextProps) {
+                return;
+            }
+
+            this.setState({ ...nextProps });
         }
 
         render() {
             return (
                 <WidgetProvider
                     value={ {
-                        initState: {
-                            datesFields:          this.initState.datesFields,
-                            guestsField:          this.initState.guestsField,
-                            baseUrl:              this.initState.baseUrl,
-                            appendString:         this.initState.appendString,
-                            searchBtnText:        this.initState.searchBtnText,
-                            urlTransformerScheme: this.initState.urlTransformerScheme,
-                        },
-                        state:     {
-                            datesFields:          this.state.datesFields,
-                            guestsField:          this.state.guestsField,
-                            baseUrl:              this.state.baseUrl,
-                            appendString:         this.state.appendString,
-                            searchBtnText:        this.state.searchBtnText,
-                            urlTransformerScheme: this.state.urlTransformerScheme,
-                        },
+                        initState: omit(this.props, ['searchField']),
+                        state:     omit(this.state, ['searchField', 'widgetSize']),
                         actions:   {
-                            setCustomDatesFields:    (datesFields) => this.setState({ datesFields }),
-                            setCustomGuestsField:    (guestsField) => this.setState({ guestsField }),
-                            setCustomBaseUrl:        (baseUrl) => this.setState({ baseUrl }),
-                            setCustomAppendString:   (appendString) => this.setState({ appendString }),
-                            setSearchBtnText:        (searchBtnText) => this.setState({ searchBtnText }),
-                            setUrlTransformerScheme: (urlTransformerScheme) => this.setState({ urlTransformerScheme })
-                        }
+                            setCustomDatesFields:          (datesFields) => {
+                                this.setState({ datesFields });
+                                this.cookie.set('datesFields', datesFields);
+                            },
+                            setCustomGuestsField:          (guestsField) => {
+                                this.setState({ guestsField });
+                                this.cookie.set('guestsField', guestsField);
+                            },
+                            setCustomBaseUrl:              (baseUrl) => {
+                                this.setState({ baseUrl });
+                                this.cookie.set('baseUrl', baseUrl);
+                            },
+                            setCustomAppendString:         (appendString) => {
+                                this.setState({ appendString });
+                                this.cookie.set('appendString', appendString);
+                            },
+                            setCustomSearchBtnText:        (searchBtnText) => {
+                                this.setState({ searchBtnText });
+                                this.cookie.set('searchBtnText', searchBtnText);
+                            },
+                            setCustomUrlTransformerScheme: (urlTransformerScheme) => {
+                                this.setState({ urlTransformerScheme });
+                                this.cookie.set('urlTransformerScheme', urlTransformerScheme);
+                            }
+                        },
                     } }
-
                 >
                     <Searchbar
                         searchbarRef={ this.SearchbarRef }
@@ -164,12 +174,19 @@ export default (Searchbar) => {
         baseUrl:              PropTypes.string,
         appendString:         PropTypes.string,
         searchBtnText:        PropTypes.string,
-        urlTransformerScheme: PropTypes.oneOf(Object.values(URL_TRANSFORMER_SCHEMES))
+        urlTransformerScheme: PropTypes.oneOf(Object.values(URL_TRANSFORMER_SCHEMES)),
+        cookieConfig:         PropTypes.shape({
+            isAllowed: PropTypes.bool,
+            maxAge:    PropTypes.number,
+            nameSpace: PropTypes.string
+        })
     };
 
     SearchbarController.defaultProps = {
-        ...widgetConfig
+        ...widgetConfig,
+        cookieConfig
     };
+
 
     return SearchbarController;
 };

@@ -59,7 +59,6 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
     bodyAlign: 'left',
-    withArrow: true,
 };
 
 export default Dropdown;

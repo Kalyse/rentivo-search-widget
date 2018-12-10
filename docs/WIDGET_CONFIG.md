@@ -54,6 +54,24 @@ General widget settings
         </td>
     </tr>
     <tr>
+        <td valign="top">cookieConfig</td>
+        <td valign="top">
+<pre>
+    {
+        isAllowed: true,
+        maxAge:    24
+    }
+</pre>        
+        </td>
+        <td valign="top">
+            <p><code>
+                <strong>Type:</strong> object
+            </code></p>
+            isAllowed - allows or denies cookies on the site
+            maxAge - cookies life time in hours
+        </td>
+    </tr>
+    <tr>
         <td valign="top">searchField*</td>
         <td valign="top">-</td>
         <td valign="top">
