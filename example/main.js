@@ -1,116 +1,150 @@
 $(function () {
-
-        $('#root').rentivoSearchbar({
-            baseUrl: 'http://localhost:3000/', // required; default: your current domain
-            appendString: "?aff=123", // default: ''; appends to the end of generated url;
-            datesFields: { // settings for check-in and check-out fields
-                startDateId: 'checkIn', // default: 'checkIn'; id for check-in field
-                endDateId: 'checkOut', // default: 'checkOut'; id for check-in field
-                initialStartDate: null, // default: null; if you want to set initial start date - set momentjs object with your date
-                initialEndDate: null, // the same as for initialStartDate
-                dateFormat: 'DD/MM/YYYY', // if you want to change this format - use formats for momentjs
-                appendToBody: false // If the wrapping element has overflow hidden, set to true
-            },
-            guestsField: { // settings for guests field
-                guestsSchema: {
-                    "categoryTitle": "Accommodates",
-                    "categoryKey": "sleeps",
-                    "categoryValue": [
+    $('#root').rentivoSearchbar({
+        "baseUrl":              "http://localhost:9001/",
+        "searchBtnText":        "Search",
+        "urlTransformerScheme": "default",
+        "appendString":         "",
+        datesFields:            {
+            "startDateId":              "checkIn",
+            "endDateId":                "checkOut",
+            "inputDateFormat":          "DD/MM/YYYY",
+            "urlDateFormat":            "YYYY-MM-DD",
+            "appendToBody":             false,
+            "numberOfMonths":           2,
+            "startDatePlaceholderText": "Start Date",
+            "endDatePlaceholderText":   "End Date"
+        },
+        guestsField:            {
+            "mode":           "plus_minus",
+            "placeholder":    "Select guests number",
+            "incDecInterval": 150,
+            "data":           [
+                {
+                    "categoryTitle":    "Guests",
+                    "categoryKey":      "guests",
+                    "placeholderOrder": 2,
+                    "categoryValue":    [
                         {
-                            "itemTitle": "1 Guest",
-                            "itemValue": "1"
+                            "itemTitle": "Adults",
+                            "itemKey":   "adults",
+                            "minNumber": 2,
+                            "maxNumber": 17
                         },
                         {
-                            "itemTitle": "2 Guests",
-                            "itemValue": "2"
+                            "itemTitle": "Children",
+                            "itemKey":   "children",
+                            "minNumber": 0,
+                            "maxNumber": 5
                         },
                         {
-                            "itemTitle": "3 Guests",
-                            "itemValue": "3"
-                        },
-                        {
-                            "itemTitle": "4 Guests",
-                            "itemValue": "4"
-                        },
-                        {
-                            "itemTitle": "5 Guests",
-                            "itemValue": "5"
-                        },
-                        {
-                            "itemTitle": "6 Guests",
-                            "itemValue": "6"
-                        },
-                        {
-                            "itemTitle": "7 Guests",
-                            "itemValue": "7"
-                        },
-                        {
-                            "itemTitle": "8 Guests",
-                            "itemValue": "8"
-                        },
-                        {
-                            "itemTitle": "9 Guests",
-                            "itemValue": "9"
-                        },
-                        {
-                            "itemTitle": "10 Guests",
-                            "itemValue": "10"
-                        },
-                        {
-                            "itemTitle": "11 Guests",
-                            "itemValue": "11"
-                        },
-                        {
-                            "itemTitle": "12 Guests",
-                            "itemValue": "12"
-                        },
-                        {
-                            "itemTitle": "13 Guests",
-                            "itemValue": "13"
-                        },
-                        {
-                            "itemTitle": "14 Guests",
-                            "itemValue": "14"
-                        },
-                        {
-                            "itemTitle": "15 Guests",
-                            "itemValue": "15"
-                        },
-                        {
-                            "itemTitle": "16+ Guests",
-                            "itemValue": "16"
+                            "itemTitle": "Infants",
+                            "itemKey":   "infants",
+                            "minNumber": 0,
+                            "maxNumber": 5
                         }
                     ]
                 },
-                initialValue: '1'
-            },
-            searchField: {
-                mode: 'MultiSelectBox', // required; default: 'SingleSelectBox'
-                placeholder: 'Where do you want to go?',
-                searchSchema: [ // array of categories
+                {
+                    "categoryTitle":    "Pets",
+                    "categoryKey":      "pets",
+                    "placeholderOrder": -1,
+                    "categoryValue":    [
+                        {
+                            "itemTitle": "Dogs",
+                            "itemKey":   "dogs",
+                            "minNumber": 0,
+                            "maxNumber": 3
+                        },
+                        {
+                            "itemTitle": "Cats",
+                            "itemKey":   "cats",
+                            "minNumber": 0,
+                            "maxNumber": 3
+                        }
+                    ]
+                },
+                {
+                    "categoryTitle": "Other",
+                    "categoryKey":   "other",
+                    "categoryValue": [
+                        {
+                            "itemTitle": "Imaginary friends",
+                            "itemKey":   "imaginary_friends",
+                            "minNumber": 0,
+                            "maxNumber": 10
+                        }
+                    ]
+                }
+            ]
+        },
+        searchField:            {
+            "mode":            "nested_dropdown",
+            "placeholder":     "Where do you want to go?",
+            "menuTitlePrefix": "All villas in ",
+            "data":            {
+                "name":         "Asia",
+                "pathFragment": "search",
+                "children":     [
                     {
-                        "categoryTitle": "Popular in Italy", // required; separate groups in dwopdown list of field
-                        "singleResult": true, // required; if true - it's possible to choose only one item in group
-                        "categoryKey": "location", // the same as for SingleSelectBox
-                        "categoryValue": [ // the same as for SingleSelectBox
+                        "name":         "Thailand",
+                        "pathFragment": "thailand",
+                        "children":     [
                             {
-                                "itemTitle": "Tuscany", // the same as for SingleSelectBox
-                                "itemValue": "TU", // the same as for SingleSelectBox
-                                "WOEID": "7153345" // in MultiSelectBox mode works only for "singleResult" group
+                                "name":         "Koh Samui",
+                                "pathFragment": "koh-samui",
+                                "children":     [
+                                    {
+                                        "name":         "Ban Tai",
+                                        "pathFragment": "ban-tai"
+                                    },
+                                    {
+                                        "name":         "Bang Por",
+                                        "pathFragment": "bang-por"
+                                    }
+                                ]
                             },
                             {
-                                "itemTitle": "Sorrento and Amalfi",
-                                "itemValue": "NR",
-                                "WOEID": "710100"
-                            },
-                            {
-                                "itemTitle": "Sicily",
-                                "itemValue": "SI",
-                                "WOEID": "7153344"
+                                "name":         "Phuket",
+                                "pathFragment": "phuket",
+                                "children":     [
+                                    {
+                                        "name":         "Koh Yao",
+                                        "pathFragment": "koh-yao"
+                                    }
+                                ]
                             }
                         ]
+                    },
+                    {
+                        "name":               "Indonesia",
+                        "pathFragment":       "indonesia",
+                        "children":           [
+                            {
+                                "name":         "Bali",
+                                "pathFragment": "bali",
+                                "children":     [
+                                    {
+                                        "name":         "Sanur",
+                                        "pathFragment": "sanur"
+                                    },
+                                    {
+                                        "name":         "Ubud",
+                                        "pathFragment": "ubud"
+                                    }
+                                ]
+                            }
+                        ],
+                        "customWidgetConfig": {
+                            "baseUrl":      "http://new-base-url.com/",
+                            "appendString": "?qwerty=dvorak",
+                            "datesFields":  {
+                                "startDateId": "CustomStartDateId",
+                                "endDateId":   "CustomEndDateId"
+                            }
+                        }
                     }
                 ]
             }
-        });
+        }
+    });
 });
