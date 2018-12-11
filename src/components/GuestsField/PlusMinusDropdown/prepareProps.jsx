@@ -30,6 +30,7 @@ export default (PlusMinusDropdown) => {
                     categoryId:         category.categoryKey,
                     title:              option.itemTitle,
                     titleSingular:      option.itemTitleSingular,
+                    initialValue:       option.initialValue,
                     minNumber:          option.minNumber,
                     maxNumber:          option.maxNumber
                 };
@@ -67,6 +68,7 @@ export default (PlusMinusDropdown) => {
                         itemTitle:          PropTypes.string.isRequired,
                         itemTitleSingular:  PropTypes.string,
                         itemKey:            PropTypes.string.isRequired,
+                        initialValue:       PropTypes.number,
                         minNumber:          PropTypes.number.isRequired,
                         maxNumber:          PropTypes.number.isRequired,
                     })

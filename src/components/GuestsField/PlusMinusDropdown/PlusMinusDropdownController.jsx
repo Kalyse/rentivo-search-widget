@@ -13,10 +13,9 @@ export default (PlusMinusDropdown) => {
     class PlusMinusDropdownController extends React.PureComponent {
         _getInitStateOptions = () => {
             const options = {};
-
             Object.keys(this.props.options).forEach(key => {
-                const { minNumber } = this.props.options[key];
-                options[key]        = minNumber >= 0 ? minNumber : 0;
+                const { minNumber, initialValue } = this.props.options[key];
+                options[key]        = (initialValue) ? initialValue : minNumber >= 0 ? minNumber : 0;
             });
 
             return options;
@@ -145,6 +144,7 @@ export default (PlusMinusDropdown) => {
                 id:                 PropTypes.string.isRequired,
                 title:              PropTypes.string.isRequired,
                 titleSingular:      PropTypes.string,
+                initialValue:       PropTypes.number,
                 minNumber:          PropTypes.number.isRequired,
                 maxNumber:          PropTypes.number.isRequired,
                 categoryId:         PropTypes.string.isRequired

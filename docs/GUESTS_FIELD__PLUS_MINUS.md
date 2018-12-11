@@ -159,6 +159,15 @@ Guests field in `plus_minus` mode can be used when you have multiple type of gue
         </td>
     </tr>
     <tr>
+            <td valign="top">initialValue</td>
+            <td valign="top">
+                <p><code>
+                    <strong>Type:</strong> number
+                </code></p>
+                Used to set the initialValue of the item onload. If cookies are set, it will be overridden.
+            </td>
+        </tr>
+    <tr>
         <td valign="top">minNumber*</td>
         <td valign="top">
             <p><code>

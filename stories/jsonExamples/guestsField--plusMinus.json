@@ -13,6 +13,7 @@
                     "itemTitle": "Adults",
                     "itemTitleSingular": "Adult",
                     "itemKey": "adults",
+                    "initialValue": 2,
                     "minNumber": 1,
                     "maxNumber": 17
                 },
@@ -42,6 +43,7 @@
                     "itemTitle": "Dogs",
                     "itemTitleSingular": "Dog",
                     "itemKey": "dogs",
+                    "initialValue": 2,
                     "minNumber": 0,
                     "maxNumber": 3
                 },
