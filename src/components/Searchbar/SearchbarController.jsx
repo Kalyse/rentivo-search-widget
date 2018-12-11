@@ -44,7 +44,6 @@ export default (Searchbar) => {
 
         _throttledManageWidgetSize = throttle(this._manageWidgetSize, 150);
 
-
         state = {
             searchField:          this.props.searchField,
             datesFields:          this.cookie.get('datesFields') || this.props.datesFields,

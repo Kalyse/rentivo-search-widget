@@ -5,23 +5,27 @@
     "data": [
         {
             "categoryTitle": "Guests",
+            "categoryTitleSingular": "Guest",
             "categoryKey": "guests",
             "placeholderOrder": 2,
             "categoryValue": [
                 {
                     "itemTitle": "Adults",
+                    "itemTitleSingular": "Adult",
                     "itemKey": "adults",
-                    "minNumber": 2,
+                    "minNumber": 1,
                     "maxNumber": 17
                 },
                 {
                     "itemTitle": "Children",
+                    "itemTitleSingular": "Child",
                     "itemKey": "children",
                     "minNumber": 0,
                     "maxNumber": 5
                 },
                 {
                     "itemTitle": "Infants",
+                    "itemTitleSingular": "Infant",
                     "itemKey": "infants",
                     "minNumber": 0,
                     "maxNumber": 5
@@ -30,11 +34,13 @@
         },
         {
             "categoryTitle": "Pets",
+            "categoryTitleSingular": "Pet",
             "categoryKey": "pets",
             "placeholderOrder": -1,
             "categoryValue": [
                 {
                     "itemTitle": "Dogs",
+                    "itemTitleSingular": "Dog",
                     "itemKey": "dogs",
                     "minNumber": 0,
                     "maxNumber": 3

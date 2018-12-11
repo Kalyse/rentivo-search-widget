@@ -78,6 +78,15 @@ Guests field in `plus_minus` mode can be used when you have multiple type of gue
         </td>
     </tr>
     <tr>
+            <td valign="top">categoryTitleSingular</td>
+            <td valign="top">
+                <p><code>
+                    <strong>Type:</strong> string
+                </code></p>
+                Is used as a title of the category in results input when there's only 1 item
+            </td>
+        </tr>
+    <tr>
         <td valign="top">categoryKey*</td>
         <td valign="top">
             <p><code>
@@ -130,6 +139,15 @@ Guests field in `plus_minus` mode can be used when you have multiple type of gue
             Is displayed as item's title in dropdown list
         </td>
     </tr>
+    <tr>
+            <td valign="top">itemTitleSingular</td>
+            <td valign="top">
+                <p><code>
+                    <strong>Type:</strong> string
+                </code></p>
+                Is displayed as item's title in dropdown list when there's just 1 guest
+            </td>
+        </tr>
     <tr>
         <td valign="top">itemValue*</td>
         <td valign="top">

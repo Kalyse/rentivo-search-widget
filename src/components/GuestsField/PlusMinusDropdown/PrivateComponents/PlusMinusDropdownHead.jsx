@@ -12,7 +12,7 @@ const PlusMinusDropdownHead = ({
         { results.length
             ? results.map((result, idx, array) => (
                 <span className="PlusMinusDropdownHead__Result" key={ result.id }>
-                    { `${ result.value } ${ result.title }${ idx + 1 < array.length ? ',' : '' }` }
+                    { `${ result.value } ${ (result.value === 1 && result.titleSingular) ? result.titleSingular : result.title }${ idx + 1 < array.length ? ',' : '' }` }
                 </span>
             ))
             : <span className="PlusMinusDropdownHead__Placeholder">{ placeholder }</span>
@@ -24,12 +24,14 @@ PlusMinusDropdownHead.propTypes = {
     onHeadClick: PropTypes.func.isRequired,
     results:     PropTypes.arrayOf(
         PropTypes.shape({
-            id:    PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            value: PropTypes.number.isRequired
+            id:             PropTypes.string.isRequired,
+            title:          PropTypes.string.isRequired,
+            titleSingular:  PropTypes.string,
+            value:          PropTypes.number.isRequired
         })
     ).isRequired,
     placeholder: PropTypes.string.isRequired
 };
 
 export default PlusMinusDropdownHead;
+//${ (results.value === 1) ? result.titleSingular : result.title }

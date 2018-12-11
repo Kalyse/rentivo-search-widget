@@ -79,11 +79,12 @@ export default (PlusMinusDropdown) => {
                 .sort((prevCatValue, nextCatValue) => prevCatValue.order - nextCatValue.order)
                 .forEach(catValue => {
                     activeCategories.push({
-                        id:    catValue.id,
-                        title: catValue.title,
-                        value: Object.entries(activeOptions)
-                                   .filter(([optKey]) => catValue.optionsId.includes(optKey))
-                                   .reduce((accumulator, [, currentVal]) => accumulator + currentVal, 0)
+                        id:             catValue.id,
+                        title:          catValue.title,
+                        titleSingular:  catValue.titleSingular,
+                        value:          Object.entries(activeOptions)
+                                            .filter(([optKey]) => catValue.optionsId.includes(optKey))
+                                            .reduce((accumulator, [, currentVal]) => accumulator + currentVal, 0)
                     });
                 });
 
@@ -112,7 +113,7 @@ export default (PlusMinusDropdown) => {
                     { Object.values(this.props.options).map((option) => (
                         <PlusMinusOption
                             key={ option.id }
-                            title={ `${ this.state.options[option.id] } ${ option.title }` }
+                            title={ `${ this.state.options[option.id] } ${ (this.state.options[option.id] === 1 && option.titleSingular) ? option.titleSingular : option.title }` }
                             controls={
                                 <PlusMinusControls
                                     onIncrease={ this.handleOptionIncrease.bind(this, option.id) }
@@ -132,19 +133,21 @@ export default (PlusMinusDropdown) => {
     PlusMinusDropdownController.propTypes = {
         categories:     PropTypes.objectOf(
             PropTypes.shape({
-                id:        PropTypes.string.isRequired,
-                title:     PropTypes.string.isRequired,
-                order:     PropTypes.number.isRequired,
-                optionsId: PropTypes.arrayOf(PropTypes.string).isRequired
+                id:                 PropTypes.string.isRequired,
+                title:              PropTypes.string.isRequired,
+                titleSingular:      PropTypes.string,
+                order:              PropTypes.number.isRequired,
+                optionsId:          PropTypes.arrayOf(PropTypes.string).isRequired
             }).isRequired
         ).isRequired,
         options:        PropTypes.objectOf(
             PropTypes.shape({
-                id:         PropTypes.string.isRequired,
-                title:      PropTypes.string.isRequired,
-                minNumber:  PropTypes.number.isRequired,
-                maxNumber:  PropTypes.number.isRequired,
-                categoryId: PropTypes.string.isRequired
+                id:                 PropTypes.string.isRequired,
+                title:              PropTypes.string.isRequired,
+                titleSingular:      PropTypes.string,
+                minNumber:          PropTypes.number.isRequired,
+                maxNumber:          PropTypes.number.isRequired,
+                categoryId:         PropTypes.string.isRequired
             }).isRequired
         ),
         placeholder:    PropTypes.string.isRequired,
