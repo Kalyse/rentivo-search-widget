@@ -1,16 +1,24 @@
+@import "~core/style-utils/vars";
+
+.RSW-Dropdown__Body {
+    border-color: $borderColor;
+    border-top-color: white;
+    margin-top: -1px;
+}
+
 .NestedDropdown {
     &__SearchInput {
         display: block;
         padding: 5px 8px;
-        
+
         border: none;
-    
+
         background-color: transparent;
-        
-        color: #444;
-        
+
+        color: $textColor;
+
         &:focus, &:focus-within {
-            border-color: black;
+            border-color: $borderActiveColor;
         }
     }
 }

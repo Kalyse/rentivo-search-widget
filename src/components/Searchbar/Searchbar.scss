@@ -8,13 +8,13 @@
             box-sizing: border-box;
         }
     }
-    
+
     input {
         @extend %text-defaults;
-        
+
         width: 100%;
     }
-    
+
     @at-root .select2-container {
         @extend %text-defaults;
     }
@@ -37,7 +37,7 @@
     margin-left: -2.5px;
     margin-right: -2.5px;
     padding: 0;
-    
+
     & > * {
         flex-grow: 1;
         flex-shrink: 1;
@@ -51,6 +51,7 @@
     max-width: 100%;
     margin-bottom: 15px;
 }
+
 
 // Rules begin to work when widget size >= $tn-min
 @include min-widget-size($tn-min) {

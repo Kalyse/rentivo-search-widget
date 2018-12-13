@@ -4,50 +4,50 @@
     $root: &;
     position: relative;
     user-select: none;
-    
+
     &__Head {
         display: flex;
         align-items: stretch;
         width: 100%;
         min-height: 48px;
-        
-        border: 1px solid #aaa;
+
+        border: 1px solid $borderColor;
         border-radius: 5px;
-        
+
         background: #ffffff;
-        
+
         &:after {
             content: '';
             min-height: inherit;
             font-size: 0;
         }
     }
-    
+
     &__Body {
         position: absolute;
         top: 100%;
         min-width: 100%;
         margin-top: -1px;
-        
-        border: 1px solid #aaa;
+
+        border: 1px solid $borderColor;
         border-radius: 0 0 5px 5px;
-        
+
         background: #ffffff;
-        
+
         z-index: 1;
-        
+
         &--left {
             left: 0;
         }
-        
+
         &--right {
             right: 0;
         }
     }
-    
+
     &--open {
         #{$root}__Head {
-            border-color: black;
+            border-color: $borderActiveColor;
             border-radius: 5px 5px 0 0;
         }
     }

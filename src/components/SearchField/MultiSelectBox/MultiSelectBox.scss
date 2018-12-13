@@ -11,6 +11,7 @@
 
             &--multiple {
                 padding-bottom: 5px;
+                border-color: $borderColor;
             }
 
             &__rendered {
@@ -33,10 +34,10 @@
                 .select2-selection__choice {
                     @extend %text-defaults;
 
-                    background-color: rgb(86, 117, 167);
+                    background-color: $primaryColor;
                     border: 1px solid rgb(255, 255, 255);
                     color: white;
-                    text-shadow: 0px -1px 5px rgba(55, 64, 80, 0.5);
+                    //text-shadow: 0px -1px 5px rgba(55, 64, 80, 0.5);
                     padding: 5px;
 
                     & + .select2-search {
@@ -51,5 +52,18 @@
                 }
             }
         }
+
     }
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: $borderActiveColor;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-color: $borderColor;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
 }

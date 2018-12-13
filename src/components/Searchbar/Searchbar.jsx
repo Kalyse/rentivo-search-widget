@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import withController from './SearchbarController';
 import './Searchbar.scss';
+import './General.scss';
 
 const Searchbar = ({
     firstCol,

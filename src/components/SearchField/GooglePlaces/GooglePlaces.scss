@@ -8,12 +8,12 @@
         height: 50px;
         padding: 5px 8px;
 
-        border: 1px solid #aaa;
+        border: 1px solid $borderColor;
         border-radius: 5px;
 
         color: #444;
         &:focus, &:focus-within {
-            border-color: black;
+            border-color: $borderActiveColor;
         }
 
         &[aria-expanded="true"] {
@@ -32,7 +32,7 @@
         margin: 0;
         padding: 0;
 
-        border: 1px solid #aaa;
+        border: 1px solid $borderColor;
         border-top: none;
         border-radius: 4px;
         border-top-left-radius: 0;
@@ -53,9 +53,8 @@
             }
 
             &--active {
-                background: #5897fb !important;
-
-                color: white;
+                background: $lightGrey !important;
+                color: $textColor;
             }
         }
     }

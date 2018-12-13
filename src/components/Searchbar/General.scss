@@ -1,0 +1,83 @@
+@import "~core/style-utils/vars";
+
+// Airbnb dates
+
+.CalendarMonth_caption {
+    font-family: $base-font-family;
+    color:$textColor;
+}
+
+.CalendarDay__default:hover {
+    background: $lightGrey;
+    border: 1px double darken($lightGrey, 5%);
+    color: inherit;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+    background: $primaryColor;
+    border: 1px solid $primaryColor;
+    color: #fff;
+}
+
+.CalendarDay__selected_span {
+    background: lighten($primaryColor, 15%);
+    border: 1px solid lighten($primaryColor, 15%);
+    color: #fff;
+}
+
+.CalendarDay__selected_span:active, .CalendarDay__selected_span:hover {
+    background: $primaryColor;
+    border: 1px solid $primaryColor;
+    color: #fff;
+}
+
+.CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
+    background: lighten($primaryColor, 15%);
+    border:1px solid lighten($primaryColor, 15%);
+    color: white;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight {
+    border-right: 33px solid $primaryColor;
+}
+
+// Select 2
+.select2-container--default {
+
+    .select2-dropdown {
+        border-color: $borderColor;
+        border-top-color: white!important;
+        margin-top: -1px;
+    }
+
+    .select2-search--dropdown {
+        padding:7px;
+
+        .select2-search__field {
+            padding: 7px;
+            border:1px solid $borderColor;
+            border-radius: 3px;
+
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+
+    .select2-results__option--highlighted[aria-selected] {
+        background-color: $lightGrey;
+        color: $textColor;
+    }
+
+    .select2-results__option[aria-selected=true] {
+        background-color: $primaryColor;
+        color: white;
+        &:hover {
+            background-color: $primaryHoverColor;
+        }
+    }
+
+    .select2-results__option {
+        padding: 10px;
+    }
+}

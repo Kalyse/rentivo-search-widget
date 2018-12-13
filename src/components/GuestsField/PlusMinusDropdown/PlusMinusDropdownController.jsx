@@ -15,7 +15,11 @@ export default (PlusMinusDropdown) => {
             const options = {};
             Object.keys(this.props.options).forEach(key => {
                 const { minNumber, initialValue } = this.props.options[key];
-                options[key]        = (initialValue) ? initialValue : minNumber >= 0 ? minNumber : 0;
+                if(initialValue) {
+                    options[key] = initialValue;
+                } else {
+                    options[key] = minNumber >= 0 ? minNumber : 0;
+                }
             });
 
             return options;
