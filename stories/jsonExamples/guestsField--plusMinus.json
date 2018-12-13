@@ -36,13 +36,14 @@
         {
             "categoryTitle": "Pets",
             "categoryTitleSingular": "Pet",
-            "categoryKey": "pets",
+            "categoryKey": "total_pets",
+            "categoryValueTransformerScheme": "asterix",
             "placeholderOrder": -1,
             "categoryValue": [
                 {
                     "itemTitle": "Dogs",
                     "itemTitleSingular": "Dog",
-                    "itemKey": "dogs",
+                    "itemKey": "pets_i",
                     "initialValue": 2,
                     "minNumber": 0,
                     "maxNumber": 3

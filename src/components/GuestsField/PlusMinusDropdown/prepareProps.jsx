@@ -11,11 +11,12 @@ export default (PlusMinusDropdown) => {
             const categories = {};
             this.props.data.forEach((category, idx) => {
                 categories[category.categoryKey] = {
-                    id:                category.categoryKey,
-                    title:             category.categoryTitle,
-                    titleSingular:     category.categoryTitleSingular,
-                    order:             category.placeholderOrder || 1,
-                    optionsId:         category.categoryValue.map(option => option.itemKey)
+                    id:                             category.categoryKey,
+                    title:                          category.categoryTitle,
+                    titleSingular:                  category.categoryTitleSingular,
+                    categoryValueTransformerScheme: category.categoryValueTransformerScheme,
+                    order:                          category.placeholderOrder || 1,
+                    optionsId:                      category.categoryValue.map(option => option.itemKey)
                 };
             });
 
@@ -26,13 +27,13 @@ export default (PlusMinusDropdown) => {
             const options = {};
             this.props.data.forEach(category => category.categoryValue.forEach(option => {
                 options[option.itemKey] = {
-                    id:                 option.itemKey,
-                    categoryId:         category.categoryKey,
-                    title:              option.itemTitle,
-                    titleSingular:      option.itemTitleSingular,
-                    initialValue:       option.initialValue,
-                    minNumber:          option.minNumber,
-                    maxNumber:          option.maxNumber
+                    id:                         option.itemKey,
+                    categoryId:                 category.categoryKey,
+                    title:                      option.itemTitle,
+                    titleSingular:              option.itemTitleSingular,
+                    initialValue:               option.initialValue,
+                    minNumber:                  option.minNumber,
+                    maxNumber:                  option.maxNumber
                 };
             }));
 
@@ -59,23 +60,24 @@ export default (PlusMinusDropdown) => {
         incDecInterval: PropTypes.number,
         data:           PropTypes.arrayOf(
             PropTypes.shape({
-                categoryTitle:              PropTypes.string.isRequired,
-                categoryTitleSingular:      PropTypes.string,
-                categoryKey:                PropTypes.string.isRequired,
-                placeholderOrder:           PropTypes.number,
-                categoryValue:              PropTypes.arrayOf(
+                categoryTitle:                          PropTypes.string.isRequired,
+                categoryTitleSingular:                  PropTypes.string,
+                categoryKey:                            PropTypes.string.isRequired,
+                placeholderOrder:                       PropTypes.number,
+                categoryValueTransformerScheme:         PropTypes.string,
+                categoryValue:                          PropTypes.arrayOf(
                     PropTypes.shape({
-                        itemTitle:          PropTypes.string.isRequired,
-                        itemTitleSingular:  PropTypes.string,
-                        itemKey:            PropTypes.string.isRequired,
-                        initialValue:       PropTypes.number,
-                        minNumber:          PropTypes.number.isRequired,
-                        maxNumber:          PropTypes.number.isRequired,
+                        itemTitle:                      PropTypes.string.isRequired,
+                        itemTitleSingular:              PropTypes.string,
+                        itemKey:                        PropTypes.string.isRequired,
+                        initialValue:                   PropTypes.number,
+                        minNumber:                      PropTypes.number.isRequired,
+                        maxNumber:                      PropTypes.number.isRequired,
                     })
                 ).isRequired,
             }).isRequired
         ).isRequired,
-        dumb:           PropTypes.bool,
+        dumb:                                           PropTypes.bool,
     };
 
     PlusMinusDropdownWrapper.defaultProps = {
