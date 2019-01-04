@@ -42,7 +42,7 @@ export default (NestedDropdown) => {
             searchInputValue:  !this.props.dumb && this.cookie.get('SearchField.NestedDropdown.searchInputValue') || '',
             selectedOptionId:  !this.props.dumb && this.cookie.get('SearchField.NestedDropdown.selectedOptionId') || null,
             currentRootMenuId: ROOT_MENUS_ID.DEFAULT,
-            openSubmenusId:    [],
+            openSubmenusId:    !this.props.dumb && this.cookie.get('SearchField.NestedDropdown.openSubmenusId') || [], //TODO: When performing a search, save cookie?
         };
 
 
@@ -110,6 +110,7 @@ export default (NestedDropdown) => {
                     this.updateGlobalWidgetConfig(this.props.options[optionId]);
                     this.cookie.set('SearchField.NestedDropdown.searchInputValue', searchInputValue);
                     this.cookie.set('SearchField.NestedDropdown.selectedOptionId', optionId);
+                    this.cookie.set('SearchField.NestedDropdown.openSubmenusId', this.state.openSubmenusId);
                 }
             });
         };
