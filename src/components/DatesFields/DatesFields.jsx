@@ -23,7 +23,7 @@ DatesFields.propTypes = {
     onFocusChange:  PropTypes.func.isRequired,
     numberOfMonths: PropTypes.number,
     displayFormat:  PropTypes.string,
-    appendToBody:   PropTypes.bool,
+    appendToBody:   PropTypes.bool
 };
 
 export default withController(React.memo(DatesFields));

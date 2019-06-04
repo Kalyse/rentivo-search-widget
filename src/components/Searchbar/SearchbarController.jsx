@@ -51,6 +51,7 @@ export default (Searchbar) => {
             baseUrl:              this.cookie.get('baseUrl') || this.props.baseUrl,
             appendString:         this.cookie.get('appendString') || this.props.appendString,
             searchBtnText:        this.cookie.get('searchBtnText') || this.props.searchBtnText,
+            openInNewTab:         this.cookie.get('openInNewTab') || this.props.openInNewTab,
             urlTransformerScheme: this.cookie.get('urlTransformerScheme') || this.props.urlTransformerScheme,
             widgetSize:           WIDGET_SIZES.DEFAULT.id
         };
@@ -65,7 +66,7 @@ export default (Searchbar) => {
 
         redirectPage = (e) => {
             if (process.env.STORYBOOK_ENV) {
-                return;
+                //return;
             }
 
             const isInIFrame = (
@@ -76,7 +77,15 @@ export default (Searchbar) => {
                 window.top.location.href = e.detail;
             } else {
                 // no iframe
-                window.location.href = e.detail;
+
+                // New tab
+                if(this.state.openInNewTab) {
+                    const win = window.open(e.detail, '_blank');
+                    win.focus();
+                } else {
+                    // no iframe
+                    window.location.href = e.detail;
+                }
             }
         };
 
@@ -173,6 +182,7 @@ export default (Searchbar) => {
         baseUrl:              PropTypes.string,
         appendString:         PropTypes.string,
         searchBtnText:        PropTypes.string,
+        openInNewTab:         PropTypes.bool,
         urlTransformerScheme: PropTypes.oneOf(Object.values(URL_TRANSFORMER_SCHEMES)),
         cookieConfig:         PropTypes.shape({
             isAllowed: PropTypes.bool,

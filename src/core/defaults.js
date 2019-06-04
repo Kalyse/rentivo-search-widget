@@ -3,6 +3,7 @@ export const widgetConfig = {
     searchBtnText:        'Search',
     urlTransformerScheme: 'default',
     appendString:         '',
+    openInNewTab:         true
 };
 
 export const datesFields = {
