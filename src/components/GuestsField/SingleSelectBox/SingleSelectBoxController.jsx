@@ -13,7 +13,6 @@ export default (SingleSelectBox) => {
             value: !this.props.dumb && this.cookie.get('GuestsField.SingleSelectBox.value') || this.props.initialValue
         };
 
-
         generateUrlPart       = () => generateSingleSelectBoxPart(this.state.value, this.props.rawData);
         generateCustomUrlPart = () => generateCustomSingleSelectBoxPart(this.state.value, this.props.rawData);
 

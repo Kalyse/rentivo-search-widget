@@ -1,5 +1,5 @@
 export function generateSingleSelectBoxPart(chosenItemValue, data) {
-    return `${ data.categoryKey }[]:${ chosenItemValue }`;
+    return `${ data.categoryKey }:${ chosenItemValue }`;
 }
 
 export function generateCustomSingleSelectBoxPart(chosenItemValue, data) {
